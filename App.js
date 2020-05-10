@@ -7,15 +7,7 @@
  */
 
 import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
-
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {View, Text} from 'react-native';
 
 const App = () => {
   return (
