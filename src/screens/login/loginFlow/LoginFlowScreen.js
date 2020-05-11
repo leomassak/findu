@@ -23,13 +23,16 @@ export default class LoginFlowScreen extends Component {
                         Lorem ipsum dolor sit amet, consectetur adipicing elit. Ac tellus quis vulputate erat. Dolor sogittis faucibus montes dfihsi9dof siodfj osdfjiojio odiasjiodaios do aios djoasd jasiod ioasdoasda siodj aosdoasiodoasdaosdjioas d aiosj doaisjd o
                     </S.WelcomeDescriptionText>
                     <S.ButtonAreaView>
-                        <DefaultButton text="Entrar" onPressListener={() => {}} />
+                        <DefaultButton
+                            text="Entrar"
+                            onPressListener={() => this.props.navigation.navigate('Login')}
+                        />
                         <DefaultButton 
-                        text="Cadastre-se" 
-                        onPressListener={() => {}} 
-                        background="transparent" 
-                        border="#4F80E1" 
-                        fontColor="#4F80E1" 
+                            text="Cadastre-se" 
+                            onPressListener={() => {}} 
+                            background="transparent" 
+                            border="#4F80E1" 
+                            fontColor="#4F80E1" 
                         />
                     </S.ButtonAreaView>
                 </S.WelcomeView>

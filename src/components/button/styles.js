@@ -4,7 +4,7 @@ import * as ScaleUtils from '../../utils/scale';
 
 export const DefaultButtonTouchableOpacity = styled.TouchableOpacity`
     width: 100%;
-    height: ${ScaleUtils.ScreenHeight * 0.064}px;
+    height: ${`${ScaleUtils.ScreenHeight * 0.06}px`};
     justify-content: center;
     align-items: center;
     background-color: ${(props) => props.background || '#4F80E1'};
@@ -15,10 +15,10 @@ export const DefaultButtonTouchableOpacity = styled.TouchableOpacity`
 
 export const ButtonNameText = styled.Text`
     color: ${ (props) => props.fontColor || '#FFFF' };
-    font-size: 21px;
+    font-size: 20px;
+    font-family: Poppins-Bold;
     font-style: normal;
     font-weight: bold;
     align-items: center;
     text-align: center;
-    justify-content: center;
 `;
