@@ -6,13 +6,12 @@ import * as ScaleUtils from '../../../utils/scale';
 export const LoginFlowContainerView = styled.View`
     flex: 1;
     background-color: #FFFF;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    padding: 10% 8%;
+    padding: 0px 8%;
 `;
 
 export const LogoView = styled.View`
-    margin-top: 10%;
 `;
 
 export const LogoSvg = styled(Logo)``;
@@ -28,14 +27,14 @@ export const CustomLetterText = styled.Text`
 `;
 
 export const WelcomeView = styled.View`
-    margin-bottom: 10%;
+    justify-content: space-between;
 `;
 
 export const WelcomeHeaderTitleText = styled.Text`
     font-size: 24px;
     text-align: center;
     font-weight: bold;
-    margin-bottom: 5%;
+    margin-bottom: 4%;
 `;
 
 export const WelcomeDescriptionText = styled.Text`
@@ -46,6 +45,6 @@ export const WelcomeDescriptionText = styled.Text`
 `;
 
 export const ButtonAreaView = styled.View`
-    height: ${ScaleUtils.ScreenHeight * 0.15}px;
-    justify-content: space-around;
+    height: ${ScaleUtils.ScreenHeight * 0.145}px;
+    justify-content: space-between;
 `;
