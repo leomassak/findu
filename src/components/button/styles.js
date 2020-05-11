@@ -16,9 +16,6 @@ export const DefaultButtonTouchableOpacity = styled.TouchableOpacity`
 export const ButtonNameText = styled.Text`
     color: ${ (props) => props.fontColor || '#FFFF' };
     font-size: 18px;
-    font-style: normal;
-    font-weight: bold;
-    align-items: center;
+    font-family: Poppins-Bold;
     text-align: center;
-    justify-content: center;
 `;

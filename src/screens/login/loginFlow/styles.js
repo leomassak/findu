@@ -34,13 +34,13 @@ export const WelcomeView = styled.View`
 export const WelcomeHeaderTitleText = styled.Text`
     font-size: 24px;
     text-align: center;
-    font-weight: bold;
+    font-family: Poppins-Bold;
     margin-bottom: 5%;
 `;
 
 export const WelcomeDescriptionText = styled.Text`
     font-size: 14px;
-    font-weight: normal;
+    font-family: Poppins-Regular;
     text-align: center;
     margin-bottom: 10%;
 `;
