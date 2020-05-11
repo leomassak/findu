@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
 
 import Logo from '../../../assets/svg/logo.svg';
-import DefaultButton from '../../../components/button/DefaultButton';
 import * as ScaleUtils from '../../../utils/scale';
 
 export const LoginFlowContainerView = styled.View`
@@ -20,8 +19,8 @@ export const LogoSvg = styled(Logo)``;
 
 export const AppNameText = styled.Text`
     font-size: 48px;
+    font-family: Poppins-Bold;
     text-align: center;
-    font-weight: bold;
 `;
 
 export const CustomLetterText = styled.Text`
