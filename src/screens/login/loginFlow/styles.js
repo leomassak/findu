@@ -28,6 +28,7 @@ export const CustomLetterText = styled.Text`
 
 export const WelcomeView = styled.View`
     justify-content: space-between;
+    width: 100%;
 `;
 
 export const WelcomeHeaderTitleText = styled.Text`
@@ -45,6 +46,6 @@ export const WelcomeDescriptionText = styled.Text`
 `;
 
 export const ButtonAreaView = styled.View`
-    height: ${ScaleUtils.ScreenHeight * 0.145}px;
+    height: ${ScaleUtils.ScreenHeight * 0.17}px;
     justify-content: space-between;
 `;

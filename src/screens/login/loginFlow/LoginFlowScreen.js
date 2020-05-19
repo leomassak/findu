@@ -11,17 +11,11 @@ export default class LoginFlowScreen extends Component {
                 <StatusBar barStyle="dark-content" backgroundColor="#FFF" />
                 <S.LogoView>
                 <S.LogoSvg/>
-                <S.AppNameText>
-                    Find<S.CustomLetterText>U</S.CustomLetterText>
-                </S.AppNameText>
                 </S.LogoView>
                 <S.WelcomeView>
                     <S.WelcomeHeaderTitleText>
                         Seja Bem-Vindo
                     </S.WelcomeHeaderTitleText>
-                    <S.WelcomeDescriptionText>
-                        Lorem ipsum dolor sit amet, consectetur adipicing elit. Ac tellus quis vulputate erat. Dolor sogittis faucibus montes dfihsi9dof siodfj osdfjiojio odiasjiodaios do aios djoasd jasiod ioasdoasda siodj aosdoasiodoasdaosdjioas d aiosj doaisjd o
-                    </S.WelcomeDescriptionText>
                     <S.ButtonAreaView>
                         <DefaultButton
                             text="Entrar"
