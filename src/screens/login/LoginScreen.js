@@ -43,7 +43,7 @@ const LoginScreen = (props) => {
                     title="Senha"
                     value={passwordInput}
                     onChangeValue={(text) => setPasswordInput(text)}
-                    secureTextEntry={true}
+                    secureTextEntry={passwordEyeStatus}
                     onEyePress={() => setPasswordEyeStatus(!passwordEyeStatus)}
                     eyeOpen={passwordEyeStatus}
                 />
@@ -58,7 +58,7 @@ const LoginScreen = (props) => {
             <S.UnderlineButtonContainer>
                 <UnderlineButton
                     text="Esqueceu sua senha?"
-                    onPressListener={() => console.log('Redirecionar para esqueci minha senha')}
+                    onPressListener={() => props.navigation.navigate('PswRecover')}
                 />
             </S.UnderlineButtonContainer>
 
