@@ -8,6 +8,6 @@ export const HeaderView = styled.View`
 `;
 
 export const HeaderBackButtonContainer = styled.TouchableOpacity`
-    width: ${`${ScaleUtils.ScreenHeight * 0.10}px`}
+    width: ${`${ScaleUtils.ScreenHeight * 0.10}px`};
     height: ${`${ScaleUtils.ScreenHeight * 0.10}px`};
 `;

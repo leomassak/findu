@@ -15,7 +15,7 @@ export const TextInputTitle = styled.Text`
 
 export const TextInput = styled.TextInput`
     border: solid #000 1px;
-    height: ${`${ScaleUtils.ScreenHeight * 0.09}px`};
+    height: ${`${ScaleUtils.ScreenHeight * 0.08}px`};
     border-radius: 10px;
     padding: 5%;
 `;

@@ -4,6 +4,7 @@ import * as ScaleUtils from '../../utils/scale';
 
 export const DefaultButtonTouchableOpacity = styled.TouchableOpacity`
     width: 100%;
+    height: ${ScaleUtils.ScreenHeight * 0.075};
     justify-content: center;
     align-items: center;
     background-color: ${(props) => props.background || '#4F80E1'};

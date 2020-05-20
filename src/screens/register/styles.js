@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 
 import * as ScaleUtils from '../../utils/scale';
+import Svg from '../../assets/svg/profile.svg';
 
 export const PageContainer = styled.ScrollView`
     flex: 1;
@@ -16,10 +17,9 @@ export const PageTitleContainer = styled.View`
 `;
 
 export const PageTitleText = styled.Text`
-    font-size: ${`${ScaleUtils.ScreenHeight * 0.037}px`};
+    font-size: ${ScaleUtils.ScreenWidth * 0.065};
     font-family: Poppins-Bold;
-    text-align: left;
-    margin-left: 6%;
+    width: 80%;
 `;
 
 export const InputContainer = styled.View`
@@ -28,4 +28,33 @@ export const InputContainer = styled.View`
 
 export const UnderlineButtonContainer = styled.View`
     margin: 5% 0;
+`;
+
+export const CheckBoxContainerView = styled.View`
+    height: ${ScaleUtils.ScreenHeight * 0.21};
+    justify-content: space-between;
+    margin-bottom: 8%;
+`;
+
+export const ProfilePicTouchableOpacity = styled.TouchableOpacity`
+    align-self: center;
+    background-color: transparent;
+    border-width: 2px;
+    border-color: #000;
+    height: ${ScaleUtils.ScreenHeight * 0.19};
+    width: ${ScaleUtils.ScreenHeight * 0.19};
+    border-radius: 100px;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+`;
+
+export const ProfilePicImage = styled.ImageBackground`
+    width: 100%;
+    height: 100%;
+`;
+
+export const ProfileSvg = styled(Svg)`
+    height: ${ScaleUtils.getPixelRatio * 18.5}px;
+    width: ${ScaleUtils.getPixelRatio * 18.5}px;
 `;

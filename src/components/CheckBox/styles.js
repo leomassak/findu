@@ -5,14 +5,14 @@ import * as ScaleUtils from '../../utils/scale';
 export const CheckBoxContainer = styled.View`
     width: 100%;
     flex-direction: row;
-    align-items: center;
 `;
+
 export const CheckBoxTouchableOpacity = styled.TouchableOpacity`
     height: ${`${ScaleUtils.ScreenWidth * 0.05}px`};
     width: ${`${ScaleUtils.ScreenWidth * 0.05}px`};
     justify-content: center;
     align-items: center;
-    padding: 7% 5%;
+    padding: 4% 5%;
     margin-right: 2%;
 `;
 
@@ -49,8 +49,9 @@ export const CircleFullCheckBox = styled.View`
 `;
 
 export const CheckBoxText = styled.Text`
+    flex: 1;
     color: ${ (props) => props.fontColor || '#000' };
-    font-size: ${`${ScaleUtils.ScreenHeight * 0.024}px`};
+    font-size: ${`${ScaleUtils.ScreenWidth * 0.042}px`};
     font-family: Poppins-Bold;
     font-style: normal;
 `;

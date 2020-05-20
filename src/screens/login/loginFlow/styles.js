@@ -5,7 +5,6 @@ import * as ScaleUtils from '../../../utils/scale';
 
 export const LoginFlowContainerView = styled.View`
     flex: 1;
-    background-color: #FFFF;
     justify-content: space-around;
     align-items: center;
     padding: 0px 8%;
@@ -36,6 +35,7 @@ export const WelcomeHeaderTitleText = styled.Text`
     text-align: center;
     font-family: Poppins-Bold;
     margin-bottom: 5%;
+    color: #FFF;
 `;
 
 export const WelcomeDescriptionText = styled.Text`
@@ -43,6 +43,7 @@ export const WelcomeDescriptionText = styled.Text`
     font-family: Poppins-Regular;
     text-align: center;
     margin-bottom: 10%;
+    color: #FFF;
 `;
 
 export const ButtonAreaView = styled.View`
