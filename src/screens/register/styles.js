@@ -31,8 +31,9 @@ export const UnderlineButtonContainer = styled.View`
 `;
 
 export const CheckBoxContainerView = styled.View`
-    height: ${ScaleUtils.ScreenHeight * 0.21};
+    height: ${ScaleUtils.ScreenHeight * 0.22};
     justify-content: space-between;
+    margin-top: 4%;
     margin-bottom: 8%;
 `;
 

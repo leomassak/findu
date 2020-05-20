@@ -32,18 +32,18 @@ export const SquareFullCheckBox = styled.View`
 `;
 
 export const CircleEmptyCheckBox = styled.View`
-    height: ${`${ScaleUtils.ScreenWidth * 0.05}px`};
-    width: ${`${ScaleUtils.ScreenWidth * 0.05}px`};
-    border-radius: ${`${ScaleUtils.ScreenWidth * 0.025}px`};
+    height: ${`${ScaleUtils.ScreenWidth * 0.06}px`};
+    width: ${`${ScaleUtils.ScreenWidth * 0.06}px`};
+    border-radius: 100px;
     border: solid #4442C0 2px;
     align-items: center;
     justify-content: center;
 `;
 
 export const CircleFullCheckBox = styled.View`
-    height: ${`${ScaleUtils.ScreenWidth * 0.03}px`};
-    width: ${`${ScaleUtils.ScreenWidth * 0.03}px`};
-    border-radius: ${`${ScaleUtils.ScreenWidth * 0.015}px`};
+    height: ${`${ScaleUtils.ScreenWidth * 0.04}px`};
+    width: ${`${ScaleUtils.ScreenWidth * 0.04}px`};
+    border-radius: 100px;
     border: solid #4442C0 2px;
     background-color: #4442C0;
 `;
