@@ -24,7 +24,7 @@ export default function Header({
                 onChangeText={(text) => onChangeValue(text)}
                 secureTextEntry={secureTextEntry}
             />
-            {secureTextEntry && (
+            {onEyePress && (
                 <S.TextInputContainerIconTouchableOpacity
                     onPress={onEyePress}
                 >
