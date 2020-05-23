@@ -2,9 +2,9 @@ import React, { Component, useState } from 'react';
 
 import * as S from './styles';
 
-import Header from '../../components/header/Header';
-import Input from '../../components/input/Input';
-import CheckBox from '../../components/checkBox/Checkbox';
+import Header from '../../components/Header/Header';
+import Input from '../../components/Input/Input';
+import CheckBox from '../../components/CheckBox/Checkbox';
 import UnderlineButton from '../../components/button/UnderlineTextButton';
 import DefaultButton from '../../components/button/DefaultButton';
 

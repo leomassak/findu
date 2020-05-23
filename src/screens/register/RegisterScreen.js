@@ -4,10 +4,11 @@ import ImagePicker from 'react-native-image-picker';
 
 import * as S from './styles';
 import * as ScaleUtils from '../../utils/scale';
-import Header from '../../components/header/Header';
-import Input from '../../components/input/Input';
-import CheckBox from '../../components/checkBox/Checkbox';
+import Header from '../../components/Header/Header';
+import Input from '../../components/Input/Input';
+import CheckBox from '../../components/CheckBox/Checkbox';
 import DefaultButton from '../../components/button/DefaultButton';
+
 import { pickerOptions } from '../../configs/imagePickerOptions';
 
 import Logo from '../../assets/svg/ic_logo.svg';
