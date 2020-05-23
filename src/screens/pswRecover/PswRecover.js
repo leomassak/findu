@@ -1,4 +1,5 @@
 import React, { Component, useState } from 'react';
+import AuthApi from '../../api/auth';
 
 import * as S from './styles';
 
@@ -8,6 +9,7 @@ import PswRecoverModal from '../../components/modal/PswRecoverModal';
 import DefaultButton from '../../components/button/DefaultButton';
 
 import Logo from '../../assets/svg/ic_logo.svg';
+import { Alert } from 'react-native';
 
 const PswRecover = (props) => {
     const [emailInput, setEmailInput] = useState('');
@@ -17,6 +19,17 @@ const PswRecover = (props) => {
         setIsModalOpen(!isModalOpen);
         props.navigation.navigate('RedefinePsw')
     }
+
+    const onSendMail = async () => {
+        try {
+            await AuthApi.forgotPassword(emailInput);
+            setIsModalOpen(true);
+        } catch(err) {
+            console.log(err.response);
+            Alert.alert('Erro', 'Não foi possível enviar o código de recuperação');
+        }
+    }
+
 
     return (
         <>
@@ -53,7 +66,7 @@ const PswRecover = (props) => {
                 <S.PageButtonView>
                     <DefaultButton
                         text="Enviar e-mail"
-                        onPressListener={() => setIsModalOpen(!isModalOpen)}
+                        onPressListener={onSendMail}
                         fontColor="#FFF"
                         background="#4F80E1"
                         border="#4F80E1"

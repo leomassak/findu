@@ -1,7 +1,8 @@
 import React, { Component, useState } from 'react';
-
+import { Alert } from 'react-native';
 import * as S from './styles';
-
+import AuthApi from '../../api/auth';
+import AppStorage from '../../services/storage';
 import Header from '../../components/Header/Header';
 import Input from '../../components/Input/Input';
 import CheckBox from '../../components/CheckBox/Checkbox';
@@ -15,6 +16,23 @@ const LoginScreen = (props) => {
     const [passwordInput, setPasswordInput] = useState('');
     const [passwordEyeStatus, setPasswordEyeStatus] = useState(true);
     const [checkBoxStatus, setCheckBoxStatus] = useState(false);
+
+    onAuthLogin = async () => {
+        const loginData = {
+            email: emailInput,
+            password: passwordInput,
+        }
+
+        try {
+            const response = await AuthApi.userLogin(loginData); 
+            AppStorage.createUserAuthData(response.token);
+            const res = await AppStorage.isAuthenticated();
+            console.log('islogged', res);
+        } catch(err) {
+            console.log(err);
+            Alert.alert('Erro', 'Não foi possível realizar o login');
+        }
+    }
 
     return (
         <S.PageContainer>
@@ -64,7 +82,7 @@ const LoginScreen = (props) => {
 
             <DefaultButton
                 text="Entrar"
-                onPressListener={() => console.log('Redirecionar para Home')}
+                onPressListener={onAuthLogin}
                 fontColor="#FFF"
                 background="#4F80E1"
                 border="#4F80E1"
