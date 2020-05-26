@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {View, Text} from 'react-native';
 import { TransitionPresets, createStackNavigator } from '@react-navigation/stack';
 
 
@@ -8,6 +7,7 @@ import LoginScreen from '../screens/login/LoginScreen';
 import RegisterScreen from '../screens/register/RegisterScreen';
 import PswRecoverScreen from '../screens/pswRecover/PswRecover';
 import RedefinePswScreen from '../screens/pswRecover/RedefinePsw';
+import ProfileScreen from '../screens/profile/ProfileScreen';
 
 const AppStack = createStackNavigator();
 
@@ -50,6 +50,14 @@ function AppNavigator() {
       <AppStack.Screen
         name="Register"
         component={RegisterScreen}
+        options={{
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+      />
+
+      <AppStack.Screen
+        name="Profile"
+        component={ProfileScreen}
         options={{
           ...TransitionPresets.SlideFromRightIOS,
         }}
