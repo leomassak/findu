@@ -28,7 +28,7 @@ export const UnderlineButtonTouchableOpacity = styled.TouchableOpacity`
     width: 100%;
     justify-content: center;
     align-items: center;
-`
+`;
 
 export const UnderlineButtonText = styled.Text`
     color: ${ (props) => props.fontColor || '#000' };

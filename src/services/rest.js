@@ -4,16 +4,15 @@ import { baseUrl } from '../configs/app-config';
 async function request(method, url, data = {}, header = {}) {
     if(!header['Content-Type']) header['Content-Type'] = 'application/json';
     try {
-    const response = await axios({
-        method,
-        url: `${baseUrl}${url}`,
-        data,
-        header,
-    }
-    );
-    if(response && response.data) {
-        return response.data;
-    }
+        const response = await axios({
+            method,
+            url: `${baseUrl}${url}`,
+            data,
+            header,
+        });
+        if(response && response.data) {
+            return response.data;
+        }
     } catch(err) {
         return Promise.reject(new Error(err.response.data.code))
     }

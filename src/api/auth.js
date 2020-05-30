@@ -8,8 +8,8 @@ function forgotPassword(email) {
     return RestService.postRest('user/forgot-password', email);
 }
 
-function redefinePassword(email, code, password) {
-    return RestService.postRest('redefine-password', { email, code, password })
+function redefinePassword(params) {
+    return RestService.postRest('user/redefine-password', params)
 }
 
 export default {
