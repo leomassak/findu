@@ -1,6 +1,8 @@
 import AuthApi from '../../api/auth';
 import AppStorage from '../../services/storage';
 
+import Errors from '../../utils/erros';
+
 import { addLoading, removeLoading } from './loading';
 
 export const ACTION_AUTHENTICATE = 'ACTION_AUTHENTICATE';
@@ -16,9 +18,12 @@ export const authenticate = (userData) => async (dispatch) => {
         const response = await AuthApi.userLogin(userData); 
         AppStorage.createUserAuthData(response.token);
         await dispatch(saveToken(response.token));
-    } catch (err) {
-        console.log(err);
-        throw new Error(err.message);
+    } catch (err) { 
+        if (Errors.login[err.message] !== undefined) {
+            throw new Error(Errors.login[err.message]);
+        } else {
+            throw new Error(Errors.undefined);
+        }
     } finally {
         dispatch(removeLoading());
     }
