@@ -1,8 +1,8 @@
 import {
-  validateEmail,
+  validateEmail, validatePhone,
 } from './validator';
 
-export const validateLoginForm = (email, password) => {
+export const validateLoginForm = (email, password, phone) => {
 
   if (!email || !password) {
     return {
@@ -37,6 +37,13 @@ export const validateLoginForm = (email, password) => {
       error: true,
       errorMessage: 'A senha do usuário é maior do que o permitido!',
     };
+  }
+
+  if(!validatePhone(phone)) {
+    return {
+      error: true,
+      errorMessage: 'Telefone inválido!',
+    }
   }
 
   return {

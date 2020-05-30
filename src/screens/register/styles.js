@@ -1,7 +1,9 @@
 import styled from 'styled-components/native';
+import { TextInputMask } from 'react-native-masked-text';
 
 import * as ScaleUtils from '../../utils/scale';
 import Svg from '../../assets/svg/profile.svg';
+import DefaultInput from '../../components/Input/Input';
 
 export const PageContainer = styled.ScrollView`
     flex: 1;
@@ -25,6 +27,8 @@ export const PageTitleText = styled.Text`
 export const InputContainer = styled.View`
     margin-bottom: 5%;
 `;
+
+export const MaskedInput = styled(DefaultInput)``;
 
 export const UnderlineButtonContainer = styled.View`
     margin: 5% 0;

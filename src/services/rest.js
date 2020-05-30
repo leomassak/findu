@@ -16,7 +16,7 @@ async function request(method, url, data = {}, header = {}) {
     }
     } catch(err) {
         console.log(err);
-        return Promise.reject(new Error({ error: 'Não foi possível concluir a operação' }))
+        return Promise.reject(new Error({ error: err.response.data.code }))
     }
 }
 

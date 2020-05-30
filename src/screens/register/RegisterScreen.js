@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Alert } from 'react-native'; 
 import ImagePicker from 'react-native-image-picker';
 
 import * as S from './styles';
 import * as ScaleUtils from '../../utils/scale';
+import * as UserAction from '../../redux/actions/user';
 import Header from '../../components/Header/Header';
 import Input from '../../components/Input/Input';
 import CheckBox from '../../components/CheckBox/Checkbox';
@@ -14,10 +16,12 @@ import { pickerOptions } from '../../configs/imagePickerOptions';
 import Logo from '../../assets/svg/ic_logo.svg';
 
 const RegisterScreen = (props) => {
+    const dispatch = useDispatch();
+    const isLoading = useSelector(state => LoadingSelector.getLoading(state));
     const [formData, setFormdata] = useState({
         name:"",
-        phone:"",
         email:"",
+        phone:"",
         password:"",
         confirmPassword:"",
         agree:false,
@@ -74,6 +78,39 @@ const RegisterScreen = (props) => {
         }
       }
 
+      const onRegister = async () => {
+        try { 
+          const { name, email, password, phone } = formData;
+          const isFormValid = validator.validateLoginForm(email, password, phone);
+          if (!isFormValid) {
+            Snackbar(isFormValid.errorMessage);
+            return;
+          };
+
+          const registerData = {
+            name,
+            email,
+            telefone: phone,
+            password,
+          }
+          await dispatch(UserAction.register(registerData));
+          Alert.alert(
+            "",
+            "Cadastro realizado com sucesso",
+            [
+              {
+                text: "OK",
+                onPress: () => this.props.navigation.navigate('Login'),
+              },
+            ],
+            { cancelable: false },
+          );
+        } catch(err) {
+          console.log(err);
+          Snackbar('Ocorreu um erro, tente novamente!');
+        }
+      }
+
     return (
         <S.PageContainer contentContainerStyle={{ paddingBottom: 35 }}>
             <Header
@@ -108,13 +145,21 @@ const RegisterScreen = (props) => {
             </S.InputContainer>
 
             <S.InputContainer>
-                <Input
-                    title="Telefone"    
-                    value={formData.phone}
-                    keyboardType="phone-pad"
-                    secureTextEntry={false}
-                    onChangeValue={(text) => onFormDataChange(text, 'phone')}
-                />
+              <S.MaskedInput
+              type="cel-phone"
+              options={{
+                maskType: 'BRL',
+                withDDD: true,
+                dddMask: '+99 99',
+              }}
+              placeholder="Telefone"
+              placeholderTextColor={Parameters.AppColors.darkGrey}
+              keyboardType="phone-pad"
+              value={formData.phone}
+              onChangeText={
+                (text) => onFormDataChange(text, 'phone')
+              }
+            />
             </S.InputContainer>
 
             <S.InputContainer>
@@ -167,7 +212,7 @@ const RegisterScreen = (props) => {
             </S.CheckBoxContainerView>
             <DefaultButton
                 text="Entrar"
-                onPressListener={() => console.log('Redirecionar para Home')}
+                onPressListener={() => this.onRegister()}
                 fontColor="#FFF"
                 background="#4F80E1"
                 border="#4F80E1"
