@@ -19,7 +19,7 @@ export const PageTitleContainer = styled.View`
 `;
 
 export const PageTitleText = styled.Text`
-    font-size: ${ScaleUtils.ScreenWidth * 0.065};
+    font-size: ${`${ScaleUtils.ScreenWidth * 0.065}`};
     font-family: Poppins-Bold;
     width: 80%;
 `;
@@ -35,7 +35,7 @@ export const UnderlineButtonContainer = styled.View`
 `;
 
 export const CheckBoxContainerView = styled.View`
-    height: ${ScaleUtils.ScreenHeight * 0.22};
+    height: ${`${ScaleUtils.ScreenHeight * 0.22}`};
     justify-content: space-between;
     margin-top: 4%;
     margin-bottom: 8%;
@@ -46,8 +46,8 @@ export const ProfilePicTouchableOpacity = styled.TouchableOpacity`
     background-color: transparent;
     border-width: 2px;
     border-color: #000;
-    height: ${ScaleUtils.ScreenHeight * 0.19};
-    width: ${ScaleUtils.ScreenHeight * 0.19};
+    height: ${`${ScaleUtils.ScreenHeight * 0.19}px`};
+    width: ${`${ScaleUtils.ScreenHeight * 0.19}px`};
     border-radius: 100px;
     justify-content: center;
     align-items: center;
@@ -60,6 +60,6 @@ export const ProfilePicImage = styled.ImageBackground`
 `;
 
 export const ProfileSvg = styled(Svg)`
-    height: ${ScaleUtils.getPixelRatio * 18.5}px;
-    width: ${ScaleUtils.getPixelRatio * 18.5}px;
+    height: ${`${ScaleUtils.getPixelRatio * 18.5}px`};
+    width: ${`${ScaleUtils.getPixelRatio * 18.5}px`};
 `;
