@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import {  MaskService } from 'react-native-masked-text';
 import { Alert } from 'react-native'; 
 import ImagePicker from 'react-native-image-picker';
 
 import * as S from './styles';
 import * as ScaleUtils from '../../utils/scale';
+import * as LoadingSelector from '../../redux/reducers/loading';
 import * as UserAction from '../../redux/actions/user';
+import * as validator from '../../helpers/form-validator';
+
 import Header from '../../components/Header/Header';
 import Input from '../../components/Input/Input';
 import CheckBox from '../../components/CheckBox/Checkbox';
 import DefaultButton from '../../components/button/DefaultButton';
+import Loading from '../../components/Loading/Loading';
+import Snackbar from '../../utils/Snackbar';
 
 import { pickerOptions } from '../../configs/imagePickerOptions';
 
@@ -81,7 +87,7 @@ const RegisterScreen = (props) => {
       const onRegister = async () => {
         try { 
           const { name, email, password, phone } = formData;
-          const isFormValid = validator.validateLoginForm(email, password, phone);
+          const isFormValid = validator.validateLoginForm(email, password, name);
           if (!isFormValid) {
             Snackbar(isFormValid.errorMessage);
             return;
@@ -112,7 +118,9 @@ const RegisterScreen = (props) => {
       }
 
     return (
-        <S.PageContainer contentContainerStyle={{ paddingBottom: 35 }}>
+      <>
+      {isLoading && <Loading />}
+      <S.PageContainer contentContainerStyle={{ paddingBottom: 35 }}>
             <Header
                 onPressListener={() => props.navigation.goBack()}
             />
@@ -146,20 +154,19 @@ const RegisterScreen = (props) => {
 
             <S.InputContainer>
               <S.MaskedInput
-              type="cel-phone"
-              options={{
+              title="Telefone"
+              maskType="cel-phone"
+              maskOptions={{
                 maskType: 'BRL',
                 withDDD: true,
                 dddMask: '+99 99',
               }}
-              placeholder="Telefone"
-              placeholderTextColor={Parameters.AppColors.darkGrey}
               keyboardType="phone-pad"
               value={formData.phone}
-              onChangeText={
-                (text) => onFormDataChange(text, 'phone')
+              onChangeValue={
+                (text) => onFormDataChange(MaskService.toRawValue('cel-phone', text), 'phone')
               }
-            />
+              />
             </S.InputContainer>
 
             <S.InputContainer>
@@ -212,12 +219,13 @@ const RegisterScreen = (props) => {
             </S.CheckBoxContainerView>
             <DefaultButton
                 text="Entrar"
-                onPressListener={() => this.onRegister()}
+                onPressListener={() => onRegister()}
                 fontColor="#FFF"
                 background="#4F80E1"
                 border="#4F80E1"
             />
         </S.PageContainer>
+      </>
     )
 }
 

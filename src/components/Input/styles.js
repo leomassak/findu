@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { TextInputMask } from 'react-native-masked-text';
 
 import * as ScaleUtils from '../../utils/scale';
 
@@ -14,6 +15,13 @@ export const TextInputTitle = styled.Text`
 `;
 
 export const TextInput = styled.TextInput`
+    border: solid #000 1px;
+    height: ${`${ScaleUtils.ScreenHeight * 0.08}px`};
+    border-radius: 10px;
+    padding: 5%;
+`;
+
+export const MaskedInput = styled(TextInputMask)`
     border: solid #000 1px;
     height: ${`${ScaleUtils.ScreenHeight * 0.08}px`};
     border-radius: 10px;

@@ -15,8 +15,7 @@ async function request(method, url, data = {}, header = {}) {
         return response.data;
     }
     } catch(err) {
-        console.log(err);
-        return Promise.reject(new Error({ error: err.response.data.code }))
+        return Promise.reject(new Error(err.response.data.code))
     }
 }
 

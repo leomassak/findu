@@ -12,18 +12,30 @@ export default function Header({
     secureTextEntry,
     onEyePress,
     eyeOpen,
+    maskType,
+    maskOptions,
 }) {
     return (
         <S.TextInputContainer>
             <S.TextInputTitle>
                 {title}
             </S.TextInputTitle>
-            <S.TextInput
-                keyboardType={keyboardType || null}
-                value={value}
-                onChangeText={(text) => onChangeValue(text)}
-                secureTextEntry={secureTextEntry}
+            {maskType ? (
+            <S.MaskedInput 
+            type={maskType}
+            options={maskOptions}
+            keyboardType={keyboardType || null}
+            value={value}
+            onChangeText={(text) => onChangeValue(text)}
             />
+            ) : (
+            <S.TextInput
+            keyboardType={keyboardType || null}
+            value={value}
+            onChangeText={(text) => onChangeValue(text)}
+            secureTextEntry={secureTextEntry}
+            />
+            )}
             {onEyePress && (
                 <S.TextInputContainerIconTouchableOpacity
                     onPress={onEyePress}

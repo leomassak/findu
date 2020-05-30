@@ -1,8 +1,8 @@
 import {
-  validateEmail, validatePhone,
+  validateEmail, validateName,
 } from './validator';
 
-export const validateLoginForm = (email, password, phone) => {
+export const validateLoginForm = (email, password, name) => {
 
   if (!email || !password) {
     return {
@@ -39,7 +39,7 @@ export const validateLoginForm = (email, password, phone) => {
     };
   }
 
-  if(!validatePhone(phone)) {
+  if(!validateName(name)) {
     return {
       error: true,
       errorMessage: 'Telefone inválido!',
