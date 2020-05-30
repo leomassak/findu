@@ -113,7 +113,7 @@ const RegisterScreen = (props) => {
           );
         } catch(err) {
           console.log(err);
-          Snackbar('Ocorreu um erro, tente novamente!');
+          Snackbar(err.message);
         }
       }
 
