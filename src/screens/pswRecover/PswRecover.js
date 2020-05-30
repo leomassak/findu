@@ -1,38 +1,53 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import AuthApi from '../../api/auth';
 
 import * as S from './styles';
+import * as LoadingSelector from '../../redux/reducers/loading';
+import * as AuthActions from '../../redux/actions/auth';
+import * as validator from '../../helpers/form-validator';
+import Snackbar from '../../utils/Snackbar';
 
 import Header from '../../components/Header/Header';
 import Input from '../../components/Input/Input';
 import PswRecoverModal from '../../components/modal/PswRecoverModal';
 import DefaultButton from '../../components/button/DefaultButton';
+import Loading from '../../components/Loading/Loading';
 
 import Logo from '../../assets/svg/ic_logo.svg';
-import { Alert } from 'react-native';
 
 const PswRecover = (props) => {
+    const dispatch = useDispatch();
+    const isLoading = useSelector(state => LoadingSelector.getLoading(state));
     const [emailInput, setEmailInput] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const redefinePassword = () => {
         setIsModalOpen(!isModalOpen);
-        props.navigation.navigate('RedefinePsw')
+        props.navigation.navigate('RedefinePsw', { email: emailInput })
     }
 
     const onSendMail = async () => {
-        try {
-            await AuthApi.forgotPassword(emailInput);
-            setIsModalOpen(true);
-        } catch(err) {
-            console.log(err.response);
-            Alert.alert('Erro', 'Não foi possível enviar o código de recuperação');
+        const isFormValid = validator.validateRecoverPassword(emailInput);
+
+        if (isFormValid.error) {
+            Snackbar(isFormValid.errorMessage);
         }
+        else {
+            try {
+                await dispatch(AuthActions.forgotPassword({ email: emailInput }));
+                setIsModalOpen(true);
+            } catch(err) {
+                Snackbar(err.message);
+            }
+        }
+        
     }
 
 
     return (
         <>
+            {isLoading && <Loading />}
             <PswRecoverModal
                 isVisible={isModalOpen}
                 onDismiss={redefinePassword}
