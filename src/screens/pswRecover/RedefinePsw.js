@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import * as S from './styles';
 
@@ -10,6 +9,7 @@ import Snackbar from '../../utils/Snackbar';
 
 import Header from '../../components/Header/Header';
 import Input from '../../components/Input/Input';
+import PswRedefineModal from '../../components/modal/PswRedefineModal';
 import DefaultButton from '../../components/button/DefaultButton';
 import Loading from '../../components/Loading/Loading';
 
@@ -23,6 +23,7 @@ const PswRecover = (props) => {
     const [confirmPasswordInput, setConfirmPasswordInput] = useState('');
     const [passwordEyeStatus1, setPasswordEyeStatus1] = useState(true);
     const [passwordEyeStatus2, setPasswordEyeStatus2] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const email = props.route.params.email;
 
     const onRedefinePassword = async () => {
@@ -34,17 +35,26 @@ const PswRecover = (props) => {
         else {
             try {
                 await dispatch(AuthActions.redefinePassword(email, tokenInput, passwordInput));
-                Alert.alert('Sua senha foi redefinida com sucesso!');
+                setIsModalOpen(true);
             } catch(err) {
                 Snackbar(err.message);
             }
         }
-        
+    }
+
+    onPressModal = () => {
+        setIsModalOpen(true);
+        props.navigation.navigate('Login');
     }
 
     return (
         <>
             {isLoading && <Loading />}
+            <PswRedefineModal
+                isVisible={isModalOpen}
+                onDismiss={() => onPressModal()}
+                onPress={() => onPressModal()}
+            />
             <S.PageContainer>
                 <Header
                     onPressListener={() => props.navigation.goBack()}
