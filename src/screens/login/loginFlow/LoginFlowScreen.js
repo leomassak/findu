@@ -1,13 +1,33 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { StatusBar } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient'; 
+
+import * as AuthActions from '../../../redux/actions/auth';
 
 import * as S from './styles';
 import DefaultButton from '../../../components/button/DefaultButton';
 
-export default class LoginFlowScreen extends Component {
-    render() {
-        return (
+export default function LoginFlowScreen(props) {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        // setInterval(() => {
+        InitFlowVerification();
+        //   }, 1000);
+    }, [])
+
+    const InitFlowVerification = async () => {
+        const isLogged = await dispatch(AuthActions.verifyInitiaFlow());
+
+        if (isLogged) {
+            props.navigation.reset({
+                index: 0,
+                routes: [{ name: 'HomeNavigator' }]
+            });
+        }
+    }
+
+    return (
         <LinearGradient 
             start={{x: 0, y: 0}} 
             end={{x: 1, y: 2}} 
@@ -30,7 +50,7 @@ export default class LoginFlowScreen extends Component {
                 <S.ButtonAreaView>
                 <DefaultButton
                     text="Entrar"
-                    onPressListener={() => this.props.navigation.navigate('Login')}
+                    onPressListener={() => props.navigation.navigate('Login')}
                     border="#FFF"
                     fontColor="#FFF"
                 />
@@ -40,12 +60,11 @@ export default class LoginFlowScreen extends Component {
                     background="#FFF" 
                     border="#FFF" 
                     fontColor="#4F80E1" 
-                    onPressListener={() => this.props.navigation.navigate('Register')}
+                    onPressListener={() => props.navigation.navigate('Register')}
                 />
                 </S.ButtonAreaView>
                 </S.WelcomeView>
             </S.LoginFlowContainerView>
         </LinearGradient>
-        )
-    }
+    )
 }

@@ -5,7 +5,7 @@ import Header from '../../components/Header/Header';
 import DefaultButton from '../../components/button/DefaultButton';
 import ProfileImage from '../../assets/images/profile-mock.png';
 
-export default function ProfileScreen({ props }) {
+export default function ProfileScreen(props) {
     return (
         <S.ProfileContainerScrollView>
             <Header

@@ -4,8 +4,8 @@ import * as ScaleUtils from '../../utils/scale';
 export const ProfileContainerScrollView = styled.ScrollView`  
     flex: 1;
     background-color: #4F80E1;
-    justify-content: space-around;
-    align-items: center;
+    /* justify-content: space-around; */
+    /* align-items: center; */
     padding: 10% 8%;
 `;
 
@@ -58,6 +58,7 @@ export const ButtonsContainer = styled.View`
     height: ${`${ScaleUtils.ScreenHeight * 0.18}px`};
     justify-content: space-between;
     width: 100%;
+    margin-bottom: 20%;
 `;
 
 export const UserName = styled.Text`

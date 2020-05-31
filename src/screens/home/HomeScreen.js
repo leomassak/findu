@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import { useIsDrawerOpen } from '@react-navigation/drawer';
 import { Animated, PermissionsAndroid } from 'react-native';
 
 import * as ScaleUtils from '../../utils/scale';
@@ -16,24 +17,13 @@ export default function HomeScreen(props) {
     const LATITUDE_DELTA = 0.01;
     const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-    const rotateBurguer = () => {
-        Animated.timing(
-        rotationValue,
-        {
-            toValue: 1,
-            duration: 500,
-            useNativeDriver: true,
-        }
-        ).start()
-    }
-
     useEffect(() => {
         Animated.timing(
         rotationValue,
         {
-        toValue: drawerOpened ? 1 : 0,
-        duration: 500,
-        useNativeDriver: true,
+            toValue: drawerOpened ? 1 : 0,
+            duration: 500,
+            useNativeDriver: true,
         }
         ).start();
     }, [drawerOpened]);
@@ -42,6 +32,7 @@ export default function HomeScreen(props) {
         <S.HomeContainer>
             <S.BurguerButton 
                 onPress={() => {props.navigation.toggleDrawer()}}
+                activeOpacity={0.7}
             >
                 <Animated.View style={{
                     transform: [{ rotate: spin }]

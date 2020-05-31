@@ -7,7 +7,6 @@ const PERSIST_KEY_USER_DATA = '@FindU:userData';
 async function isAuthenticated() {
     const token = await AsyncStorage.getItem(PERSIST_KEY_USER_AUTH_DATA);
     const isLogged = await AsyncStorage.getItem(PERSIST_KEY_IS_LOGGED);
-    console.log('isLogegd', token, isLogged);
     return (token && isLogged);
 }
 
@@ -28,10 +27,16 @@ async function getUserData() {
     if(isAuthenticated()) return JSON.parse(await AsyncStorage.getItem(PERSIST_KEY_USER_DATA));
 }
 
+async function cleanAuth() {
+    console.log('entrou');
+    await AsyncStorage.removeItem(PERSIST_KEY_USER_AUTH_DATA);
+}
+
 export default {
     isAuthenticated,
     createUserAuthData,
     createUserData,
     getUserAuthData,
     getUserData,
+    cleanAuth,
 }

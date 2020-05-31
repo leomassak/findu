@@ -6,7 +6,6 @@ import Svg from '../../assets/svg/burguer.svg';
 
 export const HomeContainer = styled.View`
     flex: 1;
-    background-color: #F00;
 `;
 
 export const PageMapViewContainerView = styled.View`

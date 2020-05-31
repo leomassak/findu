@@ -64,3 +64,23 @@ export const redefinePassword = (email, token, password) => async (dispatch) => 
         dispatch(removeLoading());
     }
 };
+
+export const verifyInitiaFlow = () => async (dispatch) => {
+    try {
+        let isLogged = false;
+        const isAuthenticated = await AppStorage.isAuthenticated();
+        if (isAuthenticated) {
+            isLogged = true;
+            // const auth = await AuthService.get();
+            // dispatch(saveAuthentication(auth));
+            // await dispatch(getMe());
+        }
+        return isLogged;
+    } catch (e) {
+      //
+    }
+};
+
+export const logout = async () => {
+    await AppStorage.cleanAuth();
+};
