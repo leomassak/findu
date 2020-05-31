@@ -17,8 +17,8 @@ export const ProfileImageView = styled.View`
     background-color: #CECECE;
     border-width: 1px;
     border-color: #000;
-    height: ${ScaleUtils.ScreenHeight * 0.19}px;
-    width: ${ScaleUtils.ScreenHeight * 0.19}px;
+    height: ${`${ScaleUtils.ScreenHeight * 0.19}px`};
+    width: ${`${ScaleUtils.ScreenHeight * 0.19}px`};
     border-radius: 100px;
     justify-content: center;
     align-items: center;
@@ -55,7 +55,7 @@ export const ProfileInfoText = styled.Text`
 `;
 
 export const ButtonsContainer = styled.View`
-    height: ${ScaleUtils.ScreenHeight * 0.18}px;
+    height: ${`${ScaleUtils.ScreenHeight * 0.18}px`};
     justify-content: space-between;
     width: 100%;
 `;

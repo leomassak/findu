@@ -3,7 +3,7 @@ import Modal from 'react-native-modal';
 
 import * as S from './styles';
 
-import DefaultButton from '../../components/button/DefaultButton';
+import DefaultButton from '../button/DefaultButton';
 
 import IconCloseModal from '../../assets/svg/ic-close.svg';
 import IconCheck from '../../assets/svg/Modal/ic_check.svg';
@@ -12,6 +12,7 @@ export default function PswRecoverModal({
     onPress,
     isVisible,
     onDismiss,
+    text
 }) {
     return (
         <Modal
@@ -28,7 +29,7 @@ export default function PswRecoverModal({
                     <IconCheck />
                 </S.ModalEmailIconView>
                 <S.ModalEmailTitle>
-                    Sua senha foi redefinida com sucesso!
+                    {text}
                 </S.ModalEmailTitle>
                 <S.ModalEmailButtonView>
                     <DefaultButton

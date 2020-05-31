@@ -7,7 +7,7 @@ export const LoginFlowContainerView = styled.View`
     flex: 1;
     justify-content: space-around;
     align-items: center;
-    padding: 0px 8%;
+    padding: 0 8%;
 `;
 
 export const LogoView = styled.View`
@@ -47,6 +47,6 @@ export const WelcomeDescriptionText = styled.Text`
 `;
 
 export const ButtonAreaView = styled.View`
-    height: ${ScaleUtils.ScreenHeight * 0.17}px;
+    height: ${`${ScaleUtils.ScreenHeight * 0.17}px`};
     justify-content: space-between;
 `;

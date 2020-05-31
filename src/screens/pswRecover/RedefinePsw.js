@@ -9,7 +9,7 @@ import Snackbar from '../../utils/Snackbar';
 
 import Header from '../../components/Header/Header';
 import Input from '../../components/Input/Input';
-import PswRedefineModal from '../../components/modal/PswRedefineModal';
+import PswRedefineModal from '../../components/modal/SucessModal';
 import DefaultButton from '../../components/button/DefaultButton';
 import Loading from '../../components/Loading/Loading';
 
@@ -54,6 +54,7 @@ const PswRecover = (props) => {
                 isVisible={isModalOpen}
                 onDismiss={() => onPressModal()}
                 onPress={() => onPressModal()}
+                text="Sua senha foi redefinida com sucesso!"
             />
             <S.PageContainer>
                 <Header
