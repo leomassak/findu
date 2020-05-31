@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import * as ScaleUtils from '../../utils/scale';
 
-export const ProfileContainerView = styled.View`  
+export const ProfileContainerScrollView = styled.ScrollView`  
     flex: 1;
     background-color: #4F80E1;
     justify-content: space-around;

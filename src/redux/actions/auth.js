@@ -17,7 +17,7 @@ export const authenticate = (userData) => async (dispatch) => {
     try {
         const response = await AuthApi.userLogin(userData); 
         AppStorage.createUserAuthData(response.token);
-        await dispatch(saveToken(response.token));
+        // await dispatch(saveToken(response.token));
     } catch (err) { 
         if (Errors.login[err.message] !== undefined) {
             throw new Error(Errors.login[err.message]);

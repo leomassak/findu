@@ -2,11 +2,13 @@ import React from 'react';
 import { StatusBar } from 'react-native';
 
 import * as S from './styles';
-import BackIcon from '../../assets/svg/ic-back_button.svg';
+import DefaultBackIcon from '../../assets/svg/ic-back_button.svg';
+import WhiteBackIcon from '../../assets/svg/ic-back_button_white.svg';
 
 export default function Header({
     onPressListener,
     backgroundColor,
+    color,
 })
     {
     return (
@@ -19,7 +21,11 @@ export default function Header({
                 <S.HeaderBackButtonContainer
                     onPress={onPressListener}
                 >
-                    <BackIcon />
+                    {color ? (
+                        <WhiteBackIcon />
+                    ) : (
+                        <DefaultBackIcon />
+                    )}
                 </S.HeaderBackButtonContainer>
             </S.HeaderView>
         </>

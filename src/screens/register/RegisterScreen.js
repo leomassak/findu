@@ -31,7 +31,6 @@ const RegisterScreen = (props) => {
         phone:"",
         password:"",
         confirmPassword:"",
-        agree:false,
     });
     const [hidePassword, setHidePassword] = useState(true);
     const [hideConfirmPassword, setHideConfirmPassword] = useState(true);
@@ -75,33 +74,35 @@ const RegisterScreen = (props) => {
     
     const handlePickerSelect = (response) => {
         if (response.error) {
-            Alert.alert("Erro", "Não foi possível carregar a foto");
+            Snackbar('Não foi possível carregar a foto');
         } else if (response.didCancel) {
             setPhoto(null)
         } else {
             setPhoto({
                 uri: response.uri,
-                base64: `data:image/jpeg;base64,${response.data}`,
+                base64: response.data,
             })
         }
       }
 
     const onRegister = async () => {
         try { 
-            const { name, email, password, phone } = formData;
-            const isFormValid = validator.validateLoginForm(email, password, name);
-            if (!isFormValid) {
+            const { name, email, password, confirmPassword, phone } = formData;
+            const isFormValid = validator.validateRegisterForm(name, phone, email, password, confirmPassword, termsBoxStatus, locationBoxStatus);
+            
+            if (isFormValid.error) {
                 Snackbar(isFormValid.errorMessage);
-                return;
-            };
-            const registerData = {
-                name,
-                email,
-                telefone: phone,
-                password,
+            } else {
+                const registerData = {
+                    name,
+                    email,
+                    phone,
+                    password,
+                    photo: photo.base64, 
+                }
+                await dispatch(UserAction.register(registerData));
+                setIsModalOpen(true);
             }
-            await dispatch(UserAction.register(registerData));
-            setIsModalOpen(true);
         } catch(err) {
             Snackbar(err.message);
         }
@@ -109,7 +110,10 @@ const RegisterScreen = (props) => {
 
     const onPressModal = () => {
         setIsModalOpen(false);
-        props.navigation.navigate('Login');
+        props.navigation.reset({
+            index: 0,
+            routes: [{ name: 'HomeNavigator' }]
+        });
     }
 
     return (

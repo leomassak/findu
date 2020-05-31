@@ -36,11 +36,11 @@ const LoginScreen = (props) => {
                 password: passwordInput,
             }
             try {
-                if(emailInput === 'teste@findu.com' && passwordInput === '123123') {
-                    props.navigation.navigate('HomeNavigator');
-                }
                 await dispatch(AuthActions.authenticate(loginData));
-                props.navigation.navigate('HomeNavigator');
+                props.navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'HomeNavigator' }]
+                });
             } catch(err) {
                 Snackbar(err.message);
             }

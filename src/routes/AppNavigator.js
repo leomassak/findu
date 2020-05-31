@@ -14,67 +14,66 @@ import HomeNavigator from './HomeNavigator';
 const AppStack = createStackNavigator();
 
 function AppNavigator() {
-  return (
-    <AppStack.Navigator headerMode="none">
+    return (
+        <AppStack.Navigator headerMode="none">
+            
+            <AppStack.Screen
+              name="Flow"
+              component={LoginFlowScreen}
+              options={{
+                ...TransitionPresets.SlideFromRightIOS,
+              }}
+            />
 
-      <AppStack.Screen
-        name="Flow"
-        component={LoginFlowScreen}
-        options={{
-          ...TransitionPresets.SlideFromRightIOS,
-        }}
-      />
+            <AppStack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{
+                ...TransitionPresets.SlideFromRightIOS,
+              }}
+            />
 
-      <AppStack.Screen
-        name="Login"
-        component={LoginScreen}
-        options={{
-          ...TransitionPresets.SlideFromRightIOS,
-        }}
-      />
+            <AppStack.Screen
+              name="RedefinePsw"
+              component={RedefinePswScreen}
+              options={{
+                ...TransitionPresets.SlideFromRightIOS,
+              }}
+            />
 
-      <AppStack.Screen
-        name="RedefinePsw"
-        component={RedefinePswScreen}
-        options={{
-          ...TransitionPresets.SlideFromRightIOS,
-        }}
-      />
+            <AppStack.Screen
+              name="PswRecover"
+              component={PswRecoverScreen}
+              options={{
+                ...TransitionPresets.SlideFromRightIOS,
+              }}
+            />
 
-      <AppStack.Screen
-        name="PswRecover"
-        component={PswRecoverScreen}
-        options={{
-          ...TransitionPresets.SlideFromRightIOS,
-        }}
-      />
+            <AppStack.Screen
+              name="Register"
+              component={RegisterScreen}
+              options={{
+                ...TransitionPresets.SlideFromRightIOS,
+              }}
+            />
 
-      <AppStack.Screen
-        name="Register"
-        component={RegisterScreen}
-        options={{
-          ...TransitionPresets.SlideFromRightIOS,
-        }}
-      />
+            <AppStack.Screen 
+              name="HomeNavigator"
+              component={HomeNavigator}
+              options={{
+                ...TransitionPresets.SlideFromRightIOS,
+              }}
+            />
 
-      <AppStack.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{
-          ...TransitionPresets.SlideFromRightIOS,
-        }}
-      />
-
-      <AppStack.Screen 
-        name="HomeNavigator"
-        component={HomeNavigator}
-        options={{
-          ...TransitionPresets.SlideFromRightIOS,
-        }}
-      />
-
-    </AppStack.Navigator>
-  );
+            <AppStack.Screen
+              name="Profile"
+              component={ProfileScreen}
+              options={{
+                ...TransitionPresets.SlideFromRightIOS,
+              }}
+            />
+        </AppStack.Navigator>
+    );
 }
 
 export default AppNavigator;

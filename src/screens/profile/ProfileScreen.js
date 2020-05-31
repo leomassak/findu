@@ -7,7 +7,11 @@ import ProfileImage from '../../assets/images/profile-mock.png';
 
 export default function ProfileScreen({ props }) {
     return (
-        <S.ProfileContainerView>
+        <S.ProfileContainerScrollView>
+            <Header
+                color
+                onPressListener={() => props.navigation.goBack()}
+            />
             <S.UserProfileView>
             <S.ProfileImageView>
                 <S.ProfileImage source={ProfileImage} />
@@ -36,6 +40,6 @@ export default function ProfileScreen({ props }) {
                 background="transparent"
                 />
             </S.ButtonsContainer>
-        </S.ProfileContainerView>
+        </S.ProfileContainerScrollView>
     );
 }

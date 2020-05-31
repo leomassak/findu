@@ -1,51 +1,87 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { useIsDrawerOpen } from '@react-navigation/drawer';
-import { Animated } from 'react-native';
+import React, { useRef, useEffect } from 'react';
+import { Animated, PermissionsAndroid } from 'react-native';
+
+import * as ScaleUtils from '../../utils/scale';
 import * as S from './styles';
 
 export default function HomeScreen(props) {
-    const [ drawerOpen, setDrawerOpened ] = useState(false);
     const rotationValue = useRef(new Animated.Value(0)).current;
     const spin = rotationValue.interpolate({
         inputRange: [0, 1],
         outputRange: ['0deg', '90deg']
-      })
+    })
 
-      useEffect(() => {
-         const unsubscribe = props.navigation.addListener('drawerClose', () => {
-             setDrawerOpened(false);
-             Animated.timing(
+    const ASPECT_RATIO = ScaleUtils.ScreenWidth / ScaleUtils.ScreenHeight;
+    const LATITUDE_DELTA = 0.01;
+    const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+
+    useEffect(() => {
+        const unsubscribe = props.navigation.addListener('drawerClose', () => {
+            Animated.timing(
                 rotationValue,
-              {
-                toValue: 0,
-                duration: 500,
-                useNativeDriver: true,
-              }
+                {
+                    toValue: 0,
+                    duration: 500,
+                    useNativeDriver: true,
+                }
             ).start()
-            });
-            return unsubscribe;
-      }, []);
+        });
+        return unsubscribe;
+    }, []);
 
-      const rotateBurguer = () => {
+    const rotateBurguer = () => {
         Animated.timing(
-            rotationValue,
-          {
+        rotationValue,
+        {
             toValue: 1,
             duration: 500,
             useNativeDriver: true,
-          }
+        }
         ).start()
-      }
+    }
+
     return (
         <S.HomeContainer>
             <S.BurguerButton 
-            onPress={() => {props.navigation.toggleDrawer(), rotateBurguer()}}>
+                onPress={() => {props.navigation.toggleDrawer(), rotateBurguer()}}
+            >
                 <Animated.View style={{
                     transform: [{ rotate: spin }]
                 }}>
                     <S.BurguerIcon /> 
                 </Animated.View>
             </S.BurguerButton>
+            <S.PageMapViewContainerView>
+                <S.PageMapView
+                    showsUserLocation
+                    followsUserLocation
+                    zoomEnabled
+                    initialRegion={{
+                        latitude: -22.887540,
+                        longitude: -47.061313,
+                        latitudeDelta: LATITUDE_DELTA,
+                        longitudeDelta: LONGITUDE_DELTA,
+                    }}
+                    onMapReady={() => {
+                        PermissionsAndroid.request(
+                          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+                        )
+                    }}
+                >
+                    {/* {stationLocation && (
+                        <S.PageMarker
+                            coordinate={{
+                                latitude: stationLocation.latitude,
+                                longitude: stationLocation.longitude,
+                                latitudeDelta: LATITUDE_DELTA,
+                                longitudeDelta: LONGITUDE_DELTA,
+                            }}
+                        >
+                            <MarkerLocationIcon />
+                        </S.PageMarker>
+                    )} */}
+                </S.PageMapView>
+            </S.PageMapViewContainerView>
         </S.HomeContainer>
     )
 }
