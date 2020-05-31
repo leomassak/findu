@@ -1,10 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { useIsDrawerOpen } from '@react-navigation/drawer';
 import { Animated } from 'react-native';
 import * as S from './styles';
 
 export default function HomeScreen(props) {
-    const [ drawerOpen, setDrawerOpened ] = useState(false);
     const rotationValue = useRef(new Animated.Value(0)).current;
     const spin = rotationValue.interpolate({
         inputRange: [0, 1],
