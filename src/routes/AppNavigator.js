@@ -9,6 +9,8 @@ import PswRecoverScreen from '../screens/pswRecover/PswRecover';
 import RedefinePswScreen from '../screens/pswRecover/RedefinePsw';
 import ProfileScreen from '../screens/profile/ProfileScreen';
 
+import HomeNavigator from './HomeNavigator';
+
 const AppStack = createStackNavigator();
 
 function AppNavigator() {
@@ -58,6 +60,14 @@ function AppNavigator() {
       <AppStack.Screen
         name="Profile"
         component={ProfileScreen}
+        options={{
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+      />
+
+      <AppStack.Screen 
+        name="HomeNavigator"
+        component={HomeNavigator}
         options={{
           ...TransitionPresets.SlideFromRightIOS,
         }}
