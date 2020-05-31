@@ -21,5 +21,4 @@ export const BurguerButton = styled.TouchableOpacity`
 `;
 
 export const BurguerIcon = styled(Svg)`
-    /* transform: rotate(90deg); */
 `;

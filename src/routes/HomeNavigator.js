@@ -10,7 +10,7 @@ function HomeNavigator() {
     return(
         <Drawer.Navigator 
             overlayColor="transparent"
-            drawerType="slide"
+            drawerType="back"
             drawerContent={props => <CustomDrawer {...props} />}
             drawerStyle={{
                 paddingHorizontal: '4%',
@@ -19,6 +19,7 @@ function HomeNavigator() {
             screenOptions={{
                 swipeEnabled: false,
             }}
+
         >
             <Drawer.Screen name="Home" component={HomeScreen} />
         </Drawer.Navigator>
