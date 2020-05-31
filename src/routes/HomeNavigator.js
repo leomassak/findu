@@ -19,6 +19,7 @@ function HomeNavigator() {
             screenOptions={{
                 swipeEnabled: false,
             }}
+
         >
             <Drawer.Screen name="Home" component={HomeScreen} />
         </Drawer.Navigator>

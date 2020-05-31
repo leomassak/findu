@@ -5,6 +5,7 @@ import * as ScaleUtils from '../../utils/scale';
 import * as S from './styles';
 
 export default function HomeScreen(props) {
+    const drawerOpened = useIsDrawerOpen();
     const rotationValue = useRef(new Animated.Value(0)).current;
     const spin = rotationValue.interpolate({
         inputRange: [0, 1],
@@ -14,20 +15,6 @@ export default function HomeScreen(props) {
     const ASPECT_RATIO = ScaleUtils.ScreenWidth / ScaleUtils.ScreenHeight;
     const LATITUDE_DELTA = 0.01;
     const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-
-    useEffect(() => {
-        const unsubscribe = props.navigation.addListener('drawerClose', () => {
-            Animated.timing(
-                rotationValue,
-                {
-                    toValue: 0,
-                    duration: 500,
-                    useNativeDriver: true,
-                }
-            ).start()
-        });
-        return unsubscribe;
-    }, []);
 
     const rotateBurguer = () => {
         Animated.timing(
@@ -40,10 +27,21 @@ export default function HomeScreen(props) {
         ).start()
     }
 
+    useEffect(() => {
+        Animated.timing(
+        rotationValue,
+        {
+        toValue: drawerOpened ? 1 : 0,
+        duration: 500,
+        useNativeDriver: true,
+        }
+        ).start();
+    }, [drawerOpened]);
+
     return (
         <S.HomeContainer>
             <S.BurguerButton 
-                onPress={() => {props.navigation.toggleDrawer(), rotateBurguer()}}
+                onPress={() => {props.navigation.toggleDrawer()}}
             >
                 <Animated.View style={{
                     transform: [{ rotate: spin }]
