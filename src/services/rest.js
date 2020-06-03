@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { baseUrl } from '../configs/app-config';
+import AppStorage from './storage';
 
 async function request(method, url, data = {}, header = {}) {
     if(!header['Content-Type']) header['Content-Type'] = 'application/json';
@@ -8,7 +9,7 @@ async function request(method, url, data = {}, header = {}) {
             method,
             url: `${baseUrl}${url}`,
             data,
-            header,
+            headers: header,
         });
         if(response && response.data) {
             return response.data;
@@ -20,7 +21,7 @@ async function request(method, url, data = {}, header = {}) {
 
 async function authenticatedHeader(header) {
     const userToken = await AppStorage.getToken();
-    header['Authorization'] = `Bearer ${userToken}`;
+    header['authorization'] = `Bearer ${userToken}`;
     return header;
 }
 
@@ -34,9 +35,8 @@ async function getRest(
 async function getAuthenticated(
     url,
     data,
-    header,
 ) {
-    const userHeader = await authenticatedHeader(header);
+    const userHeader = await authenticatedHeader({});
     return request('get', url, data, userHeader);
 };
 

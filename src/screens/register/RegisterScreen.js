@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {  MaskService } from 'react-native-masked-text';
+import { MaskService } from 'react-native-masked-text';
 import { Alert } from 'react-native'; 
 import ImagePicker from 'react-native-image-picker';
 
@@ -21,6 +21,7 @@ import SucessModal from '../../components/modal/SucessModal';
 import { pickerOptions } from '../../configs/imagePickerOptions';
 
 import Logo from '../../assets/svg/ic_logo.svg';
+import AddIcon from '../../assets/svg/ic_icon-add.svg';
 
 const RegisterScreen = (props) => {
     const dispatch = useDispatch();
@@ -46,7 +47,7 @@ const RegisterScreen = (props) => {
         })
     }
 
-    const onSelecrProfileImage = () => {
+    const onSelectProfileImage = () => {
         Alert.alert(
             "Foto de Perfil",
             "Escolha uma foto para seu perfil",
@@ -98,7 +99,7 @@ const RegisterScreen = (props) => {
                     email,
                     phone,
                     password,
-                    photo: photo.base64, 
+                    photo: photo ? photo.base64 : undefined, 
                 }
                 await dispatch(UserAction.register(registerData));
                 setIsModalOpen(true);
@@ -137,20 +138,25 @@ const RegisterScreen = (props) => {
                         Faça seu cadastro
                     </S.PageTitleText>
                 </S.PageTitleContainer>
-                <S.ProfilePicTouchableOpacity
-                    onPress={onSelecrProfileImage}
+                <S.ProfilePicView>
+                <S.ProfilePicAddTouchableOpacity
+                    onPress={onSelectProfileImage}
                 >
-                    { photo ? (
-                        <S.ProfilePicImage
-                            source={{ uri: photo.uri }}
-                        />
-                    ) : (
-                        <S.ProfileSvg
-                            height={ScaleUtils.ScreenHeight * 0.09}
-                            width={ScaleUtils.ScreenHeight * 0.09}
-                        />
-                    )}
-                </S.ProfilePicTouchableOpacity>
+                    <AddIcon />
+                </S.ProfilePicAddTouchableOpacity>
+                    <S.ProfilePicImageView>
+                        {photo ? (
+                            <S.ProfilePicImage
+                                source={{ uri: photo.uri }}
+                            />
+                        ) : (
+                            <S.ProfileSvg
+                                height={ScaleUtils.ScreenHeight * 0.09}
+                                width={ScaleUtils.ScreenHeight * 0.09}
+                            />
+                        )}
+                    </S.ProfilePicImageView>
+                </S.ProfilePicView>
                 <S.InputContainer>
                     <Input
                         title="Nome"    

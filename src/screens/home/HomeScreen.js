@@ -1,10 +1,13 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import Geolocation from '@react-native-community/geolocation';
 import { useIsDrawerOpen } from '@react-navigation/drawer';
 import { Animated, PermissionsAndroid } from 'react-native';
 
 import * as ScaleUtils from '../../utils/scale';
 import * as S from './styles';
+
+import * as UserActions from '../../redux/reducers/user';
 
 import PermissionModal from '../../components/modal/PermissionModal';
 

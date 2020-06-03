@@ -8,6 +8,7 @@ import RegisterScreen from '../screens/register/RegisterScreen';
 import PswRecoverScreen from '../screens/pswRecover/PswRecover';
 import RedefinePswScreen from '../screens/pswRecover/RedefinePsw';
 import ProfileScreen from '../screens/profile/ProfileScreen';
+import EditProfileScreen from '../screens/editProfile/EditProfileScreen';
 
 import HomeNavigator from './HomeNavigator';
 
@@ -68,6 +69,14 @@ function AppNavigator() {
             <AppStack.Screen
               name="Profile"
               component={ProfileScreen}
+              options={{
+                ...TransitionPresets.SlideFromRightIOS,
+              }}
+            />
+
+            <AppStack.Screen
+              name="EditProfile"
+              component={EditProfileScreen}
               options={{
                 ...TransitionPresets.SlideFromRightIOS,
               }}

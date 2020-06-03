@@ -27,8 +27,11 @@ async function getUserData() {
     if(isAuthenticated()) return JSON.parse(await AsyncStorage.getItem(PERSIST_KEY_USER_DATA));
 }
 
+async function getToken() {
+    return JSON.parse(await AsyncStorage.getItem(PERSIST_KEY_USER_AUTH_DATA));
+}
+
 async function cleanAuth() {
-    console.log('entrou');
     await AsyncStorage.removeItem(PERSIST_KEY_USER_AUTH_DATA);
 }
 
@@ -38,5 +41,6 @@ export default {
     createUserData,
     getUserAuthData,
     getUserData,
+    getToken,
     cleanAuth,
 }

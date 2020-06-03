@@ -1,45 +1,12 @@
 import styled from 'styled-components/native';
-import { TextInputMask } from 'react-native-masked-text';
-
 import * as ScaleUtils from '../../utils/scale';
+
 import Svg from '../../assets/svg/profile.svg';
-import DefaultInput from '../../components/Input/Input';
 
-export const PageContainer = styled.ScrollView`
+export const ProfileContainerScrollView = styled.ScrollView`  
     flex: 1;
-    background-color: #FFFF;
-    padding: 3% 6%;
-`;
-
-export const PageTitleContainer = styled.View`
-    width: 100%;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 10%;
-`;
-
-export const PageTitleText = styled.Text`
-    font-size: ${`${ScaleUtils.ScreenWidth * 0.065}`};
-    font-family: Poppins-Bold;
-    width: 80%;
-`;
-
-export const InputContainer = styled.View`
-    margin-bottom: 5%;
-`;
-
-export const MaskedInput = styled(DefaultInput)`
-`;
-
-export const UnderlineButtonContainer = styled.View`
-    margin: 5% 0;
-`;
-
-export const CheckBoxContainerView = styled.View`
-    height: ${`${ScaleUtils.ScreenHeight * 0.22}`};
-    justify-content: space-between;
-    margin-top: 4%;
-    margin-bottom: 8%;
+    background-color: #FFF;
+    padding: 10% 8%;
 `;
 
 export const ProfilePicView = styled.View`
@@ -83,4 +50,19 @@ export const ProfilePicImage = styled.ImageBackground`
 export const ProfileSvg = styled(Svg)`
     height: ${`${ScaleUtils.getPixelRatio * 18.5}px`};
     width: ${`${ScaleUtils.getPixelRatio * 18.5}px`};
+`;
+
+export const ProfileImage = styled.ImageBackground`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+`;
+
+export const InputContainer = styled.View`
+    margin-bottom: 5%;
+`;
+
+export const ButtonsContainer = styled.View`
+    margin-top: 5%;
+    margin-bottom: 20%;
 `;
