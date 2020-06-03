@@ -173,3 +173,24 @@ export const validateRedefinePassword = (token, password, confirmPassword) => {
     errorMessage: '',
   };
 };
+
+export const validateUpdateUser = (name, phone) => {
+  if (!name || !phone) {
+    return {
+      error: true,
+      errorMessage: 'Por favor, preencha todos os campos!',
+    };
+  }
+
+  if(!validateName(name)) {
+    return {
+      error: true,
+      errorMessage: 'Nome invalido!',
+    }
+  }
+
+  return {
+    error: false,
+    errorMessage: '',
+  };
+};

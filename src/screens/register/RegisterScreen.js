@@ -56,7 +56,7 @@ const RegisterScreen = (props) => {
                     text: "Tirar Foto",
                     onPress: () => {
                         ImagePicker.launchCamera(pickerOptions, (response) => {
-                        handlePickerSelect(response);
+                            handlePickerSelect(response);
                         });
                     },
                 },
@@ -64,7 +64,7 @@ const RegisterScreen = (props) => {
                     text: "Selecionar da Galeria",
                     onPress: () => {
                         ImagePicker.launchImageLibrary(pickerOptions, (response) => {
-                        handlePickerSelect(response);
+                            handlePickerSelect(response);
                         });
                     },
                 },

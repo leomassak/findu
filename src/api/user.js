@@ -8,7 +8,12 @@ function getUser() {
     return RestService.getAuthenticated('users/me');
 }
 
+function updateUserData(registerData) {
+    return RestService.putAuthenticated('user', registerData);
+}
+
 export default {
     registerUser,
     getUser,
+    updateUserData,
 }

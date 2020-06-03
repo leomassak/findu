@@ -9,7 +9,6 @@ export const UserProfileView = styled.View`
 `;
 
 export const ProfileImageView = styled.View`
-    background-color: #CECECE;
     border-width: 1px;
     border-color: #000;
     height: ${ScaleUtils.ScreenHeight * 0.1}px;

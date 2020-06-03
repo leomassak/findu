@@ -68,9 +68,8 @@ async function putRest(
 async function putAuthenticated(
     url,
     data,
-    header, 
 ) {
-    const userHeader = await authenticatedHeader(header);
+    const userHeader = await authenticatedHeader({});
     return request('put', url, data, userHeader);
 };
 

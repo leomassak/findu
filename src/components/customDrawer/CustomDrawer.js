@@ -5,7 +5,7 @@ import {
 } from '@react-navigation/drawer';
 import { useSelector } from 'react-redux';
 
-import * as UserActions from '../../redux/reducers/user';
+import * as UserReducer from '../../redux/reducers/user';
 
 import * as AuthActions from '../../redux/actions/auth';
 import ProfileImage from '../../assets/images/profile-mock.png';
@@ -13,13 +13,18 @@ import ProfileImage from '../../assets/images/profile-mock.png';
 import * as S from './styles';
   
 function CustomDrawer(props) {
-    const userData = useSelector(state => UserActions.getUser(state));
+    const userData = useSelector(state => UserReducer.getUser(state));
     
     return (
         <DrawerContentScrollView {...props}>
             <S.UserProfileView>
                 <S.ProfileImageView>
-                    <S.ProfileImage source={ProfileImage} />
+                    {console.log(userData.profilePhoto)}
+                    {userData.profilePhoto && (
+                        <S.ProfileImage
+                            source={{ uri: userData.profilePhoto.url}}
+                        />
+                    )}
                 </S.ProfileImageView>
                 <S.UserInfoView>
                     <S.UserName>
