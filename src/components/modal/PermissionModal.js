@@ -3,10 +3,10 @@ import Modal from 'react-native-modal';
 
 import * as S from './styles';
 
-import DefaultButton from '../../components/button/DefaultButton';
+import DefaultButton from '../button/DefaultButton';
 
 import IconCloseModal from '../../assets/svg/ic-close.svg';
-import IconEmail from '../../assets/svg/ic_email.svg';
+import IconCheck from '../../assets/svg/Modal/ic_map-location.svg';
 
 export default function PswRecoverModal({
     onPress,
@@ -25,14 +25,14 @@ export default function PswRecoverModal({
                     <IconCloseModal />
                 </S.ModalCloseTouchableOpacity>
                 <S.ModalEmailIconView>
-                    <IconEmail />
+                    <IconCheck />
                 </S.ModalEmailIconView>
                 <S.ModalEmailTitle>
-                    Enviamos um E-mail para sua caixa de entrada
+                    Para continuar a utilizar o app, você deve permitir o uso da sua localização!
                 </S.ModalEmailTitle>
                 <S.ModalEmailButtonView>
                     <DefaultButton
-                        text="Continuar"
+                        text="Permitir"
                         onPressListener={onPress}
                         fontColor="#FFF"
                         background="#4F80E1"

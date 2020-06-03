@@ -58,7 +58,6 @@ export default function LoginFlowScreen(props) {
                     text="Cadastre-se" 
                     onPressListener={() => {}} 
                     background="#FFF" 
-                    border="#FFF" 
                     fontColor="#4F80E1" 
                     onPressListener={() => props.navigation.navigate('Register')}
                 />

@@ -101,7 +101,6 @@ const LoginScreen = (props) => {
                     onPressListener={onAuthLogin}
                     fontColor="#FFF"
                     background="#4F80E1"
-                    border="#4F80E1"
                 />
 
             </S.PageContainer>

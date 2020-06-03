@@ -37,7 +37,6 @@ export default function PswRecoverModal({
                         onPressListener={onPress}
                         fontColor="#FFF"
                         background="#4F80E1"
-                        border="#4F80E1"
                     />
                 </S.ModalEmailButtonView>
             </S.ModalContainer>

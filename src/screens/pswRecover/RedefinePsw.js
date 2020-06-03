@@ -104,7 +104,6 @@ const PswRecover = (props) => {
                         onPressListener={onRedefinePassword}
                         fontColor="#FFF"
                         background="#4F80E1"
-                        border="#4F80E1"
                     />
                 </S.PageButtonView>
                 

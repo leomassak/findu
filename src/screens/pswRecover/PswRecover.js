@@ -84,7 +84,6 @@ const PswRecover = (props) => {
                         onPressListener={onSendMail}
                         fontColor="#FFF"
                         background="#4F80E1"
-                        border="#4F80E1"
                     />
                 </S.PageButtonView>
                 

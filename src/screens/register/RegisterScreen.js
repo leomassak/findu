@@ -231,7 +231,6 @@ const RegisterScreen = (props) => {
                     onPressListener={() => onRegister()}
                     fontColor="#FFF"
                     background="#4F80E1"
-                    border="#4F80E1"
                 />
             </S.PageContainer>
         </>

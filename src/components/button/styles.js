@@ -8,7 +8,7 @@ export const DefaultButtonTouchableOpacity = styled.TouchableOpacity`
     justify-content: center;
     align-items: center;
     background-color: ${(props) => props.background || '#4F80E1'};
-    border-width: 3px;
+    border-width: ${(props) => props.border ? '3px' : '0px'};
     border-color: ${(props) => props.border || '#4F80E1'};
     border-radius: 10px;
 `;
