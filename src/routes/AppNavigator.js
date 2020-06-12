@@ -9,6 +9,7 @@ import PswRecoverScreen from '../screens/pswRecover/PswRecover';
 import RedefinePswScreen from '../screens/pswRecover/RedefinePsw';
 import ProfileScreen from '../screens/profile/ProfileScreen';
 import EditProfileScreen from '../screens/editProfile/EditProfileScreen';
+import ContactsScreen from '../screens/contacts/ContactsScreen';
 
 import HomeNavigator from './HomeNavigator';
 
@@ -77,6 +78,13 @@ function AppNavigator() {
             <AppStack.Screen
               name="EditProfile"
               component={EditProfileScreen}
+              options={{
+                ...TransitionPresets.SlideFromRightIOS,
+              }}
+            />
+             <AppStack.Screen
+              name="Contacts"
+              component={ContactsScreen}
               options={{
                 ...TransitionPresets.SlideFromRightIOS,
               }}

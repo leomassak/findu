@@ -15,8 +15,8 @@ export const ModalContainer = styled.View`
 
 export const ModalCloseTouchableOpacity = styled.TouchableOpacity`
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 5px;
+    right: 5px;
     padding: 5%;
     justify-content: center;
     align-items: center;
@@ -41,4 +41,26 @@ export const ModalEmailTitle = styled.Text`
 export const ModalEmailButtonView = styled.View`
     margin-top: 5%;
     width: 100%;
+`;
+
+export const AddInputContainer = styled.View`
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: ${ScaleUtils.ScreenWidth * 0.15}px;
+    margin-bottom: 15px;
+`;
+
+export const AddContactInput = styled.TextInput`
+    height: ${ScaleUtils.ScreenWidth * 0.14}px;
+    width: 20%;
+    background-color: #FFF;
+    border-bottom-width: 2px;
+    font-size: 25px;
+    padding-bottom:0;
+    text-align: center;
+    font-family: Poppins-Bold;
+    align-items: center;
+    text-decoration: none;
 `;
