@@ -61,48 +61,46 @@ const LoginScreen = (props) => {
                         Faça seu login
                     </S.PageTitleText>
                 </S.PageTitleContainer>
+                    <S.InputContainer>
+                        <Input
+                            title="E-mail"
+                            value={emailInput}
+                            onChangeValue={(text) => setEmailInput(text)}
+                            keyboardType="email-address"
+                            secureTextEntry={false}
+                        />
+                    </S.InputContainer>
+                    
+                    <S.InputContainer>
+                        <Input
+                            title="Senha"
+                            value={passwordInput}
+                            onChangeValue={(text) => setPasswordInput(text)}
+                            secureTextEntry={passwordEyeStatus}
+                            onEyePress={() => setPasswordEyeStatus(!passwordEyeStatus)}
+                            eyeOpen={passwordEyeStatus}
+                        />
+                    </S.InputContainer>
 
-                <S.InputContainer>
-                    <Input
-                        title="E-mail"
-                        value={emailInput}
-                        onChangeValue={(text) => setEmailInput(text)}
-                        keyboardType="email-address"
-                        secureTextEntry={false}
+                    <CheckBox
+                        title="Lembrar de mim"
+                        onChangeValue={() => setCheckBoxStatus(!checkBoxStatus)}
+                        value={checkBoxStatus}
                     />
-                </S.InputContainer>
-                
-                <S.InputContainer>
-                    <Input
-                        title="Senha"
-                        value={passwordInput}
-                        onChangeValue={(text) => setPasswordInput(text)}
-                        secureTextEntry={passwordEyeStatus}
-                        onEyePress={() => setPasswordEyeStatus(!passwordEyeStatus)}
-                        eyeOpen={passwordEyeStatus}
+                    
+                    <S.UnderlineButtonContainer>
+                        <UnderlineButton
+                            text="Esqueceu sua senha?"
+                            onPressListener={() => props.navigation.navigate('PswRecover')}
+                        />
+                    </S.UnderlineButtonContainer>
+
+                    <DefaultButton
+                        text="Entrar"
+                        onPressListener={onAuthLogin}
+                        fontColor="#FFF"
+                        background="#4F80E1"
                     />
-                </S.InputContainer>
-
-                <CheckBox
-                    title="Lembrar de mim"
-                    onChangeValue={() => setCheckBoxStatus(!checkBoxStatus)}
-                    value={checkBoxStatus}
-                />
-                
-                <S.UnderlineButtonContainer>
-                    <UnderlineButton
-                        text="Esqueceu sua senha?"
-                        onPressListener={() => props.navigation.navigate('PswRecover')}
-                    />
-                </S.UnderlineButtonContainer>
-
-                <DefaultButton
-                    text="Entrar"
-                    onPressListener={onAuthLogin}
-                    fontColor="#FFF"
-                    background="#4F80E1"
-                />
-
             </S.PageContainer>
         </>
     )

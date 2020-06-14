@@ -9,6 +9,7 @@ import Header from '../../components/Header/Header';
 import DefaultButton from '../../components/button/DefaultButton';
 import ProfileImage from '../../assets/images/profile-mock.png';
 import Loading from '../../components/Loading/Loading';
+import { FriendsActions } from '../../redux/actions';
 
 export default function ProfileScreen({navigation, route}) {
     const dispatch = useDispatch();
@@ -29,11 +30,26 @@ export default function ProfileScreen({navigation, route}) {
         }
     }
 
+    const handleRemoveFriend = async () => {
+        try {
+            await dispatch(FriendsActions.removeFriend(friend._id));
+            Alert.alert('', 'Amigo removido com sucesso!', [
+                {
+                    text: 'OK',
+                    onPress: () => navigation.goBack(),
+                }
+            ])
+        } catch(err) {
+            Alert.alert('Erro', err.message);
+        }
+    }
+
     return (
         <>
         {isLoading && <Loading />}
         <S.ProfileContainerScrollView>
             <Header
+                noStatusBar
                 color
                 onPressListener={() => navigation.goBack()}
             />
@@ -59,7 +75,7 @@ export default function ProfileScreen({navigation, route}) {
                 />
                 <DefaultButton 
                 text="Remover contato" 
-                onPressListener={() => {}}
+                onPressListener={handleRemoveFriend}
                 border="#FFF"
                 fontColor="#FFF"
                 background="transparent"

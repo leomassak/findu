@@ -11,14 +11,17 @@ export default function Header({
     addButton,
     onPressAddButton,
     color,
+    noStatusBar,
 })
     {
     return (
         <>
-            <StatusBar
-                barStyle="dark-content"
-                backgroundColor={`${backgroundColor ? backgroundColor : '#FFF'}`}
-            />
+            {!noStatusBar && 
+                <StatusBar
+                    barStyle="dark-content"
+                    backgroundColor={`${backgroundColor ? backgroundColor : '#FFF'}`}
+                />
+            }
             <S.HeaderView>  
                 <S.HeaderBackButtonContainer
                     onPress={onPressListener}

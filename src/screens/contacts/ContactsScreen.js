@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, StatusBar } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as S from './styles';
 import * as LoadingSelector from '../../redux/reducers/loading';
-import * as FriendsSelector from '../../redux/reducers/friends';
 import * as FriendsActions from '../../redux/actions/friends';
 
 import Header from '../../components/Header/Header';
@@ -33,8 +32,9 @@ function ContactsScreen (props) {
     });
 
     useEffect(() => {
-        getAllFriends();
-    }, []);
+        const unsubscribe = props.navigation.addListener('focus', () => getAllFriends());
+        return unsubscribe;
+    }, [props.navigation]);
 
     const getAllFriends = async (addLoading = true) => {
         setIsloading(true);
@@ -85,6 +85,10 @@ function ContactsScreen (props) {
     return (
         <>
         {getAllFriendsOnRequest && <Loading />}
+        <StatusBar 
+               barStyle="light-content"
+               backgroundColor="#4F80E1" 
+            />
         { console.log('code', friendCode) }
         <S.ContactsScreenContainer contentContainerStyle={{ paddingBottom: 15 }}>
             <AddContactModal 
@@ -94,6 +98,7 @@ function ContactsScreen (props) {
                 setContactCode={setFriendCode}
             />
             <Header 
+                noStatusBar
                 addButton
                 onPressListener={() => props.navigation.goBack()}
                 onPressAddButton={() => toggleModal()}
@@ -112,18 +117,21 @@ function ContactsScreen (props) {
                     <Icon name="search" size={25} color="#8F8E8E" />
                 </S.SearchIconButton>
             </S.InputView> 
-            <S.ContactsFlatList 
-                data={friends}
-                ListFooterComponent={renderFooter}
-                onEndReachedThreshold={0.25}
-                onEndReached={handleFlatListEnd}
-                showsVerticalScrollIndicator={false}
-                keyExtractor={item => item.id}
-                renderItem={({item, index}) => (
-                    <ContactCard contact={item} index={index} onPress={() => props.navigation.navigate('Profile', { friendId: item._id })} />
-                )
-                }
-            />
+            {friends.length > 0 
+                ? <S.ContactsFlatList 
+                    data={friends}
+                    ListFooterComponent={renderFooter}
+                    onEndReachedThreshold={0.25}
+                    onEndReached={handleFlatListEnd}
+                    showsVerticalScrollIndicator={false}
+                    keyExtractor={item => item.id}
+                    renderItem={({item, index}) => (
+                        <ContactCard contact={item} index={index} onPress={() => props.navigation.navigate('Profile', { friendId: item._id })} />
+                    )
+                    }
+                />
+                : <S.EmptyFriendsText>Nenhum amigo na lista</S.EmptyFriendsText>
+            }
         </S.ContactsScreenContainer>
         </>
     );

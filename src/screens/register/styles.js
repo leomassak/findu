@@ -15,7 +15,8 @@ export const PageTitleContainer = styled.View`
     width: 100%;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 10%;
+    margin-bottom: ${ScaleUtils.ScreenHeight * 0.04}px;
+    margin-top: ${ScaleUtils.ScreenHeight * 0.03}px;
 `;
 
 export const PageTitleText = styled.Text`
@@ -36,10 +37,10 @@ export const UnderlineButtonContainer = styled.View`
 `;
 
 export const CheckBoxContainerView = styled.View`
-    height: ${`${ScaleUtils.ScreenHeight * 0.22}`};
+    height: ${`${ScaleUtils.ScreenHeight * 0.28}`};
     justify-content: space-between;
-    margin-top: 4%;
-    margin-bottom: 8%;
+    margin-bottom: ${ScaleUtils.ScreenHeight * 0.04}px;
+    margin-top: ${ScaleUtils.ScreenHeight * 0.03}px;
 `;
 
 export const ProfilePicView = styled.View`

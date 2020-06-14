@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { baseUrl } from '../configs/app-config';
 import AppStorage from './storage';
+import user from '../api/user';
 
 async function request(method, url, data = {}, header = {}, params = {}) {
     if(!header['Content-Type']) header['Content-Type'] = 'application/json';
-    console.log('data', data);
     try {
         const response = await axios({
             method,
@@ -13,10 +13,10 @@ async function request(method, url, data = {}, header = {}, params = {}) {
             headers: header,
             params,
         });
-        if(response && response.data) {
+        if (response && response.data) {
             return response.data;
         }
-    } catch(err) {
+    } catch (err) {
         return Promise.reject(new Error(err.response.data.code))
     }
 }
@@ -57,14 +57,14 @@ async function postAuthenticated(
     data,
     header = {},
 ) {
-    const userHeader = await authenticatedHeader(header);
+    const userHeader = await authenticatedHeader({});
     return request('post', url, data, userHeader);
 };
 
 async function putRest(
     url,
     data,
-    header, 
+    header,
 ) {
     return request('put', url, data, header);
 };
@@ -77,6 +77,14 @@ async function putAuthenticated(
     return request('put', url, data, userHeader);
 };
 
+async function deleteAuthenticated(
+    url,
+    data,
+) {
+    const userHeader = await authenticatedHeader({});
+    return request('delete', url, data, userHeader);
+}
+
 export default {
     request,
     getRest,
@@ -85,4 +93,5 @@ export default {
     postAuthenticated,
     putRest,
     putAuthenticated,
+    deleteAuthenticated,
 }

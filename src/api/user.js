@@ -16,9 +16,14 @@ function getById(userId) {
     return RestService.getAuthenticated(`users/${userId}`);
 }
 
+function updateUserLocation(locationData) {
+    return RestService.postAuthenticated('locations', locationData);
+}
+
 export default {
     registerUser,
     getUser,
     updateUserData,
     getById,
+    updateUserLocation,
 }

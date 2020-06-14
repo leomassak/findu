@@ -8,8 +8,8 @@ export const CheckBoxContainer = styled.View`
 `;
 
 export const CheckBoxTouchableOpacity = styled.TouchableOpacity`
-    height: ${`${ScaleUtils.ScreenWidth * 0.05}px`};
-    width: ${`${ScaleUtils.ScreenWidth * 0.05}px`};
+    height: ${`${ScaleUtils.ScreenWidth * 0.06}px`};
+    width: ${`${ScaleUtils.ScreenWidth * 0.06}px`};
     justify-content: center;
     align-items: center;
     padding: 4% 5%;
@@ -17,14 +17,14 @@ export const CheckBoxTouchableOpacity = styled.TouchableOpacity`
 `;
 
 export const SquareEmptyCheckBox = styled.View`
-    height: ${`${ScaleUtils.ScreenWidth * 0.05}px`};
-    width: ${`${ScaleUtils.ScreenWidth * 0.05}px`};
+    height: ${`${ScaleUtils.ScreenWidth * 0.06}px`};
+    width: ${`${ScaleUtils.ScreenWidth * 0.06}px`};
     border: solid #4442C0 2px;
 `;
 
 export const SquareFullCheckBox = styled.View`
-    height: ${`${ScaleUtils.ScreenWidth * 0.05}px`};
-    width: ${`${ScaleUtils.ScreenWidth * 0.05}px`};
+    height: ${`${ScaleUtils.ScreenWidth * 0.06}px`};
+    width: ${`${ScaleUtils.ScreenWidth * 0.06}px`};
     border: solid #4442C0 2px;
     background-color: #4442C0;
     align-items: center;
@@ -51,7 +51,7 @@ export const CircleFullCheckBox = styled.View`
 export const CheckBoxText = styled.Text`
     flex: 1;
     color: ${ (props) => props.fontColor || '#000' };
-    font-size: ${`${ScaleUtils.ScreenWidth * 0.042}px`};
+    font-size: ${`${ScaleUtils.ScreenWidth * 0.048}px`};
     font-family: Poppins-Bold;
     font-style: normal;
 `;

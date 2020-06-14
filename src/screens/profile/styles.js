@@ -53,7 +53,7 @@ export const ProfileInfoText = styled.Text`
 `;
 
 export const ButtonsContainer = styled.View`
-    height: ${`${ScaleUtils.ScreenHeight * 0.18}px`};
+    height: ${`${ScaleUtils.ScreenHeight * 0.185}px`};
     justify-content: space-between;
     width: 100%;
     margin-bottom: 20%;

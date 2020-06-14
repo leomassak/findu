@@ -46,3 +46,10 @@ export const PaginationLoadingView = styled.View`
     align-items: center;
     justify-content: center;
 `;
+
+export const EmptyFriendsText = styled.Text`
+    font-size: 18px;
+    font-family: Poppins-Bold;
+    margin-top: 20px;
+    text-align:center;
+`;

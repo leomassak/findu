@@ -127,7 +127,7 @@ const RegisterScreen = (props) => {
                 text="Cadastro realizado com sucesso!"
             />
             <S.PageContainer
-                contentContainerStyle={{ paddingBottom: 35 }}
+                contentContainerStyle={{ paddingBottom: 40 }}
             >
                 <Header
                     onPressListener={() => props.navigation.goBack()}
