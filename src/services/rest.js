@@ -2,14 +2,16 @@ import axios from 'axios';
 import { baseUrl } from '../configs/app-config';
 import AppStorage from './storage';
 
-async function request(method, url, data = {}, header = {}) {
+async function request(method, url, data = {}, header = {}, params = {}) {
     if(!header['Content-Type']) header['Content-Type'] = 'application/json';
+    console.log('data', data);
     try {
         const response = await axios({
             method,
             url: `${baseUrl}${url}`,
             data,
             headers: header,
+            params,
         });
         if(response && response.data) {
             return response.data;
@@ -21,7 +23,7 @@ async function request(method, url, data = {}, header = {}) {
 
 async function authenticatedHeader(header) {
     const userToken = await AppStorage.getToken();
-    header['authorization'] = `Bearer ${userToken}`;
+    header.Authorization = `Bearer ${userToken}`;
     return header;
 }
 
@@ -34,10 +36,12 @@ async function getRest(
 
 async function getAuthenticated(
     url,
+    params,
     data,
+    header = {}
 ) {
-    const userHeader = await authenticatedHeader({});
-    return request('get', url, data, userHeader);
+    const userHeader = await authenticatedHeader(header);
+    return request('get', url, data, userHeader, params);
 };
 
 async function postRest(
@@ -51,7 +55,7 @@ async function postRest(
 async function postAuthenticated(
     url,
     data,
-    header,
+    header = {},
 ) {
     const userHeader = await authenticatedHeader(header);
     return request('post', url, data, userHeader);

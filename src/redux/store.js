@@ -8,6 +8,7 @@ import {
   
   import loadingReducer from './reducers/loading';
   import UserReducer from './reducers/user';
+  import FriendsReducer from './reducers/friends';
   
   export default () => {
     const store = createStore(
@@ -15,6 +16,7 @@ import {
         {
           loading: loadingReducer,
           user: UserReducer,
+          friends: FriendsReducer,
         },
       ),
       compose(applyMiddleware(thunk)),

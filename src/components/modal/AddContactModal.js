@@ -11,6 +11,7 @@ export default function AddContactModal({
     onPress,
     isVisible,
     onDismiss,
+    setContactCode,
 }) {
     return (
         <Modal
@@ -26,31 +27,26 @@ export default function AddContactModal({
                          width={ScaleUtils.ScreenWidth * 0.05}
                     />
                 </S.ModalCloseTouchableOpacity>
-                <S.ModalEmailIconView>
-                    <Icon name="md-person-add" size={100} color="#000"/>
-                </S.ModalEmailIconView>
-                <S.AddInputContainer>
-                    <S.AddContactInput 
-                        maxLength={1}
-                        autoCapitalize="characters"
-                        caretHidden={true}
-                    />
-                    <S.AddContactInput 
-                        maxLength={1}
-                        autoCapitalize="characters"
-                        caretHidden={true}
-                    />
-                    <S.AddContactInput 
-                         maxLength={1}
-                         autoCapitalize="characters"
-                         caretHidden={true}
-                    />
-                    <S.AddContactInput 
-                         maxLength={1}
-                         autoCapitalize="characters"
-                         caretHidden={true}
-                    />
-                </S.AddInputContainer>
+                    <Icon name="md-person-add" size={140} color="#000"/>
+                    <S.AddContactOptInput 
+                        pinCount={6}
+                        keyboardType="default"
+                        autoFocusOnLoad={false}
+                        codeInputFieldStyle={{ 
+                            color: '#000',
+                            borderWidth: 0,
+                            borderBottomWidth: 2,
+                            borderColor: '#000',
+                            fontSize: 25,
+                            width: 35, 
+                            height: 55,
+                            marginRight: 5,
+                            paddingBottom: 5,
+                        }}
+                        onCodeFilled ={(code => {
+                            setContactCode(code);
+                        })}
+                    />                    
                 <S.ModalEmailButtonView>
                     <DefaultButton
                         text="Adicionar"

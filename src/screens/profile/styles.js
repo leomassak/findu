@@ -4,8 +4,6 @@ import * as ScaleUtils from '../../utils/scale';
 export const ProfileContainerScrollView = styled.ScrollView`  
     flex: 1;
     background-color: #4F80E1;
-    /* justify-content: space-around; */
-    /* align-items: center; */
     padding: 10% 8%;
 `;
 
@@ -65,4 +63,5 @@ export const UserName = styled.Text`
     color: #FFF;
     font-size: 24px;
     font-family: Poppins-Bold;
+    margin-bottom: 15px;
 `;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { TransitionPresets, createStackNavigator } from '@react-navigation/stack';
 
-
+import SplashScreen from '../screens/Splash/SplashScreen';
 import LoginFlowScreen from '../screens/login/loginFlow/LoginFlowScreen';
 import LoginScreen from '../screens/login/LoginScreen';
 import RegisterScreen from '../screens/register/RegisterScreen';
@@ -18,6 +18,13 @@ const AppStack = createStackNavigator();
 function AppNavigator() {
     return (
         <AppStack.Navigator headerMode="none">
+           <AppStack.Screen
+              name="Splash"
+              component={SplashScreen}
+              options={{
+                ...TransitionPresets.SlideFromRightIOS,
+              }}
+            />
             
             <AppStack.Screen
               name="Flow"

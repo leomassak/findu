@@ -27,8 +27,9 @@ export const ProfileImage = styled.ImageBackground`
 export const ContactName = styled.Text`
     font-size: 18px;
     font-family: Poppins-Regular;
-    width: 50%;
+    width: 60%;
     color: #000;
+    text-align: center;
 `;
 
 export const ContactGroupOrb = styled.View`

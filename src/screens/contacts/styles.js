@@ -24,7 +24,7 @@ export const ContactSearchInput = styled.TextInput`
     width: 100%;
     border-radius: 10px;
     background-color: #F2F2F2;
-    padding-left: 65px;
+    padding-left: 25px;
     font-size: 18px;
     font-family: Poppins-Regular;
     margin-bottom: 5px;
@@ -35,8 +35,14 @@ export const SearchIconButton = styled.TouchableOpacity`
     width: 30px;
     height: 100%;
     align-items: center;
-    left: 12px;
+    right: 12px;
     padding-top: 40%;
 `;
 
 export const ContactsFlatList = styled.FlatList``;
+
+export const PaginationLoadingView = styled.View`
+    height: ${ScaleUtils.ScreenWidth * 0.1}px;
+    align-items: center;
+    justify-content: center;
+`;

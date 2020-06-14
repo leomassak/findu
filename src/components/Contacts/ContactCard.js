@@ -3,13 +3,14 @@ import React from 'react';
 import * as S from './styles';
 import ProfileImage from '../../assets/images/profile-mock.png';
 
-function ContactCard(props) {
+function ContactCard({onPress, contact, index}) {
   return (
-      <S.ContactCardContainer onPress={props.onPress}>
+      <S.ContactCardContainer onPress={onPress}>
+          {console.log('contact', contact)}
           <S.ProfileImageContainer>
-              <S.ProfileImage source={ProfileImage} />
+              <S.ProfileImage source={contact.profilePhoto ? {uri:contact.profileImage.url } : ProfileImage} />
           </S.ProfileImageContainer>
-          <S.ContactName>Leonardo Massak</S.ContactName>
+          <S.ContactName>{contact.name}</S.ContactName>
           <S.ContactGroupOrb />
       </S.ContactCardContainer>
   );

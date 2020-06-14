@@ -12,8 +12,13 @@ function updateUserData(registerData) {
     return RestService.putAuthenticated('user', registerData);
 }
 
+function getById(userId) {
+    return RestService.getAuthenticated(`users/${userId}`);
+}
+
 export default {
     registerUser,
     getUser,
     updateUserData,
+    getById,
 }
