@@ -20,10 +20,15 @@ function updateUserLocation(locationData) {
     return RestService.postAuthenticated('locations', locationData);
 }
 
+function getShareCode() {
+    return RestService.getAuthenticated('friends/share');
+}
+
 export default {
     registerUser,
     getUser,
     updateUserData,
     getById,
     updateUserLocation,
+    getShareCode,
 }

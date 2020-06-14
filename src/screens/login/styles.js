@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 import * as ScaleUtils from '../../utils/scale';
 
-export const PageContainer = styled.View`
+export const PageContainer = styled.ScrollView`
     flex: 1;
     background-color: #FFFF;
     padding: 3% 6%;

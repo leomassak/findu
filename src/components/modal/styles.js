@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import OTPInputView from '@twotalltotems/react-native-otp-input'; 
+import OTPInputView from '@twotalltotems/react-native-otp-input';
 
 import * as ScaleUtils from '../../utils/scale';
 
@@ -7,7 +7,7 @@ export const ModalContainer = styled.View`
     background-color:#fff;
     align-self:center;
     width: ${`${ScaleUtils.ScreenWidth * 0.8}px`};
-    height: ${`${ScaleUtils.ScreenHeight * 0.45}px`};
+    height: ${(props) => (props.biggerModal ? `${ScaleUtils.ScreenHeight * 0.55}px` : `${ScaleUtils.ScreenHeight * 0.45}px`)};
     border-radius: 20px;
     justify-content: center;
     align-items: center;
@@ -39,6 +39,12 @@ export const ModalEmailTitle = styled.Text`
     text-align: center;
 `;
 
+export const ModalCodeText = styled.Text`
+    font-size: ${`${ScaleUtils.ScreenHeight * 0.070}px`};
+    font-family: Poppins-Regular;
+    text-align: center;
+`;
+
 export const ModalEmailButtonView = styled.View`
     margin-top: 5%;
     width: 100%;
@@ -58,4 +64,10 @@ export const AddContactOptInput = styled(OTPInputView)`
     font-family: Poppins-Bold;
     color: #000;
     margin-bottom: 15px;
+`;
+
+export const ModalLoading = styled.ActivityIndicator.attrs({
+    size: "large",
+    color: "#4442C0"
+})`
 `;

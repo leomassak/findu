@@ -52,7 +52,7 @@ export const getUserById = (userId) => async (dispatch) => {
     dispatch(addLoading());
     try {
         const user = await UserApi.getById(userId);
-        dispatch({ 
+        dispatch({
             type: ACTION_SAVE_FRIEND,
             payload: user,
         });
@@ -71,6 +71,17 @@ export const updateUserLocation = (postionData) => async (dispatch) => {
     dispatch(addLoading());
     try {
         await UserApi.updateUserLocation(postionData);
+    } catch (err) {
+        throw new Error(Errors.undefined);
+    } finally {
+        dispatch(removeLoading());
+    }
+};
+
+export const getShareCode = () => async (dispatch) => {
+    dispatch(addLoading());
+    try {
+        return await UserApi.getShareCode();
     } catch (err) {
         throw new Error(Errors.undefined);
     } finally {

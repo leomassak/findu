@@ -1,6 +1,8 @@
 import styled from 'styled-components/native';
 import * as ScaleUtils from '../../utils/scale';
 
+import Svg from '../../assets/svg/profile.svg';
+
 export const UserProfileView = styled.View`
     flex-direction: row;
     border-bottom-width: 1px;
@@ -58,4 +60,9 @@ export const LogoutText = styled.Text`
     font-size: 21px;
     color: #000;
     font-weight: bold;
+`;
+
+export const ProfileSvg = styled(Svg)`
+    height: ${`${ScaleUtils.getPixelRatio * 18.5}px`};
+    width: ${`${ScaleUtils.getPixelRatio * 18.5}px`};
 `;
