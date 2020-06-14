@@ -13,7 +13,7 @@ import AddContactModal from '../../components/modal/AddContactModal';
 import Loading from '../../components/Loading/Loading';
 
 
-function ContactsScreen (props) {
+function ContactsScreen(props) {
     const dispatch = useDispatch();
 
     const getAllFriendsOnRequest = useSelector(state => LoadingSelector.getLoading(state));
@@ -42,7 +42,7 @@ function ContactsScreen (props) {
             const friendsInfo = await dispatch(FriendsActions.getAllFriends(paginationParams, addLoading));
             setFriends(prevFriends => paginationParams.page === 1 ? friendsInfo.friends : [...prevFriends, ...friendsInfo.friends]);
             setPaginationEnd(!friendsInfo.hasNextPage);
-        } catch(err) {
+        } catch (err) {
             Alert.alert('Erro', err.message);
         } finally {
             setIsloading(false);
@@ -68,7 +68,7 @@ function ContactsScreen (props) {
 
     const handleFlatListEnd = async () => {
         if (!paginationEnd && !isLoading) {
-            setPaginationParams(prevParams => ({...prevParams, page: prevParams.page + 1}));
+            setPaginationParams(prevParams => ({ ...prevParams, page: prevParams.page + 1 }));
             await getAllFriends(false);
         }
     }
@@ -84,55 +84,54 @@ function ContactsScreen (props) {
 
     return (
         <>
-        {getAllFriendsOnRequest && <Loading />}
-        <StatusBar 
-               barStyle="light-content"
-               backgroundColor="#4F80E1" 
+            {getAllFriendsOnRequest && <Loading />}
+            <StatusBar
+                barStyle="light-content"
+                backgroundColor="#4F80E1"
             />
-        { console.log('code', friendCode) }
-        <S.ContactsScreenContainer contentContainerStyle={{ paddingBottom: 15 }}>
-            <AddContactModal 
-                isVisible={showAddModal}
-                onDismiss={toggleModal}
-                onPress={addContact}
-                setContactCode={setFriendCode}
-            />
-            <Header 
-                noStatusBar
-                addButton
-                onPressListener={() => props.navigation.goBack()}
-                onPressAddButton={() => toggleModal()}
-            />
-            <S.HeaderName>Meus Contatos</S.HeaderName>
-            <S.InputView>
-                <S.ContactSearchInput
-                    placeholder="Pesquisar"
-                    value={search}
-                    placeholderTextColor="#8F8E8E"
-                    onChangeText={(text) => setSearch(text)}
-                    onSubmitEditing={searchContact}
-                    returnKeyType="search"
+            <S.ContactsScreenContainer contentContainerStyle={{ paddingBottom: 15 }}>
+                <AddContactModal
+                    isVisible={showAddModal}
+                    onDismiss={toggleModal}
+                    onPress={addContact}
+                    setContactCode={setFriendCode}
                 />
-                <S.SearchIconButton onPress={searchContact}>
-                    <Icon name="search" size={25} color="#8F8E8E" />
-                </S.SearchIconButton>
-            </S.InputView> 
-            {friends.length > 0 
-                ? <S.ContactsFlatList 
-                    data={friends}
-                    ListFooterComponent={renderFooter}
-                    onEndReachedThreshold={0.25}
-                    onEndReached={handleFlatListEnd}
-                    showsVerticalScrollIndicator={false}
-                    keyExtractor={item => item.id}
-                    renderItem={({item, index}) => (
-                        <ContactCard contact={item} index={index} onPress={() => props.navigation.navigate('Profile', { friendId: item._id })} />
-                    )
-                    }
+                <Header
+                    noStatusBar
+                    addButton
+                    onPressListener={() => props.navigation.goBack()}
+                    onPressAddButton={() => toggleModal()}
                 />
-                : <S.EmptyFriendsText>Nenhum amigo na lista</S.EmptyFriendsText>
-            }
-        </S.ContactsScreenContainer>
+                <S.HeaderName>Meus Contatos</S.HeaderName>
+                <S.InputView>
+                    <S.ContactSearchInput
+                        placeholder="Pesquisar"
+                        value={search}
+                        placeholderTextColor="#8F8E8E"
+                        onChangeText={(text) => setSearch(text)}
+                        onSubmitEditing={searchContact}
+                        returnKeyType="search"
+                    />
+                    <S.SearchIconButton onPress={searchContact}>
+                        <Icon name="search" size={25} color="#8F8E8E" />
+                    </S.SearchIconButton>
+                </S.InputView>
+                {friends.length > 0
+                    ? <S.ContactsFlatList
+                        data={friends}
+                        ListFooterComponent={renderFooter}
+                        onEndReachedThreshold={0.25}
+                        onEndReached={handleFlatListEnd}
+                        showsVerticalScrollIndicator={false}
+                        keyExtractor={item => item.id}
+                        renderItem={({ item, index }) => (
+                            <ContactCard contact={item} index={index} onPress={() => props.navigation.navigate('Profile', { friendId: item._id })} />
+                        )
+                        }
+                    />
+                    : <S.EmptyFriendsText>Nenhum amigo na lista</S.EmptyFriendsText>
+                }
+            </S.ContactsScreenContainer>
         </>
     );
 }
