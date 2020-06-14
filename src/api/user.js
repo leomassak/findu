@@ -12,8 +12,13 @@ function updateUserData(registerData) {
     return RestService.putAuthenticated('user', registerData);
 }
 
+function updateUserLocation(locationData) {
+    return RestService.postAuthenticated('locations', locationData);
+}
+
 export default {
     registerUser,
     getUser,
     updateUserData,
+    updateUserLocation,
 }

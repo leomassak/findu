@@ -135,6 +135,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     splits {
         abi {
@@ -216,6 +217,11 @@ dependencies {
     debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.flipper'
     }
+
+    implementation 'com.android.support:multidex:1.0.3'
+    compile project(':@mauron85_react-native-background-geolocation')
+    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
+    implementation 'com.android.support:localbroadcastmanager:28.0.0'
 
     // implementation(project(':react-native-maps')){
     //     exclude group: 'com.google.android.gms', module: 'play-services-base'

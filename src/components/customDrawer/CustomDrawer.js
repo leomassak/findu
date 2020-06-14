@@ -3,6 +3,7 @@ import {
     DrawerContentScrollView,
     DrawerItem,
 } from '@react-navigation/drawer';
+import BackgroundGeolocation from '@mauron85/react-native-background-geolocation';
 import { useSelector } from 'react-redux';
 
 import * as UserReducer from '../../redux/reducers/user';
@@ -11,18 +12,17 @@ import * as AuthActions from '../../redux/actions/auth';
 import ProfileImage from '../../assets/images/profile-mock.png';
 
 import * as S from './styles';
-  
+
 function CustomDrawer(props) {
     const userData = useSelector(state => UserReducer.getUser(state));
-    
+
     return (
         <DrawerContentScrollView {...props}>
             <S.UserProfileView>
                 <S.ProfileImageView>
-                    {console.log(userData.profilePhoto)}
                     {userData.profilePhoto && (
                         <S.ProfileImage
-                            source={{ uri: userData.profilePhoto.url}}
+                            source={{ uri: userData.profilePhoto.url }}
                         />
                     )}
                 </S.ProfileImageView>
@@ -33,31 +33,32 @@ function CustomDrawer(props) {
                     <S.UserAge>21 Anos</S.UserAge>
                 </S.UserInfoView>
             </S.UserProfileView>
-            <DrawerItem 
+            <DrawerItem
                 label="Editar Perfil"
                 labelStyle={{ fontFamily: 'Poppins-Regular', fontSize: 18, color: '#000' }}
                 onPress={() => props.navigation.navigate('EditProfile')}
             />
-            <DrawerItem 
+            <DrawerItem
                 label="Meus Contatos"
                 labelStyle={{ fontFamily: 'Poppins-Regular', fontSize: 18, color: '#000' }}
-                onPress={() => props.navigation.navigate('Profile')}
+                onPress={() => props.navigation.navigate('Contacts')}
             />
-            <DrawerItem 
+            <DrawerItem
                 label="Compartilhar conta"
                 labelStyle={{ fontFamily: 'Poppins-Regular', fontSize: 18, color: '#000' }}
-                onPress={() => {}}
+                onPress={() => { }}
             />
-            <DrawerItem 
+            <DrawerItem
                 label="Configurações"
                 labelStyle={{ fontFamily: 'Poppins-Regular', fontSize: 18, color: '#000' }}
                 onPress={() => props.navigation.navigate('Profile')}
             />
-            <DrawerItem 
+            <DrawerItem
                 label="Logout"
                 labelStyle={{ fontFamily: 'Poppins-Regular', fontSize: 18, color: '#000' }}
-                onPress={async() => {
+                onPress={async () => {
                     await AuthActions.logout();
+                    BackgroundGeolocation.stop();
                     props.navigation.reset({
                         index: 0,
                         routes: [{ name: 'Flow' }]

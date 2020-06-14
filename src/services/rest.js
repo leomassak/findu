@@ -3,7 +3,7 @@ import { baseUrl } from '../configs/app-config';
 import AppStorage from './storage';
 
 async function request(method, url, data = {}, header = {}) {
-    if(!header['Content-Type']) header['Content-Type'] = 'application/json';
+    if (!header['Content-Type']) header['Content-Type'] = 'application/json';
     try {
         const response = await axios({
             method,
@@ -11,10 +11,10 @@ async function request(method, url, data = {}, header = {}) {
             data,
             headers: header,
         });
-        if(response && response.data) {
+        if (response && response.data) {
             return response.data;
         }
-    } catch(err) {
+    } catch (err) {
         return Promise.reject(new Error(err.response.data.code))
     }
 }
@@ -51,16 +51,15 @@ async function postRest(
 async function postAuthenticated(
     url,
     data,
-    header,
 ) {
-    const userHeader = await authenticatedHeader(header);
+    const userHeader = await authenticatedHeader({});
     return request('post', url, data, userHeader);
 };
 
 async function putRest(
     url,
     data,
-    header, 
+    header,
 ) {
     return request('put', url, data, header);
 };
