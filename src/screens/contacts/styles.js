@@ -53,3 +53,10 @@ export const EmptyFriendsText = styled.Text`
     margin-top: 20px;
     text-align:center;
 `;
+
+export const FilterButtonsView = styled.View`
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 20px;
+`;

@@ -11,14 +11,18 @@ import Header from '../../components/Header/Header';
 import ContactCard from '../../components/Contacts/ContactCard';
 import AddContactModal from '../../components/modal/AddContactModal';
 import Loading from '../../components/Loading/Loading';
+import FilterButton from '../../components/button/filterButton/FilterButton';
 
 
 function ContactsScreen(props) {
+    const filterButtonNames = ['Amigos', 'Não Aprovados', 'Solicitações'];
+
     const dispatch = useDispatch();
 
     const getAllFriendsOnRequest = useSelector(state => LoadingSelector.getLoading(state));
 
     const [search, setSearch] = useState('');
+    const [currentFilter, setCurrentFilter] = useState(0);
     const [showAddModal, setShowAddModal] = useState(false);
     const [paginationEnd, setPaginationEnd] = useState(false);
     const [isLoading, setIsloading] = useState(false);
@@ -27,7 +31,7 @@ function ContactsScreen(props) {
     const [paginationParams, setPaginationParams] = useState({
         page: 1,
         limit: 10,
-        approved: false,
+        approved: true,
         search: '',
     });
 
@@ -36,9 +40,14 @@ function ContactsScreen(props) {
         return unsubscribe;
     }, [props.navigation]);
 
+    useEffect(() => {
+        getAllFriends();
+    }, [paginationParams])
+
     const getAllFriends = async (addLoading = true) => {
         setIsloading(true);
         try {
+            console.log('params', paginationParams);
             const friendsInfo = await dispatch(FriendsActions.getAllFriends(paginationParams, addLoading));
             setFriends(prevFriends => paginationParams.page === 1 ? friendsInfo.friends : [...prevFriends, ...friendsInfo.friends]);
             setPaginationEnd(!friendsInfo.hasNextPage);
@@ -82,9 +91,30 @@ function ContactsScreen(props) {
         );
     }
 
+    const handleFilter = async (index) => {
+        setCurrentFilter(index);
+        switch (index) {
+            case 0:
+                setPaginationParams(prevParams => ({
+                    ...prevParams,
+                    approved: true,
+                }))
+                // await getAllFriends();
+                break;
+            case 1:
+                setPaginationParams(prevParams => ({
+                    ...prevParams,
+                    approved: false,
+                }))
+                // await getAllFriends();
+                break;
+            default:
+                break;
+        }
+    }
+
     return (
         <>
-            {getAllFriendsOnRequest && <Loading />}
             <StatusBar
                 barStyle="light-content"
                 backgroundColor="#4F80E1"
@@ -103,6 +133,15 @@ function ContactsScreen(props) {
                     onPressAddButton={() => toggleModal()}
                 />
                 <S.HeaderName>Meus Contatos</S.HeaderName>
+                <S.FilterButtonsView>
+                    { filterButtonNames.map((name, index) => (
+                        <FilterButton 
+                            selected={index === currentFilter}
+                            buttonName={name}
+                            onPressListener={() => index === currentFilter ? {} : handleFilter(index)}  
+                        />
+                    ))}
+                </S.FilterButtonsView>
                 <S.InputView>
                     <S.ContactSearchInput
                         placeholder="Pesquisar"
@@ -129,7 +168,10 @@ function ContactsScreen(props) {
                         )
                         }
                     />
-                    : <S.EmptyFriendsText>Nenhum amigo na lista</S.EmptyFriendsText>
+                    : (<>
+                        {getAllFriendsOnRequest ? <ActivityIndicator  color="#4F80E1" size="large" /> : <S.EmptyFriendsText>Nenhum amigo na lista</S.EmptyFriendsText>}
+                       </>
+                    )
                 }
             </S.ContactsScreenContainer>
         </>
