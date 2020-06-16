@@ -38,8 +38,13 @@ function ContactsScreen(props) {
     });
 
     useEffect(() => {
-        const unsubscribe = props.navigation.addListener('focus', () => getAllFriends());
-        return unsubscribe;
+        props.navigation.addListener('focus', () => getAllFriends());
+        props.navigation.addListener('blur', () => setCurrentFilter(0));
+        
+        return () => {
+            props.navigation.removeListener('focus', () => getAllFriends());
+            props.navigation.removeListener('blur', () => setCurrentFilter(0));
+        };
     }, [props.navigation]);
 
     useEffect(() => {
@@ -47,6 +52,7 @@ function ContactsScreen(props) {
     }, [paginationParams]);
 
     const getAllFriends = async (addLoading = true) => {
+        console.log('approved', paginationParams.approved, currentFilter);
         setIsloading(true);
         try {
             const friendsInfo = await dispatch(currentFilter === 0 ? FriendsActions.getAllFriends(paginationParams, addLoading) : FriendsActions.getAllFollowers(paginationParams, addLoading));
