@@ -78,9 +78,7 @@ const RegisterScreen = (props) => {
     const handlePickerSelect = (response) => {
         if (response.error) {
             Snackbar('Não foi possível carregar a foto');
-        } else if (response.didCancel) {
-            setPhoto(null)
-        } else {
+        } else if (!response.didCancel) {
             setPhoto({
                 uri: response.uri,
                 base64: response.data,

@@ -181,7 +181,7 @@ export const validateRedefinePassword = (token, password, confirmPassword) => {
   };
 };
 
-export const validateUpdateUser = (name, phone) => {
+export const validateUpdateUser = (name, phone, birthday) => {
   if (!name || !phone) {
     return {
       error: true,
@@ -193,6 +193,13 @@ export const validateUpdateUser = (name, phone) => {
     return {
       error: true,
       errorMessage: 'Nome invalido!',
+    }
+  }
+
+  if (!validateBirthdate(birthday)) {
+    return {
+      error: true,
+      errorMessage: 'Data de nascimento invalida!',
     }
   }
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { MaskService } from 'react-native-masked-text';
-import { Alert } from 'react-native'; 
+import { Alert } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
 import * as S from './styles';
@@ -28,6 +28,7 @@ export default function EditProfileScreen(props) {
     const [formData, setFormdata] = useState({
         name: userData.name,
         phone: userData.phone,
+        birthday: userData.birthday
     });
     const [photo, setPhoto] = useState({
         uri: (userData.profilePhoto ? userData.profilePhoto.url : null),
@@ -35,7 +36,7 @@ export default function EditProfileScreen(props) {
     });
     const [isPhotoChange, setIsPhotoChange] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    
+
     const onFormDataChange = (value, field) => {
         setFormdata({
             ...formData,
@@ -73,9 +74,7 @@ export default function EditProfileScreen(props) {
     const handlePickerSelect = (response) => {
         if (response.error) {
             Snackbar('Não foi possível carregar a foto');
-        } else if (response.didCancel) {
-            setPhoto(null)
-        } else {
+        } else if (!response.didCancel) {
             setPhoto({
                 uri: response.uri,
                 base64: response.data,
@@ -85,22 +84,23 @@ export default function EditProfileScreen(props) {
     }
 
     const onUpdateProfile = async () => {
-        try { 
-            const { name, phone } = formData;
-            const isFormValid = validator.validateUpdateUser(name, phone);
-            
+        try {
+            const { name, phone, birthday } = formData;
+            const isFormValid = validator.validateUpdateUser(name, phone, birthday);
+
             if (isFormValid.error) {
                 Snackbar(isFormValid.errorMessage);
             } else {
                 const updateData = {
                     name,
                     phone,
+                    birthday,
                     photo: isPhotoChange ? photo.base64 : undefined,
                 }
                 await dispatch(UserAction.updateUserData(updateData));
                 setIsModalOpen(true);
             }
-        } catch(err) {
+        } catch (err) {
             Snackbar(err.message);
         }
     }
@@ -134,11 +134,11 @@ export default function EditProfileScreen(props) {
                                 source={{ uri: photo.uri }}
                             />
                         ) : (
-                            <S.ProfileSvg
-                                height={ScaleUtils.ScreenHeight * 0.09}
-                                width={ScaleUtils.ScreenHeight * 0.09}
-                            />
-                        )}
+                                <S.ProfileSvg
+                                    height={ScaleUtils.ScreenHeight * 0.09}
+                                    width={ScaleUtils.ScreenHeight * 0.09}
+                                />
+                            )}
                     </S.ProfilePicImageView>
                 </S.ProfilePicView>
 
@@ -148,6 +148,20 @@ export default function EditProfileScreen(props) {
                         value={formData.name}
                         onChangeValue={(text) => onFormDataChange(text, 'name')}
                         secureTextEntry={false}
+                    />
+                </S.InputContainer>
+
+                <S.InputContainer>
+                    <Input
+                        maskType="datetime"
+                        maskOptions={{
+                            format: 'DD/MM/YYYY',
+                        }}
+                        title="Data de Nascimento"
+                        value={formData.birthday}
+                        keyboardType="phone-pad"
+                        secureTextEntry={false}
+                        onChangeValue={(text) => onFormDataChange(text, 'birthday')}
                     />
                 </S.InputContainer>
 
@@ -167,13 +181,13 @@ export default function EditProfileScreen(props) {
                         }
                     />
                 </S.InputContainer>
-                
-                <S.ButtonsContainer> 
-                    <DefaultButton 
-                    text="Salvar"
-                    onPressListener={() => onUpdateProfile()}
-                    fontColor="#FFF"
-                    background="#4F80E1"
+
+                <S.ButtonsContainer>
+                    <DefaultButton
+                        text="Salvar"
+                        onPressListener={() => onUpdateProfile()}
+                        fontColor="#FFF"
+                        background="#4F80E1"
                     />
                 </S.ButtonsContainer>
             </S.ProfileContainerScrollView>
