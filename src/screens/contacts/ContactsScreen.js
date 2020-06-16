@@ -10,12 +10,11 @@ import * as FriendsActions from '../../redux/actions/friends';
 import Header from '../../components/Header/Header';
 import ContactCard from '../../components/Contacts/ContactCard';
 import AddContactModal from '../../components/modal/AddContactModal';
-import Loading from '../../components/Loading/Loading';
 import FilterButton from '../../components/button/filterButton/FilterButton';
-
+import Loading from '../../components/Loading/Loading';
 
 function ContactsScreen(props) {
-    const filterButtonNames = ['Amigos', 'Não Aprovados', 'Solicitações'];
+    const filterButtonNames = ['Amigos', 'Seguidores', 'Solicitações'];
 
     const dispatch = useDispatch();
 
@@ -23,6 +22,7 @@ function ContactsScreen(props) {
 
     const [search, setSearch] = useState('');
     const [currentFilter, setCurrentFilter] = useState(0);
+    const [isFriendCard, setIsFriendCard] = useState(true);
     const [showAddModal, setShowAddModal] = useState(false);
     const [paginationEnd, setPaginationEnd] = useState(false);
     const [isLoading, setIsloading] = useState(false);
@@ -42,13 +42,12 @@ function ContactsScreen(props) {
 
     useEffect(() => {
         getAllFriends();
-    }, [paginationParams])
+    }, [paginationParams]);
 
     const getAllFriends = async (addLoading = true) => {
         setIsloading(true);
         try {
-            console.log('params', paginationParams);
-            const friendsInfo = await dispatch(FriendsActions.getAllFriends(paginationParams, addLoading));
+            const friendsInfo = await dispatch(currentFilter === 0 ? FriendsActions.getAllFriends(paginationParams, addLoading) : FriendsActions.getAllFollowers(paginationParams, addLoading));
             setFriends(prevFriends => paginationParams.page === 1 ? friendsInfo.friends : [...prevFriends, ...friendsInfo.friends]);
             setPaginationEnd(!friendsInfo.hasNextPage);
         } catch (err) {
@@ -95,26 +94,35 @@ function ContactsScreen(props) {
         setCurrentFilter(index);
         switch (index) {
             case 0:
+                setIsFriendCard(true);
                 setPaginationParams(prevParams => ({
                     ...prevParams,
                     approved: true,
                 }))
-                // await getAllFriends();
                 break;
             case 1:
+                setIsFriendCard(true);
+                setPaginationParams(prevParams => ({
+                    ...prevParams,
+                    approved: true,
+                }))
+                break;
+            case 2:
+                setIsFriendCard(false);
                 setPaginationParams(prevParams => ({
                     ...prevParams,
                     approved: false,
                 }))
-                // await getAllFriends();
-                break;
+                break;    
             default:
                 break;
         }
+        setFriends([]);
     }
 
     return (
         <>
+        { getAllFriendsOnRequest && <Loading />}
             <StatusBar
                 barStyle="light-content"
                 backgroundColor="#4F80E1"
@@ -156,7 +164,8 @@ function ContactsScreen(props) {
                     </S.SearchIconButton>
                 </S.InputView>
                 {friends.length > 0
-                    ? <S.ContactsFlatList
+                    ?  (
+                        <S.ContactsFlatList
                         data={friends}
                         ListFooterComponent={renderFooter}
                         onEndReachedThreshold={0.25}
@@ -164,13 +173,15 @@ function ContactsScreen(props) {
                         showsVerticalScrollIndicator={false}
                         keyExtractor={item => item.id}
                         renderItem={({ item, index }) => (
-                            <ContactCard contact={item} index={index} onPress={() => props.navigation.navigate('Profile', { friendId: item._id })} />
+                          <ContactCard contact={item} index={index} onPress={() => props.navigation.navigate('Profile', { friendId: item._id })} invite={!isFriendCard} />
                         )
-                        }
-                    />
-                    : (<>
-                        {getAllFriendsOnRequest ? <ActivityIndicator  color="#4F80E1" size="large" /> : <S.EmptyFriendsText>Nenhum amigo na lista</S.EmptyFriendsText>}
-                       </>
+                      }
+                    /> 
+                    )
+                    : (
+                        <>
+                        {!getAllFriendsOnRequest && <S.EmptyFriendsText>Nenhum amigo na lista</S.EmptyFriendsText>}
+                        </>
                     )
                 }
             </S.ContactsScreenContainer>
