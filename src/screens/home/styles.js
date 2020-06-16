@@ -2,8 +2,8 @@ import styled from 'styled-components/native';
 import MapView, { Marker } from 'react-native-maps';
 
 import * as ScaleUtils from '../../utils/scale';
-import Svg from '../../assets/svg/burguer.svg';
 
+import Svg from '../../assets/svg/burguer.svg';
 import SvgProfile from '../../assets/svg/profile.svg';
 
 export const HomeContainer = styled.View`

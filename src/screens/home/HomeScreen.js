@@ -29,6 +29,7 @@ export default function HomeScreen(props) {
     const [region, setRegion] = useState({});
     const [friends, setFriends] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [statusBarHeight, setStatusBarHeight] = useState(0);
 
     const ASPECT_RATIO = ScaleUtils.ScreenWidth / ScaleUtils.ScreenHeight;
     const LATITUDE_DELTA = 0.01;
@@ -37,6 +38,7 @@ export default function HomeScreen(props) {
     useEffect(() => {
         askForPermission();
         getAllFriends();
+        setTimeout(() => setStatusBarHeight(5), 500);
     }, [])
 
     useEffect(() => {
@@ -61,6 +63,10 @@ export default function HomeScreen(props) {
                 lat: location.latitude,
                 lng: location.longitude,
             }));
+            setRegion({
+                latitude: location.latitude,
+                longitude: location.longitude,
+            })
             // handle your locations here
             // to perform long running operation on iOS
             // you need to create background task
@@ -195,14 +201,15 @@ export default function HomeScreen(props) {
                 onDismiss={() => onPressModal()}
                 onPress={() => onPressModal()}
             />
-            <S.HomeContainer>
+            <S.HomeContainer
+                style={{ paddingTop: statusBarHeight }}
+            >
                 <S.PageMapViewContainerView
                     height={friends.length === 0}
                 >
                     {initialCordinates.longitude && initialCordinates.latitude && (
                         <S.PageMapView
                             showsUserLocation
-                            showsMyLocationButton={false}
                             showsCompass={false}
                             followsUserLocation
                             zoomEnabled
@@ -256,8 +263,6 @@ export default function HomeScreen(props) {
                             onPress={() => setRegion({
                                 latitude: item.location.lat,
                                 longitude: item.location.lng,
-                                latitudeDelta: LATITUDE_DELTA,
-                                longitudeDelta: LONGITUDE_DELTA,
                             })}
                         >
                             <S.PageFriendImageView>
@@ -278,7 +283,7 @@ export default function HomeScreen(props) {
                                 </S.PageFriendNameText>
                                 <S.PageFriendDistanceText>
                                     {item.location
-                                        ? `37 km`
+                                        ? `${Math.round(item.location.distance)} km`
                                         : 'Não possui registro de localização'}
                                 </S.PageFriendDistanceText>
                             </S.PageFriendTextView>
@@ -286,7 +291,10 @@ export default function HomeScreen(props) {
                     </S.PageFriendListScrollView>
                 ))}
                 <S.BurguerButton
-                    onPress={() => props.navigation.toggleDrawer()}
+                    onPress={() => {
+                        setRegion(initialCordinates)
+                        props.navigation.toggleDrawer();
+                    }}
                     activeOpacity={0.7}
                 >
                     <Animated.View style={{
@@ -295,6 +303,13 @@ export default function HomeScreen(props) {
                         <S.BurguerIcon />
                     </Animated.View>
                 </S.BurguerButton>
+
+                {/* <S.LocationButton
+                    onPress={() => setRegion(initialCordinates)}
+                    activeOpacity={0.7}
+                >
+                    <S.LocationIcon />
+                </S.LocationButton> */}
 
             </S.HomeContainer>
         </>
