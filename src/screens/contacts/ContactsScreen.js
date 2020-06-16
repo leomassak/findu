@@ -25,8 +25,10 @@ function ContactsScreen(props) {
     const [isFriendCard, setIsFriendCard] = useState(true);
     const [showAddModal, setShowAddModal] = useState(false);
     const [paginationEnd, setPaginationEnd] = useState(false);
+    const [noSearchResult, setNoSearchResult] = useState(false);
     const [isLoading, setIsloading] = useState(false);
     const [friends, setFriends] = useState([]);
+    const [filteredFriends, setFilteredFriends] = useState([]);
     const [friendCode, setFriendCode] = useState('');
     const [paginationParams, setPaginationParams] = useState({
         page: 1,
@@ -61,8 +63,11 @@ function ContactsScreen(props) {
         setShowAddModal(prevState => !prevState);
     }
 
-    const searchContact = async () => {
-        await dispatch(FriendsActions.searchFriend);
+    const onSearchContact = (text) => {
+        const filteredContacts = friends.filter(friend => friend.name.includes(text));
+        setFilteredFriends(filteredContacts);
+        setNoSearchResult(filteredContacts.length === 0);
+        setSearch(text);
     }
 
     const addContact = async () => {
@@ -155,18 +160,17 @@ function ContactsScreen(props) {
                         placeholder="Pesquisar"
                         value={search}
                         placeholderTextColor="#8F8E8E"
-                        onChangeText={(text) => setSearch(text)}
-                        onSubmitEditing={searchContact}
+                        onChangeText={(text) => onSearchContact(text)}
                         returnKeyType="search"
                     />
-                    <S.SearchIconButton onPress={searchContact}>
+                    <S.SearchIconButton onPress={() => {}}>
                         <Icon name="search" size={25} color="#8F8E8E" />
                     </S.SearchIconButton>
                 </S.InputView>
-                {friends.length > 0
+                {friends.length > 0 && !noSearchResult
                     ?  (
                         <S.ContactsFlatList
-                        data={friends}
+                        data={search.length > 0 ? filteredFriends : friends}
                         ListFooterComponent={renderFooter}
                         onEndReachedThreshold={0.25}
                         onEndReached={handleFlatListEnd}
