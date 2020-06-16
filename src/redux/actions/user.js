@@ -35,7 +35,6 @@ export const updateUserData = (registerData) => async (dispatch) => {
     try {
         await UserApi.updateUserData(registerData);
         const userData = await UserApi.getUser();
-        console.log(userData);
         dispatch(saveUser(userData));
     } catch (err) {
         if (Errors.register[err.message] !== undefined) {
