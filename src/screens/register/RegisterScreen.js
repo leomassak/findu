@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import md5 from 'md5';
 import { useSelector, useDispatch } from 'react-redux';
 import { MaskService } from 'react-native-masked-text';
-import { Alert } from 'react-native'; 
+import { Alert } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
 import * as S from './styles';
@@ -27,11 +28,12 @@ const RegisterScreen = (props) => {
     const dispatch = useDispatch();
     const isLoading = useSelector(state => LoadingSelector.getLoading(state));
     const [formData, setFormdata] = useState({
-        name:"",
-        email:"",
-        phone:"",
-        password:"",
-        confirmPassword:"",
+        name: "Giovani Pinke",
+        birthday: "09021999",
+        email: "giovani.pinke@mblabs.com.br",
+        phone: "5519993107322",
+        password: "123456",
+        confirmPassword: "123456",
     });
     const [hidePassword, setHidePassword] = useState(true);
     const [hideConfirmPassword, setHideConfirmPassword] = useState(true);
@@ -71,8 +73,8 @@ const RegisterScreen = (props) => {
             ],
             { cancelable: true },
         );
-      }
-    
+    }
+
     const handlePickerSelect = (response) => {
         if (response.error) {
             Snackbar('Não foi possível carregar a foto');
@@ -84,27 +86,29 @@ const RegisterScreen = (props) => {
                 base64: response.data,
             })
         }
-      }
+    }
 
     const onRegister = async () => {
-        try { 
-            const { name, email, password, confirmPassword, phone } = formData;
-            const isFormValid = validator.validateRegisterForm(name, phone, email, password, confirmPassword, termsBoxStatus, locationBoxStatus);
-            
+        try {
+            const { name, birthday, email, password, confirmPassword, phone } = formData;
+            const isFormValid = validator.validateRegisterForm(name, birthday, phone, email, password, confirmPassword, termsBoxStatus, locationBoxStatus);
+
             if (isFormValid.error) {
                 Snackbar(isFormValid.errorMessage);
             } else {
                 const registerData = {
                     name,
                     email,
+                    birthday,
                     phone,
-                    password,
-                    photo: photo ? photo.base64 : undefined, 
+                    password: md5(password),
+                    photo: photo ? photo.base64 : undefined,
                 }
                 await dispatch(UserAction.register(registerData));
                 setIsModalOpen(true);
             }
-        } catch(err) {
+        } catch (err) {
+            console.log(err)
             Snackbar(err.message);
         }
     }
@@ -139,31 +143,45 @@ const RegisterScreen = (props) => {
                     </S.PageTitleText>
                 </S.PageTitleContainer>
                 <S.ProfilePicView>
-                <S.ProfilePicAddTouchableOpacity
-                    onPress={onSelectProfileImage}
-                >
-                    <AddIcon />
-                </S.ProfilePicAddTouchableOpacity>
+                    <S.ProfilePicAddTouchableOpacity
+                        onPress={onSelectProfileImage}
+                    >
+                        <AddIcon />
+                    </S.ProfilePicAddTouchableOpacity>
                     <S.ProfilePicImageView>
                         {photo ? (
                             <S.ProfilePicImage
                                 source={{ uri: photo.uri }}
                             />
                         ) : (
-                            <S.ProfileSvg
-                                height={ScaleUtils.ScreenHeight * 0.09}
-                                width={ScaleUtils.ScreenHeight * 0.09}
-                            />
-                        )}
+                                <S.ProfileSvg
+                                    height={ScaleUtils.ScreenHeight * 0.09}
+                                    width={ScaleUtils.ScreenHeight * 0.09}
+                                />
+                            )}
                     </S.ProfilePicImageView>
                 </S.ProfilePicView>
                 <S.InputContainer>
                     <Input
-                        title="Nome"    
+                        title="Nome"
                         value={formData.name}
                         keyboardType="default"
                         secureTextEntry={false}
                         onChangeValue={(text) => onFormDataChange(text, 'name')}
+                    />
+                </S.InputContainer>
+
+                <S.InputContainer>
+                    <S.MaskedInput
+                        maskType="datetime"
+                        maskOptions={{
+                            format: 'DD/MM/YYYY',
+                        }}
+                        title="Data de Nascimento"
+                        value={formData.birthday}
+                        keyboardType="phone-pad"
+                        secureTextEntry={false}
+                        onChangeValue={(text) => onFormDataChange(text, 'birthday')}
                     />
                 </S.InputContainer>
 
@@ -186,14 +204,14 @@ const RegisterScreen = (props) => {
 
                 <S.InputContainer>
                     <Input
-                        title="E-Mail"    
+                        title="E-Mail"
                         value={formData.email}
                         keyboardType="email-address"
                         secureTextEntry={false}
                         onChangeValue={(text) => onFormDataChange(text, 'email')}
                     />
                 </S.InputContainer>
-            
+
                 <S.InputContainer>
                     <Input
                         title="Senha"

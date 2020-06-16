@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import md5 from 'md5';
 import { useSelector, useDispatch } from 'react-redux';
 import * as S from './styles';
 
@@ -34,9 +35,9 @@ const PswRecover = (props) => {
         }
         else {
             try {
-                await dispatch(AuthActions.redefinePassword(email, tokenInput, passwordInput));
+                await dispatch(AuthActions.redefinePassword(email, tokenInput, md5(passwordInput)));
                 setIsModalOpen(true);
-            } catch(err) {
+            } catch (err) {
                 Snackbar(err.message);
             }
         }
@@ -97,7 +98,7 @@ const PswRecover = (props) => {
                         eyeOpen={passwordEyeStatus2}
                     />
                 </S.InputContainer>
-                
+
                 <S.PageButtonView>
                     <DefaultButton
                         text="Redefinir senha"
@@ -106,7 +107,7 @@ const PswRecover = (props) => {
                         background="#4F80E1"
                     />
                 </S.PageButtonView>
-                
+
             </S.PageContainer>
         </>
     )

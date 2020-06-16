@@ -5,6 +5,7 @@ import {
 } from '@react-navigation/drawer';
 import BackgroundGeolocation from '@mauron85/react-native-background-geolocation';
 import { useSelector } from 'react-redux';
+import moment from 'moment';
 
 import * as UserReducer from '../../redux/reducers/user';
 
@@ -46,7 +47,9 @@ function CustomDrawer(props) {
                         <S.UserName>
                             {userData.name}
                         </S.UserName>
-                        <S.UserAge>21 Anos</S.UserAge>
+                        <S.UserAge>
+                            {`${moment().diff(moment(userData.birthday, 'DDMMYYYY'), 'years')} anos`}
+                        </S.UserAge>
                     </S.UserInfoView>
                 </S.UserProfileView>
                 <DrawerItem

@@ -83,6 +83,7 @@ export const getShareCode = () => async (dispatch) => {
     try {
         return await UserApi.getShareCode();
     } catch (err) {
+        console.log(err.message);
         throw new Error(Errors.undefined);
     } finally {
         dispatch(removeLoading());

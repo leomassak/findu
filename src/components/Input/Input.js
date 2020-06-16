@@ -4,7 +4,7 @@ import * as S from './styles';
 import IconCloseEye from '../../assets/svg/ic_close-eye.svg';
 import IconOpenEye from '../../assets/svg/ic_open-eye.svg';
 
-export default function Header({
+export default function TextInputContainer({
     title,
     value,
     onChangeValue,
@@ -21,21 +21,21 @@ export default function Header({
                 {title}
             </S.TextInputTitle>
             {maskType ? (
-            <S.MaskedInput 
-            type={maskType}
-            options={maskOptions}
-            keyboardType={keyboardType || null}
-            value={value}
-            onChangeText={(text) => onChangeValue(text)}
-            />
+                <S.MaskedInput
+                    type={maskType}
+                    options={maskOptions}
+                    keyboardType={keyboardType || null}
+                    value={value}
+                    onChangeText={(text) => onChangeValue(text)}
+                />
             ) : (
-            <S.TextInput
-            keyboardType={keyboardType || null}
-            value={value}
-            onChangeText={(text) => onChangeValue(text)}
-            secureTextEntry={secureTextEntry}
-            />
-            )}
+                    <S.TextInput
+                        keyboardType={keyboardType || null}
+                        value={value}
+                        onChangeText={(text) => onChangeValue(text)}
+                        secureTextEntry={secureTextEntry}
+                    />
+                )}
             {onEyePress && (
                 <S.TextInputContainerIconTouchableOpacity
                     onPress={onEyePress}
@@ -43,8 +43,8 @@ export default function Header({
                     {eyeOpen ? (
                         <IconOpenEye />
                     ) : (
-                        <IconCloseEye />
-                    )}
+                            <IconCloseEye />
+                        )}
                 </S.TextInputContainerIconTouchableOpacity>
             )}
         </S.TextInputContainer>

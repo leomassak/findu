@@ -13,11 +13,11 @@ export const authenticate = (userData) => async (dispatch) => {
     let user = userData;
     dispatch(addLoading());
     try {
-        const response = await AuthApi.userLogin(user); 
+        const response = await AuthApi.userLogin(user);
         await AppStorage.createUserAuthData(response.token);
         const userData = await UserApi.getUser();
         dispatch(saveUser(userData))
-    } catch (err) { 
+    } catch (err) {
         if (Errors.login[err.message] !== undefined) {
             throw new Error(Errors.login[err.message]);
         } else {
@@ -32,7 +32,7 @@ export const forgotPassword = (userData) => async (dispatch) => {
     dispatch(addLoading());
     try {
         await AuthApi.forgotPassword(userData);
-    } catch (err) { 
+    } catch (err) {
         if (Errors.recoverPsw[err.message] !== undefined) {
             throw new Error(Errors.recoverPsw[err.message]);
         } else {
@@ -52,7 +52,7 @@ export const redefinePassword = (email, token, password) => async (dispatch) => 
             password,
         }
         await AuthApi.redefinePassword(sendForm);
-    } catch (err) { 
+    } catch (err) {
         if (Errors.redefinePsw[err.message] !== undefined) {
             throw new Error(Errors.redefinePsw[err.message]);
         } else {
@@ -78,7 +78,7 @@ export const verifyInitiaFlow = () => async (dispatch) => {
         }
         return isLogged;
     } catch (e) {
-      //
+        //
     } finally {
         dispatch(removeLoading());
     }

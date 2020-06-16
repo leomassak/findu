@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import md5 from 'md5';
 import { useSelector, useDispatch } from 'react-redux';
 import * as S from './styles';
 
@@ -33,7 +34,7 @@ const LoginScreen = (props) => {
         else {
             const loginData = {
                 email: emailInput,
-                password: passwordInput,
+                password: md5(passwordInput),
             }
             try {
                 await dispatch(AuthActions.authenticate(loginData));
@@ -41,11 +42,11 @@ const LoginScreen = (props) => {
                     index: 0,
                     routes: [{ name: 'HomeNavigator' }]
                 });
-            } catch(err) {
+            } catch (err) {
                 Snackbar(err.message);
             }
         }
-        
+
     }
 
     return (
@@ -61,46 +62,46 @@ const LoginScreen = (props) => {
                         Faça seu login
                     </S.PageTitleText>
                 </S.PageTitleContainer>
-                    <S.InputContainer>
-                        <Input
-                            title="E-mail"
-                            value={emailInput}
-                            onChangeValue={(text) => setEmailInput(text)}
-                            keyboardType="email-address"
-                            secureTextEntry={false}
-                        />
-                    </S.InputContainer>
-                    
-                    <S.InputContainer>
-                        <Input
-                            title="Senha"
-                            value={passwordInput}
-                            onChangeValue={(text) => setPasswordInput(text)}
-                            secureTextEntry={passwordEyeStatus}
-                            onEyePress={() => setPasswordEyeStatus(!passwordEyeStatus)}
-                            eyeOpen={passwordEyeStatus}
-                        />
-                    </S.InputContainer>
-
-                    <CheckBox
-                        title="Lembrar de mim"
-                        onChangeValue={() => setCheckBoxStatus(!checkBoxStatus)}
-                        value={checkBoxStatus}
+                <S.InputContainer>
+                    <Input
+                        title="E-mail"
+                        value={emailInput}
+                        onChangeValue={(text) => setEmailInput(text)}
+                        keyboardType="email-address"
+                        secureTextEntry={false}
                     />
-                    
-                    <S.UnderlineButtonContainer>
-                        <UnderlineButton
-                            text="Esqueceu sua senha?"
-                            onPressListener={() => props.navigation.navigate('PswRecover')}
-                        />
-                    </S.UnderlineButtonContainer>
+                </S.InputContainer>
 
-                    <DefaultButton
-                        text="Entrar"
-                        onPressListener={onAuthLogin}
-                        fontColor="#FFF"
-                        background="#4F80E1"
+                <S.InputContainer>
+                    <Input
+                        title="Senha"
+                        value={passwordInput}
+                        onChangeValue={(text) => setPasswordInput(text)}
+                        secureTextEntry={passwordEyeStatus}
+                        onEyePress={() => setPasswordEyeStatus(!passwordEyeStatus)}
+                        eyeOpen={passwordEyeStatus}
                     />
+                </S.InputContainer>
+
+                <CheckBox
+                    title="Lembrar de mim"
+                    onChangeValue={() => setCheckBoxStatus(!checkBoxStatus)}
+                    value={checkBoxStatus}
+                />
+
+                <S.UnderlineButtonContainer>
+                    <UnderlineButton
+                        text="Esqueceu sua senha?"
+                        onPressListener={() => props.navigation.navigate('PswRecover')}
+                    />
+                </S.UnderlineButtonContainer>
+
+                <DefaultButton
+                    text="Entrar"
+                    onPressListener={onAuthLogin}
+                    fontColor="#FFF"
+                    background="#4F80E1"
+                />
             </S.PageContainer>
         </>
     )

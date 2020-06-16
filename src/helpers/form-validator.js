@@ -1,5 +1,5 @@
 import {
-  validateEmail, validateName,
+  validateEmail, validateName, validateBirthdate,
 } from './validator';
 
 export const validateLoginForm = (email, password, name) => {
@@ -39,7 +39,7 @@ export const validateLoginForm = (email, password, name) => {
     };
   }
 
-  if(!validateName(name)) {
+  if (!validateName(name)) {
     return {
       error: true,
       errorMessage: 'Telefone inválido!',
@@ -52,8 +52,8 @@ export const validateLoginForm = (email, password, name) => {
   };
 };
 
-export const validateRegisterForm = (name, phone, email, password, confirmPassword, terms, location) => {
-  if (!name || !phone || !email || !password || !confirmPassword || terms === false || location === false) {
+export const validateRegisterForm = (name, birthday, phone, email, password, confirmPassword, terms, location) => {
+  if (!name || !birthday || !phone || !email || !password || !confirmPassword || terms === false || location === false) {
     return {
       error: true,
       errorMessage: 'Por favor, preencha todos os campos!',
@@ -95,10 +95,17 @@ export const validateRegisterForm = (name, phone, email, password, confirmPasswo
     };
   }
 
-  if(!validateName(name)) {
+  if (!validateName(name)) {
     return {
       error: true,
       errorMessage: 'Nome invalido!',
+    }
+  }
+
+  if (!validateBirthdate(birthday)) {
+    return {
+      error: true,
+      errorMessage: 'Data de nascimento invalida!',
     }
   }
 
@@ -182,7 +189,7 @@ export const validateUpdateUser = (name, phone) => {
     };
   }
 
-  if(!validateName(name)) {
+  if (!validateName(name)) {
     return {
       error: true,
       errorMessage: 'Nome invalido!',
