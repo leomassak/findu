@@ -23,13 +23,13 @@ function ContactCard({ onPress, contact, index, invite }) {
             <S.ContactName>{contact.name}</S.ContactName>
             {invite ? (
                  <S.AcceptAndDeclineButtonView>
-                     {status.length > 0 ? <S.StatusText fontColor={status === 'aprovado' ? '#4442C0' : '#BD353B'}>{status}</S.StatusText> : (
+                     {status.length > 0 ? <S.StatusText fontColor={status === 'Aprovado' ? '#4442C0' : '#BD353B'}>{status}</S.StatusText> : (
                         <>
                             <S.AcceptDeclineButton onPress={() => handleUpdateInvite(true)}>
-                                <Icon name="checkcircle" size={40} color="#4442C0"/>
+                                <Icon name="checkcircle" size={35} color="#4442C0"/>
                             </S.AcceptDeclineButton>
                             <S.AcceptDeclineButton onPress={() => handleUpdateInvite(false)}>
-                                <Icon name="closecircle" size={40} color="#BD353B"/>
+                                <Icon name="closecircle" size={35} color="#BD353B"/>
                             </S.AcceptDeclineButton>
                         </>
                      )}

@@ -40,9 +40,7 @@ export const ContactGroupOrb = styled.View`
 `;
 
 export const AcceptAndDeclineButtonView = styled.View`
-   flex: 1;
-   flex-direction: row;
-   height: 100%;
+   height: 80%;
    background-color: #FFF;
    justify-content: space-around;
    align-items: center;

@@ -177,7 +177,7 @@ function ContactsScreen(props) {
                         showsVerticalScrollIndicator={false}
                         keyExtractor={item => item.id}
                         renderItem={({ item, index }) => (
-                          <ContactCard contact={item} index={index} onPress={() => props.navigation.navigate('Profile', { friendId: item._id })} invite={!isFriendCard} />
+                          <ContactCard contact={item} index={index} onPress={() => props.navigation.navigate('Profile', { friendId: item._id, isFriend: isFriendCard })} invite={!isFriendCard} />
                         )
                       }
                     /> 
