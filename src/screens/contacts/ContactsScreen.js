@@ -40,7 +40,7 @@ function ContactsScreen(props) {
     useEffect(() => {
         props.navigation.addListener('focus', () => getAllFriends());
         props.navigation.addListener('blur', () => setCurrentFilter(0));
-        
+
         return () => {
             props.navigation.removeListener('focus', () => getAllFriends());
             props.navigation.removeListener('blur', () => setCurrentFilter(0));
@@ -124,7 +124,7 @@ function ContactsScreen(props) {
                     ...prevParams,
                     approved: false,
                 }))
-                break;    
+                break;
             default:
                 break;
         }
@@ -133,7 +133,7 @@ function ContactsScreen(props) {
 
     return (
         <>
-        { getAllFriendsOnRequest && <Loading />}
+            {getAllFriendsOnRequest && <Loading />}
             <StatusBar
                 barStyle="light-content"
                 backgroundColor="#4F80E1"
@@ -153,11 +153,11 @@ function ContactsScreen(props) {
                 />
                 <S.HeaderName>Meus Contatos</S.HeaderName>
                 <S.FilterButtonsView>
-                    { filterButtonNames.map((name, index) => (
-                        <FilterButton 
+                    {filterButtonNames.map((name, index) => (
+                        <FilterButton
                             selected={index === currentFilter}
                             buttonName={name}
-                            onPressListener={() => index === currentFilter ? {} : handleFilter(index)}  
+                            onPressListener={() => index === currentFilter ? {} : handleFilter(index)}
                         />
                     ))}
                 </S.FilterButtonsView>
@@ -169,28 +169,33 @@ function ContactsScreen(props) {
                         onChangeText={(text) => onSearchContact(text)}
                         returnKeyType="search"
                     />
-                    <S.SearchIconButton onPress={() => {}}>
+                    <S.SearchIconButton onPress={() => { }}>
                         <Icon name="search" size={25} color="#8F8E8E" />
                     </S.SearchIconButton>
                 </S.InputView>
                 {friends.length > 0 && !noSearchResult
-                    ?  (
+                    ? (
                         <S.ContactsFlatList
-                        data={search.length > 0 ? filteredFriends : friends}
-                        ListFooterComponent={renderFooter}
-                        onEndReachedThreshold={0.25}
-                        onEndReached={handleFlatListEnd}
-                        showsVerticalScrollIndicator={false}
-                        keyExtractor={item => item.id}
-                        renderItem={({ item, index }) => (
-                          <ContactCard contact={item} index={index} onPress={() => props.navigation.navigate('Profile', { friendId: item._id, isFriend: isFriendCard })} invite={!isFriendCard} />
-                        )
-                      }
-                    /> 
+                            data={search.length > 0 ? filteredFriends : friends}
+                            ListFooterComponent={renderFooter}
+                            onEndReachedThreshold={0.25}
+                            onEndReached={handleFlatListEnd}
+                            showsVerticalScrollIndicator={false}
+                            keyExtractor={item => item.id}
+                            renderItem={({ item, index }) => (
+                                <ContactCard
+                                    contact={item}
+                                    index={index}
+                                    onPress={() => props.navigation.navigate('Profile', { friendId: item._id, isFriend: isFriendCard })}
+                                    invite={!isFriendCard}
+                                />
+                            )
+                            }
+                        />
                     )
                     : (
                         <>
-                        {!getAllFriendsOnRequest && <S.EmptyFriendsText>Nenhum amigo na lista</S.EmptyFriendsText>}
+                            {!getAllFriendsOnRequest && <S.EmptyFriendsText>Nenhum amigo na lista</S.EmptyFriendsText>}
                         </>
                     )
                 }

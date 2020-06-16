@@ -272,8 +272,8 @@ export default function HomeScreen(props) {
                                     />
                                 ) : (
                                         <S.PageMarkerDefaultSvg
-                                            height={ScaleUtils.ScreenHeight * 0.075}
-                                            width={ScaleUtils.ScreenHeight * 0.075}
+                                            height={ScaleUtils.ScreenHeight * 0.065}
+                                            width={ScaleUtils.ScreenHeight * 0.065}
                                         />
                                     )}
                             </S.PageFriendImageView>

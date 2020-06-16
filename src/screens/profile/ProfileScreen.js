@@ -7,9 +7,10 @@ import * as UserSelector from '../../redux/reducers/user';
 import * as UserActions from '../../redux/actions/user';
 import Header from '../../components/Header/Header';
 import DefaultButton from '../../components/button/DefaultButton';
-import ProfileImage from '../../assets/images/profile-mock.png';
 import Loading from '../../components/Loading/Loading';
 import { FriendsActions } from '../../redux/actions';
+
+import * as ScaleUtils from '../../utils/scale';
 
 export default function ProfileScreen({ navigation, route, isFriend }) {
     const dispatch = useDispatch();
@@ -46,7 +47,7 @@ export default function ProfileScreen({ navigation, route, isFriend }) {
     const handleUpdateStatus = async () => {
         try {
             await dispatch(FriendsActions.updateFriendStatus(friend._id, { approved: false }));
-            Alert.alert('', 'Este contato não verá mais dua localização!', [
+            Alert.alert('', 'Este contato não verá mais sua localização!', [
                 {
                     text: 'OK',
                     onPress: () => navigation.goBack(),
@@ -68,7 +69,17 @@ export default function ProfileScreen({ navigation, route, isFriend }) {
                 />
                 <S.UserProfileView>
                     <S.ProfileImageView>
-                        <S.ProfileImage source={friend.profilePhoto ? { uri: friend.profilePhoto.url } : ProfileImage} />
+                        {friend.profilePhoto ? (
+                            <S.ProfileImage
+                                source={{ uri: contact.profilePhoto.url }}
+                                resizeMode="cover"
+                            />
+                        ) : (
+                                <S.ProfileSvg
+                                    height={ScaleUtils.ScreenHeight * 0.11}
+                                    width={ScaleUtils.ScreenHeight * 0.11}
+                                />
+                            )}
                     </S.ProfileImageView>
                     <S.UserName>{friend.name}</S.UserName>
                 </S.UserProfileView>

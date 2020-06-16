@@ -1,6 +1,8 @@
 import styled from 'styled-components/native';
 import * as ScaleUtils from '../../utils/scale';
 
+import Svg from '../../assets/svg/profile.svg';
+
 export const ContactCardContainer = styled.TouchableOpacity`
     width: 100%;
     height: ${ScaleUtils.ScreenWidth * 0.3};
@@ -13,10 +15,12 @@ export const ContactCardContainer = styled.TouchableOpacity`
 `;
 
 export const ProfileImageContainer = styled.View`
-    width: 65px;
-    height: 65px;
-    border-radius: 400px;
-    overflow: hidden;
+    height: ${ScaleUtils.ScreenHeight * 0.1};
+    width: ${ScaleUtils.ScreenHeight * 0.1};
+    border-radius: ${ScaleUtils.ScreenHeight * 0.05};;
+    justify-content: center;
+    align-items: center;
+    border: solid black 1px;
 `;
 
 export const ProfileImage = styled.ImageBackground`
@@ -63,4 +67,9 @@ export const StatusText = styled.Text`
     color: ${props => props.fontColor};
     font-size: 12px;
     font-family: Poppins-Bold;
+`;
+
+export const ProfileSvg = styled(Svg)`
+    height: ${`${ScaleUtils.getPixelRatio * 18.5}px`};
+    width: ${`${ScaleUtils.getPixelRatio * 18.5}px`};
 `;
