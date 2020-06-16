@@ -11,7 +11,7 @@ import ProfileImage from '../../assets/images/profile-mock.png';
 import Loading from '../../components/Loading/Loading';
 import { FriendsActions } from '../../redux/actions';
 
-export default function ProfileScreen({ navigation, route }) {
+export default function ProfileScreen({ navigation, route, isFriend }) {
     const dispatch = useDispatch();
     const isLoading = useSelector(state => LoadingSelector.getLoading(state));
     const friend = useSelector(state => UserSelector.getFriend(state));
@@ -43,6 +43,20 @@ export default function ProfileScreen({ navigation, route }) {
         }
     }
 
+    const handleUpdateStatus = async () => {
+        try {
+            await dispatch(FriendsActions.updateFriendStatus(friend._id, { approved: false }));
+            Alert.alert('', 'Este contato não verá mais dua localização!', [
+                {
+                    text: 'OK',
+                    onPress: () => navigation.goBack(),
+                }
+            ])
+        } catch (err) {
+            Alert.alert('Erro', err.message);
+        }
+    }
+
     return (
         <>
             {isLoading && <Loading />}
@@ -54,7 +68,7 @@ export default function ProfileScreen({ navigation, route }) {
                 />
                 <S.UserProfileView>
                     <S.ProfileImageView>
-                        <S.ProfileImage source={friend.profilePhoto ? { uri: friend.profilePhoto } : ProfileImage} />
+                        <S.ProfileImage source={friend.profilePhoto ? { uri: friend.profilePhoto.url } : ProfileImage} />
                     </S.ProfileImageView>
                     <S.UserName>{friend.name}</S.UserName>
                 </S.UserProfileView>
@@ -73,8 +87,8 @@ export default function ProfileScreen({ navigation, route }) {
                         background="transparent"
                     />
                     <DefaultButton
-                        text="Remover contato"
-                        onPressListener={handleRemoveFriend}
+                        text={isFriend ? "Remover contato" : "Remover dos Seguidores"}
+                        onPressListener={isFriend ? handleRemoveFriend : handleUpdateStatus}
                         border="#FFF"
                         fontColor="#FFF"
                         background="transparent"

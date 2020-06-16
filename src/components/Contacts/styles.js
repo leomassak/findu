@@ -13,9 +13,10 @@ export const ContactCardContainer = styled.TouchableOpacity`
 `;
 
 export const ProfileImageContainer = styled.View`
-    width: 60px;
-    height: 60px;
-    border-radius: 100px;
+    width: 65px;
+    height: 65px;
+    border-radius: 400px;
+    overflow: hidden;
 `;
 
 export const ProfileImage = styled.ImageBackground`
@@ -27,14 +28,39 @@ export const ProfileImage = styled.ImageBackground`
 export const ContactName = styled.Text`
     font-size: 18px;
     font-family: Poppins-Regular;
-    width: 60%;
+    width: 50%;
     color: #000;
-    text-align: center;
 `;
 
 export const ContactGroupOrb = styled.View`
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     border-radius: 100px;
     background-color: #00FF19;
+`;
+
+export const AcceptAndDeclineButtonView = styled.View`
+   height: 80%;
+   background-color: #FFF;
+   justify-content: space-around;
+   align-items: center;
+`;
+
+export const AcceptDeclineButton = styled.TouchableOpacity`
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const ButtonText = styled.Text`
+    font-size: 14px;
+    color: #FFF;
+    font-family: Poopind-Bold;
+    text-align: center;
+`;
+
+export const StatusText = styled.Text`
+    color: ${props => props.fontColor};
+    font-size: 12px;
+    font-family: Poppins-Bold;
 `;
