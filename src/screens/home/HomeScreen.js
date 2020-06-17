@@ -37,58 +37,63 @@ export default function HomeScreen(props) {
     const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
     const MapMemo = useMemo(() => 
-      <S.PageMapViewContainerView
-                    height={friends.length === 0}
+    <S.HomeContainer
+        style={{ paddingTop: statusBarHeight }}
+        >
+        <S.PageMapViewContainerView
+        height={friends.length === 0}
+        >
+            {region.longitude && region.latitude && (
+                <S.PageMapView
+                    showsUserLocation
+                    showsCompass={false}
+                    followsUserLocation
+                    zoomEnabled
+                    // initialRegion={{
+                    //     latitude: initialCordinates.latitude,
+                    //     longitude: initialCordinates.longitude,
+                    //     latitudeDelta: LATITUDE_DELTA,
+                    //     longitudeDelta: LONGITUDE_DELTA,
+                    // }}
+                    region={{
+                    latitude: region.latitude,
+                    longitude: region.longitude,
+                    latitudeDelta: LATITUDE_DELTA,
+                    longitudeDelta: LONGITUDE_DELTA,
+                    }}
                 >
-                    {region.longitude && region.latitude && (
-                        <S.PageMapView
-                            showsUserLocation
-                            showsCompass={false}
-                            followsUserLocation
-                            zoomEnabled
-                            // initialRegion={{
-                            //     latitude: initialCordinates.latitude,
-                            //     longitude: initialCordinates.longitude,
-                            //     latitudeDelta: LATITUDE_DELTA,
-                            //     longitudeDelta: LONGITUDE_DELTA,
-                            // }}
-                            region={{
-                                latitude: region.latitude,
-                                longitude: region.longitude,
-                                latitudeDelta: LATITUDE_DELTA,
-                                longitudeDelta: LONGITUDE_DELTA,
-                            }}
-                        >
-                            {friends.length > 0 && friends.map((item) => (
-                                <>
-                                    {item.location && (
-                                        <S.PageMarker
-                                            coordinate={{
-                                                latitude: item.location.lat,
-                                                longitude: item.location.lng,
-                                                latitudeDelta: LATITUDE_DELTA,
-                                                longitudeDelta: LONGITUDE_DELTA,
-                                            }}
-                                        >
-                                            <S.PageMarkerView>
-                                                {item.profilePhoto ? (
-                                                    <S.PageMarkerImage
-                                                        source={{ uri: item.profilePhoto.url }}
-                                                    />
-                                                ) : (
-                                                        <S.PageMarkerDefaultSvg
-                                                            height={ScaleUtils.ScreenHeight * 0.035}
-                                                            width={ScaleUtils.ScreenHeight * 0.035}
-                                                        />
-                                                    )}
-                                            </S.PageMarkerView>
-                                        </S.PageMarker>
+                    {friends.length > 0 && friends.map((item) => (
+                        <>
+                            {item.location && (
+                                <S.PageMarker
+                                    coordinate={{
+                                    latitude: item.location.lat,
+                                    longitude: item.location.lng,
+                                    latitudeDelta: LATITUDE_DELTA,
+                                    longitudeDelta: LONGITUDE_DELTA,
+                                    }}
+                                >
+                                    <S.PageMarkerView>
+                                    {item.profilePhoto ? (
+                                    <S.PageMarkerImage
+                                    source={{ uri: item.profilePhoto.url }}
+                                    />
+                                    ) : (
+                                    <S.PageMarkerDefaultSvg
+                                    height={ScaleUtils.ScreenHeight * 0.035}
+                                    width={ScaleUtils.ScreenHeight * 0.035}
+                                    />
                                     )}
-                                </>
-                            ))}
-                        </S.PageMapView>
-                    )}
-                </S.PageMapViewContainerView>, [props]);
+                                    </S.PageMarkerView>
+                                </S.PageMarker>
+                            )}
+                        </>
+                    ))}
+                </S.PageMapView>
+            )}
+        </S.PageMapViewContainerView>
+        </S.HomeContainer>
+      , [region]);
 
     useEffect(() => {
         askForPermission();
@@ -272,58 +277,6 @@ export default function HomeScreen(props) {
             <S.HomeContainer
                 style={{ paddingTop: statusBarHeight }}
             >
-                {/* <S.PageMapViewContainerView
-                    height={friends.length === 0}
-                >
-                    {initialCordinates.longitude && initialCordinates.latitude && (
-                        <S.PageMapView
-                            showsUserLocation
-                            showsCompass={false}
-                            followsUserLocation
-                            zoomEnabled
-                            // initialRegion={{
-                            //     latitude: initialCordinates.latitude,
-                            //     longitude: initialCordinates.longitude,
-                            //     latitudeDelta: LATITUDE_DELTA,
-                            //     longitudeDelta: LONGITUDE_DELTA,
-                            // }}
-                            region={{
-                                latitude: region.latitude,
-                                longitude: region.longitude,
-                                latitudeDelta: LATITUDE_DELTA,
-                                longitudeDelta: LONGITUDE_DELTA,
-                            }}
-                        >
-                            {friends.length > 0 && friends.map((item) => (
-                                <>
-                                    {item.location && (
-                                        <S.PageMarker
-                                            coordinate={{
-                                                latitude: item.location.lat,
-                                                longitude: item.location.lng,
-                                                latitudeDelta: LATITUDE_DELTA,
-                                                longitudeDelta: LONGITUDE_DELTA,
-                                            }}
-                                        >
-                                            <S.PageMarkerView>
-                                                {item.profilePhoto ? (
-                                                    <S.PageMarkerImage
-                                                        source={{ uri: item.profilePhoto.url }}
-                                                    />
-                                                ) : (
-                                                        <S.PageMarkerDefaultSvg
-                                                            height={ScaleUtils.ScreenHeight * 0.035}
-                                                            width={ScaleUtils.ScreenHeight * 0.035}
-                                                        />
-                                                    )}
-                                            </S.PageMarkerView>
-                                        </S.PageMarker>
-                                    )}
-                                </>
-                            ))}
-                        </S.PageMapView>
-                    )}
-                </S.PageMapViewContainerView> */}
                 { MapMemo }
                 <S.PageFriendListScrollView>
                     {friends.length > 0 && friends.map((item) => (
