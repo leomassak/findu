@@ -63,7 +63,7 @@ function CustomDrawer(props) {
                     onPress={() => props.navigation.navigate('Contacts')}
                 />
                 <DrawerItem
-                    label="Código de Amizade"
+                    label="Gerar Código"
                     labelStyle={{ fontFamily: 'Poppins-Regular', fontSize: 18, color: '#000' }}
                     onPress={() => setModalOpen(true)}
                 />

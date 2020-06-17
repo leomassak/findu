@@ -45,7 +45,6 @@ export default function EditProfileScreen(props) {
     }
 
     const onSelectProfileImage = () => {
-        console.log('entrou');
         Alert.alert(
             "Foto de Perfil",
             "Escolha uma foto para seu perfil",

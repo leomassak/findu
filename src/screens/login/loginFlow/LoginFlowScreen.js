@@ -26,7 +26,7 @@ export default function LoginFlowScreen(props) {
                             Seja Bem-Vindo
                         </S.WelcomeHeaderTitleText>
                         <S.WelcomeDescriptionText>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ac tellus quis vulputate erat. Dolor sagittis faucibus montes.
+                            Este é seu novo aplicativo de localização pessoal
                         </S.WelcomeDescriptionText>
                         <S.ButtonAreaView>
                             <DefaultButton
