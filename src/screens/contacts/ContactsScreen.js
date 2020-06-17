@@ -195,7 +195,7 @@ function ContactsScreen(props) {
                     )
                     : (
                         <>
-                            {!getAllFriendsOnRequest && <S.EmptyFriendsText>Nenhum amigo na lista</S.EmptyFriendsText>}
+                            {!getAllFriendsOnRequest && <S.EmptyFriendsText>Nenhum contato na lista</S.EmptyFriendsText>}
                         </>
                     )
                 }

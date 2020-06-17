@@ -108,11 +108,10 @@ export default function HomeScreen(props) {
     useEffect(() => {
         BackgroundGeolocation.configure({
             desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
-            stationaryRadius: 50,
-            distanceFilter: 50,
+            stationaryRadius: 20,
+            distanceFilter: 30,
             notificationTitle: 'FindU',
             notificationText: 'FindU está utilizando sua localizção',
-            //debug: true,
             startOnBoot: false,
             stopOnTerminate: true,
             locationProvider: BackgroundGeolocation.DISTANCE_FILTER_PROVIDER, // DISTANCE_FILTER_PROVIDER for
@@ -201,7 +200,7 @@ export default function HomeScreen(props) {
 
     const startFriendsLoopRequest = () => setInterval(() => {
         getAllFriends();
-    }, 10000);
+    }, 5000);
 
 
     const askForPermission = async () => {
@@ -304,7 +303,7 @@ export default function HomeScreen(props) {
                                     </S.PageFriendNameText>
                                     <S.PageFriendDistanceText>
                                         {item.location
-                                            ? `${Math.round(item.location.distance)} km`
+                                            ? `${item.location.distance.toFixed(1)} km`
                                             : 'Não possui registro de localização'}
                                     </S.PageFriendDistanceText>
                                 </S.PageFriendTextView>

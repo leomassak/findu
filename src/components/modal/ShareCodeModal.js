@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {
+    BackHandler, Linking, Alert, Share
+} from 'react-native';
 
 import * as S from './styles';
 
@@ -37,6 +40,15 @@ export default function ShareCodeModal({
         }
     }
 
+    const onShareClick = async (code) => {
+        await Share.share({
+            title: 'Compartilhar Código',
+            dialogTitle: 'Compartilhar Código',
+            message: `Esse código te da acesso a minha localização do APP FindU!
+${code}`
+        });
+    }
+
     return (
         <Modal
             isVisible={isVisible}
@@ -60,15 +72,15 @@ export default function ShareCodeModal({
                                 color="#000"
                             />
                             <S.ModalEmailTitle>
-                                Compartilhe esse código com seus amigos para eles te adicionarem!
+                                Compartilhe o código abaixo com uma pessoa!
                             </S.ModalEmailTitle>
                             <S.ModalCodeText>
                                 {userShareCode}
                             </S.ModalCodeText>
                             <S.ModalEmailButtonView>
                                 <DefaultButton
-                                    text="Entendi"
-                                    onPressListener={onDismiss}
+                                    text="Compartilhar"
+                                    onPressListener={() => onShareClick(userShareCode)}
                                     fontColor="#FFF"
                                     background="#4F80E1"
                                 />

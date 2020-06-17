@@ -86,8 +86,8 @@ export default function ProfileScreen({ navigation, route }) {
                 <S.InputContainer>
                     <S.InputLabel>Telefone</S.InputLabel>
                     <S.ProfileInfoText> {friend.phone} </S.ProfileInfoText>
-                    <S.InputLabel> Grupos</S.InputLabel>
-                    <S.ProfileInfoText> - Amigos </S.ProfileInfoText>
+                    {/* <S.InputLabel> Grupos</S.InputLabel>
+                    <S.ProfileInfoText> - Amigos </S.ProfileInfoText> */}
                 </S.InputContainer>
                 <S.ButtonsContainer>
                     {/* <DefaultButton

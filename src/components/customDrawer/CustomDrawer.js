@@ -67,11 +67,11 @@ function CustomDrawer(props) {
                     labelStyle={{ fontFamily: 'Poppins-Regular', fontSize: 18, color: '#000' }}
                     onPress={() => setModalOpen(true)}
                 />
-                <DrawerItem
+                {/* <DrawerItem
                     label="Configurações"
                     labelStyle={{ fontFamily: 'Poppins-Regular', fontSize: 18, color: '#000' }}
                     onPress={() => { }}
-                />
+                /> */}
                 <DrawerItem
                     label="Logout"
                     labelStyle={{ fontFamily: 'Poppins-Regular', fontSize: 18, color: '#000' }}
