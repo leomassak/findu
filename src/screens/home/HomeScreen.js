@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, memo } from 'react';
 import { StatusBar } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Alert } from 'react-native';
@@ -13,11 +13,13 @@ import * as S from './styles';
 import * as UserActions from '../../redux/actions/user';
 import * as LoadingSelector from '../../redux/reducers/loading';
 import * as FriendsActions from '../../redux/actions/friends';
+import * as FriendsSelectors from '../../redux/reducers/friends';
 
 import PermissionModal from '../../components/modal/PermissionModal';
 
 export default function HomeScreen(props) {
     const dispatch = useDispatch();
+    const friends = useSelector(state => FriendsSelectors.getAllFriends(state))
 
     const drawerOpened = useIsDrawerOpen();
     const rotationValue = useRef(new Animated.Value(0)).current;
@@ -27,7 +29,6 @@ export default function HomeScreen(props) {
     })
     const [initialCordinates, setInitialCordinates] = useState({});
     const [region, setRegion] = useState({});
-    const [friends, setFriends] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [statusBarHeight, setStatusBarHeight] = useState(0);
 
@@ -39,13 +40,19 @@ export default function HomeScreen(props) {
         askForPermission();
         getAllFriends();
         setTimeout(() => setStatusBarHeight(5), 500);
+
+        const unsubscribe = startFriendsLoopRequest();
+
+        return () => {
+            clearInterval(unsubscribe);
+        }
     }, [])
 
     useEffect(() => {
         BackgroundGeolocation.configure({
             desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
-            stationaryRadius: 50,
-            distanceFilter: 50,
+            stationaryRadius: 20,
+            distanceFilter: 20,
             notificationTitle: 'FindU',
             notificationText: 'FindU está utilizando sua localizção',
             //debug: true,
@@ -63,10 +70,10 @@ export default function HomeScreen(props) {
                 lat: location.latitude,
                 lng: location.longitude,
             }));
-            setRegion({
-                latitude: location.latitude,
-                longitude: location.longitude,
-            })
+            // setRegion({
+            //     latitude: location.latitude,
+            //     longitude: location.longitude,
+            // })
             // handle your locations here
             // to perform long running operation on iOS
             // you need to create background task
@@ -135,6 +142,12 @@ export default function HomeScreen(props) {
         };
     })
 
+    const startFriendsLoopRequest = () => setInterval(() => {
+        getAllFriends();
+        // console.log('chamou')
+    }, 10000);
+
+
     const askForPermission = async () => {
         PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION)
             .then(async (response) => {
@@ -151,8 +164,7 @@ export default function HomeScreen(props) {
 
     const getAllFriends = async () => {
         try {
-            const friendsInfo = await dispatch(FriendsActions.getAllFriends());
-            setFriends(friendsInfo.friends)
+            await dispatch(FriendsActions.getAllFriends());
         } catch (err) {
             Alert.alert('Erro', err.message);
         }
@@ -173,6 +185,8 @@ export default function HomeScreen(props) {
             }
         );
     }
+
+    console.log(friends);
 
     useEffect(() => {
         Animated.timing(
@@ -213,12 +227,12 @@ export default function HomeScreen(props) {
                             showsCompass={false}
                             followsUserLocation
                             zoomEnabled
-                            initialRegion={{
-                                latitude: initialCordinates.latitude,
-                                longitude: initialCordinates.longitude,
-                                latitudeDelta: LATITUDE_DELTA,
-                                longitudeDelta: LONGITUDE_DELTA,
-                            }}
+                            // initialRegion={{
+                            //     latitude: initialCordinates.latitude,
+                            //     longitude: initialCordinates.longitude,
+                            //     latitudeDelta: LATITUDE_DELTA,
+                            //     longitudeDelta: LONGITUDE_DELTA,
+                            // }}
                             region={{
                                 latitude: region.latitude,
                                 longitude: region.longitude,
@@ -256,8 +270,8 @@ export default function HomeScreen(props) {
                         </S.PageMapView>
                     )}
                 </S.PageMapViewContainerView>
-                {friends.length > 0 && friends.map((item) => (
-                    <S.PageFriendListScrollView>
+                <S.PageFriendListScrollView>
+                    {friends.length > 0 && friends.map((item) => (
                         <S.PageFriendDetailsTouchableOpacity
                             activeOpacity={0.7}
                             onPress={() => setRegion({
@@ -288,8 +302,8 @@ export default function HomeScreen(props) {
                                 </S.PageFriendDistanceText>
                             </S.PageFriendTextView>
                         </S.PageFriendDetailsTouchableOpacity>
-                    </S.PageFriendListScrollView>
-                ))}
+                    ))}
+                </S.PageFriendListScrollView>
                 <S.BurguerButton
                     onPress={() => {
                         setRegion(initialCordinates)
@@ -303,13 +317,6 @@ export default function HomeScreen(props) {
                         <S.BurguerIcon />
                     </Animated.View>
                 </S.BurguerButton>
-
-                {/* <S.LocationButton
-                    onPress={() => setRegion(initialCordinates)}
-                    activeOpacity={0.7}
-                >
-                    <S.LocationIcon />
-                </S.LocationButton> */}
 
             </S.HomeContainer>
         </>

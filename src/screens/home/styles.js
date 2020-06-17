@@ -11,7 +11,8 @@ export const HomeContainer = styled.View`
 `;
 
 export const PageMapViewContainerView = styled.View`
-  height: ${(props) => (props.height ? '100%' : '80%')};
+  /* height: ${(props) => (props.height ? '100%' : '80%')}; */
+  height: 100%;
 `;
 
 export const PageMapView = styled(MapView)`
