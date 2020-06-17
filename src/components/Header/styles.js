@@ -34,6 +34,6 @@ export const RoundContainer = styled.View`
         height: 45;
         align-items: center;
         justify-content: center;
-        border-color: #FFF;
+        border-color: ${props => props.color};
         border-radius: 400px;
 `;

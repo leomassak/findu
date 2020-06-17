@@ -5,15 +5,25 @@ import { addLoading, removeLoading } from './loading';
 
 export const ACTION_SAVE_FRIENDS_INFO = 'SAVE_FRIENDS_INFO';
 
+export const ACTIONS_SAVE_ALL_FRIENDS = 'SAVE_ALL_FRIENDS';
+
 export const saveFriendsInfo = (friendsInfo) => ({
     type: ACTION_SAVE_FRIENDS_INFO,
     payload: friendsInfo,
-  });
+});
+
+export const saveAllFriends = (allFriends) => ({
+    type: ACTIONS_SAVE_ALL_FRIENDS,
+    payload: allFriends,
+});
 
 export const getAllFriends = (queryParams, load) => async (dispatch) => {
     if (load) dispatch(addLoading());
     try {
         const friendsInfo = await FriendsApi.getAllFriends(queryParams);
+        if (!queryParams) {
+            dispatch(saveAllFriends(friendsInfo.friends));
+        }
         return friendsInfo;
     } catch (err) {
         console.log('err', err);
@@ -63,7 +73,7 @@ export const updateFriendStatus = (id, approved) => async (dispatch) => {
 export const addFriend = (shareCode) => async (dispatch) => {
     dispatch(addLoading());
     try {
-        await FriendsApi.addFriend(shareCode); 
+        await FriendsApi.addFriend(shareCode);
     } catch (err) {
         console.log('err', err);
         if (Errors.addFriend[err.message] !== undefined) {
@@ -79,7 +89,7 @@ export const addFriend = (shareCode) => async (dispatch) => {
 export const removeFriend = (friendId) => async (dispatch) => {
     dispatch(addLoading());
     try {
-        await FriendsApi.removeFriend(friendId); 
+        await FriendsApi.removeFriend(friendId);
     } catch (err) {
         if (Errors.removeFriend[err.message] !== undefined) {
             throw new Error(Errors.removeFriend[err.message]);

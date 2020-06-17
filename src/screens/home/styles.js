@@ -11,12 +11,13 @@ export const HomeContainer = styled.View`
 `;
 
 export const PageMapViewContainerView = styled.View`
-  height: ${(props) => (props.height ? '100%' : '80%')};
+  /* height: ${(props) => (props.height ? '100%' : '80%')}; */
+  height: 100%;
 `;
 
 export const PageMapView = styled(MapView)`
   position: absolute;
-  top: 0;
+  top: -5;
   bottom: 0;
   left: 0;
   right: 0;
@@ -102,7 +103,7 @@ export const PageFriendDistanceText = styled.Text`
 export const BurguerButton = styled.TouchableOpacity`
     position: absolute;
     left: 20px;
-    top: 20px;
+    top: 10px;
     width: ${ScaleUtils.ScreenHeight * 0.08}px;
     height: ${ScaleUtils.ScreenHeight * 0.08}px;
     border-radius: 100px;

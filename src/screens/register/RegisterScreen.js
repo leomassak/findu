@@ -29,12 +29,12 @@ const RegisterScreen = (props) => {
     const dispatch = useDispatch();
     const isLoading = useSelector(state => LoadingSelector.getLoading(state));
     const [formData, setFormdata] = useState({
-        name: "Giovani Pinke",
-        birthday: "09021999",
-        email: "giovani.pinke@mblabs.com.br",
-        phone: "5519993107322",
-        password: "123456",
-        confirmPassword: "123456",
+        name: "",
+        birthday: "",
+        email: "",
+        phone: "",
+        password: "",
+        confirmPassword: "",
     });
     const [hidePassword, setHidePassword] = useState(true);
     const [hideConfirmPassword, setHideConfirmPassword] = useState(true);

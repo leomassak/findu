@@ -1,6 +1,8 @@
 import styled from 'styled-components/native';
 import * as ScaleUtils from '../../utils/scale';
 
+import Svg from '../../assets/svg/profile.svg';
+
 export const ProfileContainerScrollView = styled.ScrollView`  
     flex: 1;
     background-color: #4F80E1;
@@ -12,7 +14,6 @@ export const UserProfileView = styled.View`
 `;
 
 export const ProfileImageView = styled.View`
-    background-color: #CECECE;
     border-width: 1px;
     border-color: #000;
     height: ${`${ScaleUtils.ScreenHeight * 0.19}px`};
@@ -64,4 +65,9 @@ export const UserName = styled.Text`
     font-size: 24px;
     font-family: Poppins-Bold;
     margin-bottom: 15px;
+`;
+
+export const ProfileSvg = styled(Svg)`
+    height: ${`${ScaleUtils.getPixelRatio * 18.5}px`};
+    width: ${`${ScaleUtils.getPixelRatio * 18.5}px`};
 `;

@@ -11,6 +11,7 @@ export const DefaultButtonTouchableOpacity = styled.TouchableOpacity`
     border-width: ${(props) => props.border ? '1px' : '0px'};
     border-color: ${(props) => props.border || '#4F80E1'};
     border-radius: 10px;
+    margin-bottom: 5%;
 `;
 
 export const ButtonNameText = styled.Text`
@@ -21,7 +22,7 @@ export const ButtonNameText = styled.Text`
     font-weight: bold;
     align-items: center;
     text-align: center;
-    padding-vertical: ${`${ScaleUtils.ScreenHeight * 0.01}px`};
+    padding-vertical: ${`${ScaleUtils.ScreenHeight * 0.02}px`};
 `;
 
 export const UnderlineButtonTouchableOpacity = styled.TouchableOpacity`
