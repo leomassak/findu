@@ -12,7 +12,7 @@ export const HeaderView = styled.View`
 `;
 
 export const HeaderBackButtonContainer = styled.TouchableOpacity`
-    width: ${`${ScaleUtils.ScreenHeight * 0.07}px`};
+    width: ${`${ScaleUtils.ScreenHeight * 0.1}px`};
     height: 100%;
     justify-content: center;
     align-items: center;
