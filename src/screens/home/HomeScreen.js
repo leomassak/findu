@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { StatusBar } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Alert } from 'react-native';
 import BackgroundGeolocation from '@mauron85/react-native-background-geolocation';
 import Geolocation from '@react-native-community/geolocation';
@@ -11,11 +11,14 @@ import * as ScaleUtils from '../../utils/scale';
 import * as S from './styles';
 
 import * as UserActions from '../../redux/actions/user';
+import * as LoadingSelector from '../../redux/reducers/loading';
+import * as FriendsActions from '../../redux/actions/friends';
 
 import PermissionModal from '../../components/modal/PermissionModal';
 
 export default function HomeScreen(props) {
     const dispatch = useDispatch();
+
     const drawerOpened = useIsDrawerOpen();
     const rotationValue = useRef(new Animated.Value(0)).current;
     const spin = rotationValue.interpolate({
@@ -23,7 +26,10 @@ export default function HomeScreen(props) {
         outputRange: ['0deg', '90deg']
     })
     const [initialCordinates, setInitialCordinates] = useState({});
+    const [region, setRegion] = useState({});
+    const [friends, setFriends] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [statusBarHeight, setStatusBarHeight] = useState(0);
 
     const ASPECT_RATIO = ScaleUtils.ScreenWidth / ScaleUtils.ScreenHeight;
     const LATITUDE_DELTA = 0.01;
@@ -31,6 +37,8 @@ export default function HomeScreen(props) {
 
     useEffect(() => {
         askForPermission();
+        getAllFriends();
+        setTimeout(() => setStatusBarHeight(5), 500);
     }, [])
 
     useEffect(() => {
@@ -55,6 +63,10 @@ export default function HomeScreen(props) {
                 lat: location.latitude,
                 lng: location.longitude,
             }));
+            setRegion({
+                latitude: location.latitude,
+                longitude: location.longitude,
+            })
             // handle your locations here
             // to perform long running operation on iOS
             // you need to create background task
@@ -137,10 +149,24 @@ export default function HomeScreen(props) {
             });
     }
 
+    const getAllFriends = async () => {
+        try {
+            const friendsInfo = await dispatch(FriendsActions.getAllFriends());
+            setFriends(friendsInfo.friends)
+        } catch (err) {
+            Alert.alert('Erro', err.message);
+        }
+    }
+
     const getCurrentPosition = async () => {
         await Geolocation.getCurrentPosition(
             async (position) => {
                 setInitialCordinates(position.coords)
+                setRegion(position.coords)
+                await dispatch(UserActions.updateUserLocation({
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                }));
             },
             error => {
                 setIsModalOpen(true);
@@ -164,23 +190,27 @@ export default function HomeScreen(props) {
         askForPermission();
     }
 
-
     return (
         <>
-            <StatusBar 
-               barStyle="light-content"
-               backgroundColor="#4F80E1" 
+            <StatusBar
+                barStyle="light-content"
+                backgroundColor="#4F80E1"
             />
             <PermissionModal
                 isVisible={isModalOpen}
                 onDismiss={() => onPressModal()}
                 onPress={() => onPressModal()}
             />
-            <S.HomeContainer>
-                <S.PageMapViewContainerView>
+            <S.HomeContainer
+                style={{ paddingTop: statusBarHeight }}
+            >
+                <S.PageMapViewContainerView
+                    height={friends.length === 0}
+                >
                     {initialCordinates.longitude && initialCordinates.latitude && (
                         <S.PageMapView
                             showsUserLocation
+                            showsCompass={false}
                             followsUserLocation
                             zoomEnabled
                             initialRegion={{
@@ -189,24 +219,82 @@ export default function HomeScreen(props) {
                                 latitudeDelta: LATITUDE_DELTA,
                                 longitudeDelta: LONGITUDE_DELTA,
                             }}
+                            region={{
+                                latitude: region.latitude,
+                                longitude: region.longitude,
+                                latitudeDelta: LATITUDE_DELTA,
+                                longitudeDelta: LONGITUDE_DELTA,
+                            }}
                         >
-                            {/* {stationLocation && (
-                                <S.PageMarker
-                                    coordinate={{
-                                        latitude: stationLocation.latitude,
-                                        longitude: stationLocation.longitude,
-                                        latitudeDelta: LATITUDE_DELTA,
-                                        longitudeDelta: LONGITUDE_DELTA,
-                                    }}
-                                >
-                                    <MarkerLocationIcon />
-                                </S.PageMarker>
-                            )} */}
+                            {friends.length > 0 && friends.map((item) => (
+                                <>
+                                    {item.location && (
+                                        <S.PageMarker
+                                            coordinate={{
+                                                latitude: item.location.lat,
+                                                longitude: item.location.lng,
+                                                latitudeDelta: LATITUDE_DELTA,
+                                                longitudeDelta: LONGITUDE_DELTA,
+                                            }}
+                                        >
+                                            <S.PageMarkerView>
+                                                {item.profilePhoto ? (
+                                                    <S.PageMarkerImage
+                                                        source={{ uri: item.profilePhoto.url }}
+                                                    />
+                                                ) : (
+                                                        <S.PageMarkerDefaultSvg
+                                                            height={ScaleUtils.ScreenHeight * 0.035}
+                                                            width={ScaleUtils.ScreenHeight * 0.035}
+                                                        />
+                                                    )}
+                                            </S.PageMarkerView>
+                                        </S.PageMarker>
+                                    )}
+                                </>
+                            ))}
                         </S.PageMapView>
                     )}
                 </S.PageMapViewContainerView>
+                {friends.length > 0 && friends.map((item) => (
+                    <S.PageFriendListScrollView>
+                        <S.PageFriendDetailsTouchableOpacity
+                            activeOpacity={0.7}
+                            onPress={() => setRegion({
+                                latitude: item.location.lat,
+                                longitude: item.location.lng,
+                            })}
+                        >
+                            <S.PageFriendImageView>
+                                {item.profilePhoto ? (
+                                    <S.PageMarkerImage
+                                        source={{ uri: item.profilePhoto.url }}
+                                    />
+                                ) : (
+                                        <S.PageMarkerDefaultSvg
+                                            height={ScaleUtils.ScreenHeight * 0.075}
+                                            width={ScaleUtils.ScreenHeight * 0.075}
+                                        />
+                                    )}
+                            </S.PageFriendImageView>
+                            <S.PageFriendTextView>
+                                <S.PageFriendNameText>
+                                    {item.name}
+                                </S.PageFriendNameText>
+                                <S.PageFriendDistanceText>
+                                    {item.location
+                                        ? `${Math.round(item.location.distance)} km`
+                                        : 'Não possui registro de localização'}
+                                </S.PageFriendDistanceText>
+                            </S.PageFriendTextView>
+                        </S.PageFriendDetailsTouchableOpacity>
+                    </S.PageFriendListScrollView>
+                ))}
                 <S.BurguerButton
-                    onPress={() => props.navigation.toggleDrawer()}
+                    onPress={() => {
+                        setRegion(initialCordinates)
+                        props.navigation.toggleDrawer();
+                    }}
                     activeOpacity={0.7}
                 >
                     <Animated.View style={{
@@ -215,6 +303,14 @@ export default function HomeScreen(props) {
                         <S.BurguerIcon />
                     </Animated.View>
                 </S.BurguerButton>
+
+                {/* <S.LocationButton
+                    onPress={() => setRegion(initialCordinates)}
+                    activeOpacity={0.7}
+                >
+                    <S.LocationIcon />
+                </S.LocationButton> */}
+
             </S.HomeContainer>
         </>
     )
