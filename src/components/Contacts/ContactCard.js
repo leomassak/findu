@@ -34,7 +34,7 @@ function ContactCard({ onPress, contact, index, invite }) {
                         </>
                      )}
              </S.AcceptAndDeclineButtonView>
-            ) : <S.ContactGroupOrb />}
+            ) : null }
         </S.ContactCardContainer>
     );
 }

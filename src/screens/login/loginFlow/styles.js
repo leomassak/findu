@@ -16,7 +16,7 @@ export const LogoView = styled.View`
 export const LogoSvg = styled(Logo)``;
 
 export const AppNameText = styled.Text`
-    font-size: 48px;
+    font-size: ${ScaleUtils.pixelScale(30)}px;
     font-family: Poppins-Bold;
     text-align: center;
 `;
@@ -31,15 +31,15 @@ export const WelcomeView = styled.View`
 `;
 
 export const WelcomeHeaderTitleText = styled.Text`
-    font-size: 24px;
+    font-size: ${ScaleUtils.pixelScale(25)}px;
     text-align: center;
     font-family: Poppins-Bold;
-    margin-bottom: 5%;
+    margin-bottom: 5px;
     color: #FFF;
 `;
 
 export const WelcomeDescriptionText = styled.Text`
-    font-size: 14px;
+    font-size: ${ScaleUtils.pixelScale(14)}px;
     font-family: Poppins-Regular;
     text-align: center;
     margin-bottom: 10%;
@@ -47,6 +47,6 @@ export const WelcomeDescriptionText = styled.Text`
 `;
 
 export const ButtonAreaView = styled.View`
-    height: ${`${ScaleUtils.ScreenHeight * 0.185}px`};
+    height: ${ScaleUtils.nearestWidthPixelScale(34)}px;
     justify-content: space-between;
 `;

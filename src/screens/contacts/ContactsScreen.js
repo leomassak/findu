@@ -138,6 +138,14 @@ function ContactsScreen(props) {
                 barStyle="light-content"
                 backgroundColor="#4F80E1"
             />
+             <Header
+                    noStatusBar
+                    addButton
+                    onPressListener={() => props.navigation.goBack()}
+                    onPressAddButton={() => toggleModal()}
+                    headerText="Meus Contatos"
+                    color
+                />
             <S.ContactsScreenContainer contentContainerStyle={{ paddingBottom: 15 }}>
                 <AddContactModal
                     isVisible={showAddModal}
@@ -145,13 +153,13 @@ function ContactsScreen(props) {
                     onPress={addContact}
                     setContactCode={setFriendCode}
                 />
-                <Header
+                {/* <Header
                     noStatusBar
                     addButton
                     onPressListener={() => props.navigation.goBack()}
                     onPressAddButton={() => toggleModal()}
                 />
-                <S.HeaderName>Meus Contatos</S.HeaderName>
+                <S.HeaderName>Meus Contatos</S.HeaderName> */}
                 <S.FilterButtonsView>
                     { filterButtonNames.map((name, index) => (
                         <FilterButton 

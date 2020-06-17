@@ -27,6 +27,7 @@ export default function TextInputContainer({
                     keyboardType={keyboardType || null}
                     value={value}
                     onChangeText={(text) => onChangeValue(text)}
+                    autoCapitalize="none"
                 />
             ) : (
                     <S.TextInput

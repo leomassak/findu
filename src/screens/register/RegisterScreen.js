@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { StatusBar } from 'react-native';
 import md5 from 'md5';
 import { useSelector, useDispatch } from 'react-redux';
 import { MaskService } from 'react-native-masked-text';
@@ -121,6 +122,10 @@ const RegisterScreen = (props) => {
 
     return (
         <>
+            <StatusBar 
+               barStyle="light-content"
+               backgroundColor="#4F80E1" 
+            />
             {isLoading && <Loading />}
             <SucessModal
                 isVisible={isModalOpen}
@@ -133,6 +138,7 @@ const RegisterScreen = (props) => {
             >
                 <Header
                     onPressListener={() => props.navigation.goBack()}
+                    noStatusBar
                 />
                 <S.PageTitleContainer>
                     <Logo />

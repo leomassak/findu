@@ -4,7 +4,7 @@ import * as ScaleUtils from '../../utils/scale';
 
 export const DefaultButtonTouchableOpacity = styled.TouchableOpacity`
     width: 100%;
-    height: ${ScaleUtils.ScreenWidth * 0.15};
+    height: ${ScaleUtils.nearestWidthPixelScale(15)}px;
     justify-content: center;
     align-items: center;
     background-color: ${(props) => props.background || '#4F80E1'};
@@ -15,7 +15,7 @@ export const DefaultButtonTouchableOpacity = styled.TouchableOpacity`
 
 export const ButtonNameText = styled.Text`
     color: ${ (props) => props.fontColor || '#FFFF'};
-    font-size: 22px;
+    font-size: ${ScaleUtils.pixelScale(18)}px;
     font-family: Poppins-Bold;
     font-style: normal;
     font-weight: bold;
@@ -32,7 +32,7 @@ export const UnderlineButtonTouchableOpacity = styled.TouchableOpacity`
 
 export const UnderlineButtonText = styled.Text`
     color: ${ (props) => props.fontColor || '#000'};
-    font-size: 18px;
+    font-size: ${ScaleUtils.pixelScale(16)}px;
     font-family: Poppins-Medium;
     align-items: center;
     text-align: center;

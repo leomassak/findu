@@ -51,7 +51,7 @@ export const CircleFullCheckBox = styled.View`
 export const CheckBoxText = styled.Text`
     flex: 1;
     color: ${ (props) => props.fontColor || '#000' };
-    font-size: ${`${ScaleUtils.ScreenWidth * 0.048}px`};
+    font-size: ${`${ScaleUtils.pixelScale(16)}px`};
     font-family: Poppins-Bold;
     font-style: normal;
 `;

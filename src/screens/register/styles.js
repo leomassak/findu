@@ -5,6 +5,7 @@ import * as ScaleUtils from '../../utils/scale';
 import Svg from '../../assets/svg/profile.svg';
 import DefaultInput from '../../components/Input/Input';
 
+
 export const PageContainer = styled.ScrollView`
     flex: 1;
     background-color: #FFFF;
@@ -20,7 +21,7 @@ export const PageTitleContainer = styled.View`
 `;
 
 export const PageTitleText = styled.Text`
-    font-size: ${`${ScaleUtils.ScreenWidth * 0.065}`};
+    font-size: ${`${ScaleUtils.pixelScale(22)}`};
     font-family: Poppins-Bold;
     width: 80%;
 `;
@@ -37,7 +38,7 @@ export const UnderlineButtonContainer = styled.View`
 `;
 
 export const CheckBoxContainerView = styled.View`
-    height: ${`${ScaleUtils.ScreenHeight * 0.28}`};
+    height: ${`${ScaleUtils.nearestWidthPixelScale(48)}`};
     justify-content: space-between;
     margin-bottom: ${ScaleUtils.ScreenHeight * 0.04}px;
     margin-top: ${ScaleUtils.ScreenHeight * 0.03}px;

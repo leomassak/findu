@@ -12,6 +12,7 @@ export default function Header({
     onPressAddButton,
     color,
     noStatusBar,
+    headerText,
 })
     {
     return (
@@ -22,7 +23,7 @@ export default function Header({
                     backgroundColor={`${backgroundColor ? backgroundColor : '#FFF'}`}
                 />
             }
-            <S.HeaderView>  
+            <S.HeaderView background={color ? '#4F80E1' : '#FFF'} headerText={headerText}>  
                 <S.HeaderBackButtonContainer
                     onPress={onPressListener}
                 >
@@ -32,9 +33,10 @@ export default function Header({
                         <DefaultBackIcon />
                     )}
                 </S.HeaderBackButtonContainer>
+                { !!headerText && <S.HeaderText> {headerText} </S.HeaderText> }
                 { addButton && (
                     <S.AddButtonContainer onPress={onPressAddButton}>
-                        <Icon name="ios-add-circle-outline" color="#4442C0" size={45} />
+                        <Icon name="ios-add-circle-outline" color={ color ? "#FFF" : "#4F80E1"} size={45} />
                     </S.AddButtonContainer>
                 ) }
             </S.HeaderView>
