@@ -72,12 +72,12 @@ export const PageFriendImageView = styled.View`
   justify-content: center;
   align-items: center;
   margin-right: 5%;
+  overflow: hidden;
 `;
 
-export const PageFriendImage = styled.Image`
-  height: ${`${ScaleUtils.ScreenHeight * 0.09}px`};
-  width: ${`${ScaleUtils.ScreenHeight * 0.09}px`};
-  border-radius: ${`${ScaleUtils.ScreenHeight * 0.45}px`};
+export const PageFriendImage = styled.ImageBackground`
+  height: 100%;
+  width: 100%;
 `;
 
 export const PageFriendTextView = styled.View`

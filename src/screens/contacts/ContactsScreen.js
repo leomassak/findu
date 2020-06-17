@@ -14,7 +14,7 @@ import FilterButton from '../../components/button/filterButton/FilterButton';
 import Loading from '../../components/Loading/Loading';
 
 function ContactsScreen(props) {
-    const filterButtonNames = ['Amigos', 'Seguidores', 'Solicitações'];
+    const filterButtonNames = ['Seguindo', 'Seguidores', 'Solicitações'];
 
     const dispatch = useDispatch();
 
@@ -133,6 +133,7 @@ function ContactsScreen(props) {
 
     return (
         <>
+        {  console.log('isFriend', isFriendCard)}
         { getAllFriendsOnRequest && <Loading />}
             <StatusBar
                 barStyle="light-content"
@@ -153,13 +154,6 @@ function ContactsScreen(props) {
                     onPress={addContact}
                     setContactCode={setFriendCode}
                 />
-                {/* <Header
-                    noStatusBar
-                    addButton
-                    onPressListener={() => props.navigation.goBack()}
-                    onPressAddButton={() => toggleModal()}
-                />
-                <S.HeaderName>Meus Contatos</S.HeaderName> */}
                 <S.FilterButtonsView>
                     { filterButtonNames.map((name, index) => (
                         <FilterButton 
@@ -191,7 +185,7 @@ function ContactsScreen(props) {
                         showsVerticalScrollIndicator={false}
                         keyExtractor={item => item.id}
                         renderItem={({ item, index }) => (
-                          <ContactCard contact={item} index={index} onPress={() => props.navigation.navigate('Profile', { friendId: item._id, isFriend: isFriendCard })} invite={!isFriendCard} />
+                          <ContactCard contact={item} index={index} onPress={() => props.navigation.navigate('Profile', { friendId: item._id, isFriend: currentFilter === 0 })} invite={!isFriendCard} />
                         )
                       }
                     /> 

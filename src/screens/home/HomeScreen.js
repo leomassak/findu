@@ -267,7 +267,7 @@ export default function HomeScreen(props) {
                         >
                             <S.PageFriendImageView>
                                 {item.profilePhoto ? (
-                                    <S.PageMarkerImage
+                                    <S.PageFriendImage
                                         source={{ uri: item.profilePhoto.url }}
                                     />
                                 ) : (

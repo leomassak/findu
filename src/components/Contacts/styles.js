@@ -13,10 +13,11 @@ export const ContactCardContainer = styled.TouchableOpacity`
 `;
 
 export const ProfileImageContainer = styled.View`
-    width: 65px;
-    height: 65px;
+    width: 80px;
+    height: 80px;
     border-radius: 400px;
     overflow: hidden;
+    background-color: #CECECE;
 `;
 
 export const ProfileImage = styled.ImageBackground`
@@ -26,7 +27,7 @@ export const ProfileImage = styled.ImageBackground`
 `;
 
 export const ContactName = styled.Text`
-    font-size: 18px;
+    font-size: ${ScaleUtils.pixelScale(20)}px;
     font-family: Poppins-Regular;
     width: 50%;
     color: #000;

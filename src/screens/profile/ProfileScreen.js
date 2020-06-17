@@ -11,7 +11,8 @@ import ProfileImage from '../../assets/images/profile-mock.png';
 import Loading from '../../components/Loading/Loading';
 import { FriendsActions } from '../../redux/actions';
 
-export default function ProfileScreen({ navigation, route, isFriend }) {
+export default function ProfileScreen({ navigation, route }) {
+    const { isFriend } = route.params
     const dispatch = useDispatch();
     const isLoading = useSelector(state => LoadingSelector.getLoading(state));
     const friend = useSelector(state => UserSelector.getFriend(state));
@@ -59,6 +60,7 @@ export default function ProfileScreen({ navigation, route, isFriend }) {
 
     return (
         <>
+        {console.log('profile is friend', isFriend)}
             {isLoading && <Loading />}
             <S.ProfileContainerScrollView>
                 <Header

@@ -27,16 +27,14 @@ export default function Header({
                 <S.HeaderBackButtonContainer
                     onPress={onPressListener}
                 >
-                    {color ? (
-                        <WhiteBackIcon />
-                    ) : (
-                        <DefaultBackIcon />
-                    )}
+                        <S.RoundContainer color={ color ? "#FFF" : "#4F80E1"}>
+                            <Icon name="md-arrow-back" color={ color ? "#FFF" : "#4F80E1"} size={35}/>
+                        </S.RoundContainer>
                 </S.HeaderBackButtonContainer>
                 { !!headerText && <S.HeaderText> {headerText} </S.HeaderText> }
                 { addButton && (
                     <S.AddButtonContainer onPress={onPressAddButton}>
-                        <Icon name="ios-add-circle-outline" color={ color ? "#FFF" : "#4F80E1"} size={45} />
+                        <Icon name="ios-add-circle-outline" color={ color ? "#FFF" : "#4F80E1"} size={50} />
                     </S.AddButtonContainer>
                 ) }
             </S.HeaderView>
