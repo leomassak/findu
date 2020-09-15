@@ -56,7 +56,11 @@ function ContactsScreen(props) {
         setIsloading(true);
         try {
             const friendsInfo = await dispatch(currentFilter === 0 ? FriendsActions.getAllFriends(paginationParams, addLoading) : FriendsActions.getAllFollowers(paginationParams, addLoading));
-            setFriends(prevFriends => paginationParams.page === 1 ? friendsInfo.friends : [...prevFriends, ...friendsInfo.friends]);
+            if (currentFilter === 0) {
+                setFriends(prevFriends => paginationParams.page === 1 ? friendsInfo.friends : [...prevFriends, ...friendsInfo.friends]);
+            } else {
+                setFriends(prevFriends => paginationParams.page === 1 ? friendsInfo.followers : [...prevFriends, ...friendsInfo.followers]);
+            }
             setPaginationEnd(!friendsInfo.hasNextPage);
         } catch (err) {
             Alert.alert('Erro', err.message);

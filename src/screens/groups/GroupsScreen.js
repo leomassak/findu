@@ -51,9 +51,10 @@ function GroupsScreen(props) {
       );
       setGroups((prevGroups) =>
         paginationParams.page === 1
-          ? groupsInfo.groups
-          : [...prevGroups, ...groupsInfo.groups],
+          ? groupsInfo.rows
+          : [...prevGroups, ...groupsInfo.rows],
       );
+      console.log(groups);
       setPaginationEnd(!groupsInfo.hasNextPage);
     } catch (err) {
       Alert.alert('Erro', err.message);
@@ -140,12 +141,18 @@ function GroupsScreen(props) {
           showsVerticalScrollIndicator={false}
           keyExtractor={(item) => item.id}
           renderItem={({item, index}) => (
-            <ContactCard
-              contact={item}
-              index={index}
-              //   onPress={() => props.navigation.navigate('Profile', { friendId: item._id, isFriend: currentFilter === 0 })}
-              //   invite={!isFriendCard}
-            />
+            <S.GroupCardContainer
+              onPress={() => console.log('teste')}
+            >
+              <S.GroupName>
+                {item.name}
+              </S.GroupName>
+
+              <S.GroupColorView
+                backgroundColor={item.color}
+              />
+              
+            </S.GroupCardContainer>
           )}
         />
       </S.GroupsScreenContainer>

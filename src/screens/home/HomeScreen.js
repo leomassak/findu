@@ -166,25 +166,25 @@ export default function HomeScreen(props) {
         });
 
         BackgroundGeolocation.on('background', () => {
-            console.log('[INFO] App is in background');
+            // console.log('[INFO] App is in background');
         });
 
         BackgroundGeolocation.on('foreground', () => {
-            console.log('[INFO] App is in foreground');
+            // console.log('[INFO] App is in foreground');
         });
 
         BackgroundGeolocation.checkStatus((status) => {
-            console.log(
-                '[INFO] BackgroundGeolocation service is running',
-                status.isRunning,
-            );
-            console.log(
-                '[INFO] BackgroundGeolocation services enabled',
-                status.locationServicesEnabled,
-            );
-            console.log(
-                '[INFO] BackgroundGeolocation auth status: ' + status.authorization,
-            );
+            // console.log(
+            //     '[INFO] BackgroundGeolocation service is running',
+            //     status.isRunning,
+            // );
+            // console.log(
+            //     '[INFO] BackgroundGeolocation services enabled',
+            //     status.locationServicesEnabled,
+            // );
+            // console.log(
+            //     '[INFO] BackgroundGeolocation auth status: ' + status.authorization,
+            // );
 
             // you don't need to check status before start (this is just the example)
             if (!status.isRunning) {

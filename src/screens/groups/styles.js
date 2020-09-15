@@ -58,3 +58,30 @@ export const EmptyGroupsText = styled.Text`
     margin-top: 20px;
     text-align:center;
 `;
+
+export const GroupCardContainer = styled.TouchableOpacity`
+    width: 90%;
+    align-self: center;
+    height: ${ScaleUtils.ScreenWidth * 0.22};
+    background-color: #FFF;
+    border-bottom-width: 1px;
+    border-color: #CECECE;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    padding: 0 5%;
+`;
+
+export const GroupName = styled.Text`
+    font-size: ${ScaleUtils.pixelScale(20)}px;
+    font-family: Poppins-Regular;
+    width: 70%;
+    color: #000;
+`;
+
+export const GroupColorView = styled.View`
+    height: ${ScaleUtils.ScreenWidth * 0.05};
+    width: ${ScaleUtils.ScreenWidth * 0.05};
+    background-color: ${({ backgroundColor }) => backgroundColor};
+    border-radius: ${ScaleUtils.ScreenWidth * 0.05};
+`;
