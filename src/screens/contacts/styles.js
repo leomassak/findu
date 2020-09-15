@@ -45,6 +45,7 @@ export const PaginationLoadingView = styled.View`
     height: ${ScaleUtils.ScreenWidth * 0.1}px;
     align-items: center;
     justify-content: center;
+    margin-top: ${ScaleUtils.ScreenWidth * 0.1}px;
 `;
 
 export const EmptyFriendsText = styled.Text`
@@ -52,6 +53,7 @@ export const EmptyFriendsText = styled.Text`
     font-family: Poppins-Bold;
     margin-top: 20px;
     text-align:center;
+    height: ${ScaleUtils.ScreenWidth * 0.2}px;
 `;
 
 export const FilterButtonsView = styled.View`

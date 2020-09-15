@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ActivityIndicator, StatusBar } from 'react-native';
+import { ActivityIndicator, StatusBar, RefreshControl } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -21,12 +21,13 @@ function ContactsScreen(props) {
     const getAllFriendsOnRequest = useSelector(state => LoadingSelector.getLoading(state));
 
     const [search, setSearch] = useState('');
+    const [refreshing, setRefreshing] = useState(false);
     const [currentFilter, setCurrentFilter] = useState(0);
     const [isFriendCard, setIsFriendCard] = useState(true);
     const [showAddModal, setShowAddModal] = useState(false);
     const [paginationEnd, setPaginationEnd] = useState(false);
     const [noSearchResult, setNoSearchResult] = useState(false);
-    const [isLoading, setIsloading] = useState(false);
+    const [isLoading, setIsloading] = useState(true);
     const [friends, setFriends] = useState([]);
     const [filteredFriends, setFilteredFriends] = useState([]);
     const [friendCode, setFriendCode] = useState('');
@@ -48,12 +49,11 @@ function ContactsScreen(props) {
     }, [props.navigation]);
 
     useEffect(() => {
+        setIsloading(true);
         getAllFriends();
     }, [paginationParams]);
 
     const getAllFriends = async (addLoading = true) => {
-        console.log('approved', paginationParams.approved, currentFilter);
-        setIsloading(true);
         try {
             const friendsInfo = await dispatch(currentFilter === 0 ? FriendsActions.getAllFriends(paginationParams, addLoading) : FriendsActions.getAllFollowers(paginationParams, addLoading));
             if (currentFilter === 0) {
@@ -100,7 +100,7 @@ function ContactsScreen(props) {
         if (!isLoading) return null;
         return (
             <S.PaginationLoadingView>
-                <ActivityIndicator color="#4F80E1" />
+                <ActivityIndicator size="large" color="#4F80E1" />
             </S.PaginationLoadingView>
         );
     }
@@ -137,7 +137,6 @@ function ContactsScreen(props) {
 
     return (
         <>
-            {getAllFriendsOnRequest && <Loading />}
             <StatusBar
                 barStyle="light-content"
                 backgroundColor="#4F80E1"
@@ -178,31 +177,38 @@ function ContactsScreen(props) {
                         <Icon name="search" size={25} color="#8F8E8E" />
                     </S.SearchIconButton>
                 </S.InputView>
-                {friends && friends.length > 0 && !noSearchResult
-                    ? (
-                        <S.ContactsFlatList
-                            data={search.length > 0 ? filteredFriends : friends}
-                            ListFooterComponent={renderFooter}
-                            onEndReachedThreshold={0.25}
-                            onEndReached={handleFlatListEnd}
-                            showsVerticalScrollIndicator={false}
-                            keyExtractor={item => item.id}
-                            renderItem={({ item, index }) => (
-                                <ContactCard
-                                    contact={item}
-                                    index={index}
-                                    onPress={() => props.navigation.navigate('Profile', { friendId: item._id, isFriend: currentFilter === 0 })}
-                                    invite={!isFriendCard} />
-                            )
-                            }
+                <S.ContactsFlatList
+                    data={search.length > 0 ? filteredFriends : friends}
+                    ListFooterComponent={renderFooter}
+                    ListEmptyComponent={!isLoading && <S.EmptyFriendsText>Nenhum contato na lista</S.EmptyFriendsText>}
+                    refreshControl={(
+                        <RefreshControl
+                            colors={['#4F80E1']}
+                            refreshing={refreshing}
+                            onRefresh={() => {
+                                setIsloading(true);
+                                setPaginationParams({
+                                    page: 1,
+                                    limit: 10,
+                                    approved: true,
+                                    search: '',
+                                });
+                            }}
                         />
-                    )
-                    : (
-                        <>
-                            {!getAllFriendsOnRequest && <S.EmptyFriendsText>Nenhum contato na lista</S.EmptyFriendsText>}
-                        </>
-                    )
-                }
+                    )}
+                    onEndReachedThreshold={0.25}
+                    onEndReached={handleFlatListEnd}
+                    showsVerticalScrollIndicator={false}
+                    keyExtractor={item => item.id}
+                    renderItem={({ item, index }) => (
+                        <ContactCard
+                            contact={item}
+                            index={index}
+                            onPress={() => props.navigation.navigate('Profile', { friendId: item._id, isFriend: currentFilter === 0 })}
+                            invite={!isFriendCard}
+                        />
+                    )}
+                />
             </S.ContactsScreenContainer>
         </>
     );

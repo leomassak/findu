@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {ActivityIndicator, StatusBar} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { ActivityIndicator, StatusBar, RefreshControl } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {Alert} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -19,9 +19,10 @@ function GroupsScreen(props) {
   );
 
   const [search, setSearch] = useState('');
+  const [refreshing, setRefreshing] = useState(false);
   const [paginationEnd, setPaginationEnd] = useState(false);
   const [noSearchResult, setNoSearchResult] = useState(false);
-  const [isLoading, setIsloading] = useState(false);
+  const [isLoading, setIsloading] = useState(true);
   const [groups, setGroups] = useState([]);
   const [filteredGroups, setFilteredGroups] = useState([]);
   const [paginationParams, setPaginationParams] = useState({
@@ -44,7 +45,6 @@ function GroupsScreen(props) {
   }, [paginationParams]);
 
   const getAllGroups = async (addLoading = true) => {
-    setIsloading(true);
     try {
       const groupsInfo = await dispatch(
         GroupsActions.getAllGroups(paginationParams, addLoading),
@@ -54,7 +54,6 @@ function GroupsScreen(props) {
           ? groupsInfo.rows
           : [...prevGroups, ...groupsInfo.rows],
       );
-      console.log(groups);
       setPaginationEnd(!groupsInfo.hasNextPage);
     } catch (err) {
       Alert.alert('Erro', err.message);
@@ -88,7 +87,7 @@ function GroupsScreen(props) {
     if (!isLoading) return null;
     return (
       <S.PaginationLoadingView>
-        <ActivityIndicator color="#4F80E1" />
+        <ActivityIndicator size="large" color="#4F80E1" />
       </S.PaginationLoadingView>
     );
   };
@@ -128,14 +127,28 @@ function GroupsScreen(props) {
 
   return (
     <>
-      {getAllGroupsOnRequest && <Loading />}
       <StatusBar barStyle="light-content" backgroundColor="#4F80E1" />
       <S.GroupsScreenContainer>
         <S.GroupsFlatList
           data={search.length > 0 ? filteredGroups : groups}
           ListHeaderComponent={renderHeader}
           ListFooterComponent={renderFooter}
-          ListEmptyComponent={renderEmptyState}
+          ListEmptyComponent={!isLoading && renderEmptyState}
+          refreshControl={(
+            <RefreshControl
+              colors={['#4F80E1']}
+              refreshing={refreshing}
+              onRefresh={() => {
+                setIsloading(true);
+                setPaginationParams({
+                  page: 1,
+                  limit: 10,
+                  approved: true,
+                  search: '',
+                });
+              }}
+            />
+          )}
           onEndReachedThreshold={0.25}
           onEndReached={handleFlatListEnd}
           showsVerticalScrollIndicator={false}
