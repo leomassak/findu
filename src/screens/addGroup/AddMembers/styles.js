@@ -1,6 +1,8 @@
 import styled from 'styled-components/native';
 import * as ScaleUtils from '../../../utils/scale';
 
+import Svg from '../../../assets/svg/profile.svg';
+
 export const AddMembersContainer = styled.View`
     flex: 1;
     background-color: #FFF;
@@ -44,9 +46,10 @@ export const EmptyFriendsText = styled.Text`
 `;
 
 export const PaginationLoadingView = styled.View`
-    height: ${ScaleUtils.ScreenWidth * 0.1}px;
+    height: ${ScaleUtils.ScreenWidth * 0.3}px;
     align-items: center;
     justify-content: center;
+    margin-top: ${ScaleUtils.ScreenWidth * 0.01}px;
 `;
 
 export const FriendsSearchInput = styled.TextInput`
@@ -72,3 +75,55 @@ export const ContinueButton = styled.TouchableOpacity`
     justify-content: center;
 `;
 
+export const ContactCardContainer = styled.TouchableOpacity`
+    width: 100%;
+    height: ${ScaleUtils.ScreenWidth * 0.3};
+    background-color: #FFF;
+    border-bottom-width: 1px;
+    border-color: #CECECE;
+    align-items: center;
+    flex-direction: row;
+`;
+
+export const ProfileImageContainer = styled.View`
+    height: ${ScaleUtils.nearestWidthPixelScale(20)};
+    width: ${ScaleUtils.nearestWidthPixelScale(20)};
+    border-radius: 400px;
+    overflow: hidden;
+    background-color: #CECECE;
+    border: solid black 1px;
+    justify-content: center;
+    align-items: center;
+    margin-horizontal: ${ScaleUtils.nearestWidthPixelScale(5)};
+`;
+
+export const ProfileImage = styled.ImageBackground`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+`;
+
+export const ContactName = styled.Text`
+    font-size: ${ScaleUtils.pixelScale(20)}px;
+    font-family: Poppins-Regular;
+    width: 50%;
+    color: #000;
+`;
+
+export const AcceptAndDeclineButtonView = styled.View`
+   height: 80%;
+   background-color: #FFF;
+   justify-content: space-around;
+   align-items: center;
+`;
+
+export const AcceptDeclineButton = styled.TouchableOpacity`
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const ProfileSvg = styled(Svg)`
+    height: ${`${ScaleUtils.getPixelRatio * 18.5}px`};
+    width: ${`${ScaleUtils.getPixelRatio * 18.5}px`};
+`;

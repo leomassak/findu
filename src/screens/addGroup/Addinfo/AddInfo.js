@@ -21,7 +21,6 @@ function Addinfo(props) {
 
   return (
       <S.AddInfoContainer>
-        {console.log('test', groupName)}
          <Modal
             isVisible={showPickerModal}
             onBackdropPress={() => setShowPickerModal(false)}

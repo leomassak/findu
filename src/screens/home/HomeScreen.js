@@ -142,9 +142,9 @@ export default function HomeScreen(props) {
         });
 
         BackgroundGeolocation.on('authorization', (status) => {
-            console.log(
-                '[INFO] BackgroundGeolocation authorization status: ' + status,
-            );
+            // console.log(
+            //     '[INFO] BackgroundGeolocation authorization status: ' + status,
+            // );
             if (status !== BackgroundGeolocation.AUTHORIZED) {
                 // we need to set delay or otherwise alert may not be shown
                 setTimeout(
@@ -193,7 +193,7 @@ export default function HomeScreen(props) {
         });
 
         return () => {
-            console.log('Removing all listeners');
+            // console.log('Removing all listeners');
             BackgroundGeolocation.removeAllListeners();
         };
     })

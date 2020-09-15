@@ -59,52 +59,55 @@ export default function ProfileScreen({ navigation, route }) {
 
     return (
         <>
-            {console.log('profile is friend', isFriend)}
-            {isLoading && <Loading />}
             <S.ProfileContainerScrollView>
                 <Header
                     noStatusBar
                     color
                     onPressListener={() => navigation.goBack()}
                 />
-                <S.UserProfileView>
-                    <S.ProfileImageView>
-                        {friend.profilePhoto ? (
-                            <S.ProfileImage
-                                source={{ uri: friend.profilePhoto.url }}
-                                resizeMode="cover"
+                {isLoading && <S.PageLoading />}
+                {!isLoading && (
+                    <>
+                        <S.UserProfileView>
+                            <S.ProfileImageView>
+                                {friend.profilePhoto ? (
+                                    <S.ProfileImage
+                                        source={{ uri: friend.profilePhoto.url }}
+                                        resizeMode="cover"
+                                    />
+                                ) : (
+                                        <S.ProfileSvg
+                                            height={ScaleUtils.ScreenHeight * 0.11}
+                                            width={ScaleUtils.ScreenHeight * 0.11}
+                                        />
+                                    )}
+                            </S.ProfileImageView>
+                            <S.UserName>{friend.name}</S.UserName>
+                        </S.UserProfileView>
+                        <S.InputContainer>
+                            <S.InputLabel>Telefone</S.InputLabel>
+                            <S.ProfileInfoText> {friend.phone} </S.ProfileInfoText>
+                            {/* <S.InputLabel> Grupos</S.InputLabel>
+                            <S.ProfileInfoText> - Amigos </S.ProfileInfoText> */}
+                        </S.InputContainer>
+                        <S.ButtonsContainer>
+                            {/* <DefaultButton
+                                text="Adicionar a um grupo"
+                                onPressListener={() => { }}
+                                border="#FFF"
+                                fontColor="#FFF"
+                                background="transparent"
+                            /> */}
+                            <DefaultButton
+                                text={isFriend ? "Remover contato" : "Remover dos Seguidores"}
+                                onPressListener={isFriend ? handleRemoveFriend : handleUpdateStatus}
+                                border="#FFF"
+                                fontColor="#FFF"
+                                background="transparent"
                             />
-                        ) : (
-                                <S.ProfileSvg
-                                    height={ScaleUtils.ScreenHeight * 0.11}
-                                    width={ScaleUtils.ScreenHeight * 0.11}
-                                />
-                            )}
-                    </S.ProfileImageView>
-                    <S.UserName>{friend.name}</S.UserName>
-                </S.UserProfileView>
-                <S.InputContainer>
-                    <S.InputLabel>Telefone</S.InputLabel>
-                    <S.ProfileInfoText> {friend.phone} </S.ProfileInfoText>
-                    {/* <S.InputLabel> Grupos</S.InputLabel>
-                    <S.ProfileInfoText> - Amigos </S.ProfileInfoText> */}
-                </S.InputContainer>
-                <S.ButtonsContainer>
-                    {/* <DefaultButton
-                        text="Adicionar a um grupo"
-                        onPressListener={() => { }}
-                        border="#FFF"
-                        fontColor="#FFF"
-                        background="transparent"
-                    /> */}
-                    <DefaultButton
-                        text={isFriend ? "Remover contato" : "Remover dos Seguidores"}
-                        onPressListener={isFriend ? handleRemoveFriend : handleUpdateStatus}
-                        border="#FFF"
-                        fontColor="#FFF"
-                        background="transparent"
-                    />
-                </S.ButtonsContainer>
+                        </S.ButtonsContainer>
+                    </>
+                )}
             </S.ProfileContainerScrollView>
         </>
     );

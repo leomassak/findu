@@ -9,6 +9,14 @@ export const ProfileContainerScrollView = styled.ScrollView`
     padding: 10% 8%;
 `;
 
+export const PageLoading = styled.ActivityIndicator.attrs({
+    size: 'large',
+    color: 'white',
+})`
+    align-self: center;
+    margin-top: ${`${ScaleUtils.ScreenHeight * 0.05}px`};
+`;
+
 export const UserProfileView = styled.View`
     align-items: center;
 `;
