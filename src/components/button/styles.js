@@ -12,6 +12,7 @@ export const DefaultButtonTouchableOpacity = styled.TouchableOpacity`
     border-color: ${(props) => props.border || '#4F80E1'};
     border-radius: 10px;
     margin-bottom: 5%;
+    opacity: ${(props) => props.disabled ? 0.6 : 1};
 `;
 
 export const ButtonNameText = styled.Text`

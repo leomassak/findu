@@ -24,7 +24,7 @@ export const AddButtonContainer = styled(HeaderBackButtonContainer)`
 export const HeaderText = styled.Text`
     font-size: ${ScaleUtils.pixelScale(22)}px;
     font-family: Poppins-Bold;
-    color: #FFF;
+    color: ${(props) => props.color ? '#FFF' : "#000"};
 `;
 
 

@@ -10,6 +10,8 @@ import RedefinePswScreen from '../screens/pswRecover/RedefinePsw';
 import ProfileScreen from '../screens/profile/ProfileScreen';
 import EditProfileScreen from '../screens/editProfile/EditProfileScreen';
 import ContactsScreen from '../screens/contacts/ContactsScreen';
+import GroupsScreen from '../screens/groups/GroupsScreen';
+import AddGroupInfoScreen from '../screens/addGroup/Addinfo/AddInfo';
 
 import HomeNavigator from './HomeNavigator';
 
@@ -92,6 +94,20 @@ function AppNavigator() {
              <AppStack.Screen
               name="Contacts"
               component={ContactsScreen}
+              options={{
+                ...TransitionPresets.SlideFromRightIOS,
+              }}
+            />
+             <AppStack.Screen
+              name="Groups"
+              component={GroupsScreen}
+              options={{
+                ...TransitionPresets.SlideFromRightIOS,
+              }}
+            />
+             <AppStack.Screen
+              name="AddInfo"
+              component={AddGroupInfoScreen}
               options={{
                 ...TransitionPresets.SlideFromRightIOS,
               }}
