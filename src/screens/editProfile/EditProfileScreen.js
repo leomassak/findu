@@ -31,7 +31,7 @@ export default function EditProfileScreen(props) {
         birthday: userData.birthday
     });
     const [photo, setPhoto] = useState({
-        uri: (userData.profilePhoto ? userData.profilePhoto.url : null),
+        uri: ((userData && userData.profilePhoto) ? userData.profilePhoto.url : null),
         base64: null,
     });
     const [isPhotoChange, setIsPhotoChange] = useState(false);

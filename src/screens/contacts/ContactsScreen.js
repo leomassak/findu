@@ -34,7 +34,7 @@ function ContactsScreen(props) {
     const [paginationParams, setPaginationParams] = useState({
         page: 1,
         limit: 10,
-        approved: true,
+        status: 2,
         search: '',
     });
 
@@ -112,21 +112,21 @@ function ContactsScreen(props) {
                 setIsFriendCard(true);
                 setPaginationParams(prevParams => ({
                     ...prevParams,
-                    approved: true,
+                    status: 2,
                 }))
                 break;
             case 1:
                 setIsFriendCard(true);
                 setPaginationParams(prevParams => ({
                     ...prevParams,
-                    approved: true,
+                    status: 2,
                 }))
                 break;
             case 2:
                 setIsFriendCard(false);
                 setPaginationParams(prevParams => ({
                     ...prevParams,
-                    approved: false,
+                    status: 1,
                 }))
                 break;
             default:

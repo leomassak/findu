@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import * as S from './styles';
 import * as FriendsActions from '../../redux/actions/friends';
 import * as ScaleUtils from '../../utils/scale';
+import Snackbar from '../../utils/Snackbar';
 import Loading from '../Loading/Loading';
 
 function ContactCard({ onPress, contact, index, invite }) {
@@ -12,8 +13,12 @@ function ContactCard({ onPress, contact, index, invite }) {
     const [status, setStatus] = useState('');
 
     const handleUpdateInvite = async (approved) => {
-        await dispatch(FriendsActions.updateFriendStatus(contact._id, { approved }));
-        setStatus(approved ? 'Aprovado' : 'Recusado');
+        try {
+            await dispatch(FriendsActions.updateFriendStatus(contact._id, { approved }));
+            setStatus(approved ? 'Aprovado' : 'Recusado');
+        } catch (err) {
+            Snackbar(err.message);
+        }
     }
 
     if (!contact) {

@@ -17,7 +17,7 @@ function removeFriend(friendId) {
 }
 
 function updateFriendStatus(id, approved) {
-    return RestService.postAuthenticated(`friends/${id}`, approved);
+    return RestService.putAuthenticated(`friends/${id}`, approved);
 }
 
 export default {
