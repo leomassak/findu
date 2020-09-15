@@ -26,6 +26,9 @@ const errors = {
         already_friends: 'Este contato já está na sua lista de contatos!',
 
     },
+    addGroup: {
+        invalid_color: 'Esta cor já está sendo usada em outro grupo',
+    },
     removeFriend: {
         internal_error: 'Ocorreu um erro, verifique seus dados e tente novamente!',
         friendship_not_found: 'Contato não encontrado!',

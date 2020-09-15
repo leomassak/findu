@@ -54,9 +54,10 @@ export const updateGroup = (id, params) => async (dispatch) => {
 };
 
 export const addGroup = (name, color, members) => async (dispatch) => {
+    console.log('teste', name,color, members);
     dispatch(addLoading());
     try {
-        await GroupsApi.addGroup(shareCode);
+        await GroupsApi.addGroup(name, color, members);
     } catch (err) {
         console.log('err', err);
         if (Errors.addGroup[err.message] !== undefined) {

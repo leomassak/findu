@@ -44,7 +44,7 @@ export const SelectedColorView = styled.View`
 `;
 
 export const ColorPickerButtonLabel = styled.Text`
-    color: #4F80E1;
+    color: #000;
     font-family: Poppins-Bold;
     font-size: 18px;
     margin-bottom: 5px;

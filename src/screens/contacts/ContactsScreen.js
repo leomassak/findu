@@ -174,7 +174,7 @@ function ContactsScreen(props) {
                         <Icon name="search" size={25} color="#8F8E8E" />
                     </S.SearchIconButton>
                 </S.InputView>
-                {friends.length > 0 && !noSearchResult
+                {friends && friends.length > 0 && !noSearchResult
                     ? (
                         <S.ContactsFlatList
                             data={search.length > 0 ? filteredFriends : friends}

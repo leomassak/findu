@@ -99,13 +99,15 @@ function GroupsScreen(props) {
   const renderHeader = () => {
     return (
       <>
-        <Header
-          noStatusBar
-          addButton
-          onPressListener={() => props.navigation.goBack()}
-          onPressAddButton={() => props.navigation.navigate('AddInfo')}
-          headerText="Meus Grupos"
+         <Header
+            noStatusBar
+            addButton
+            onPressListener={() => props.navigation.goBack()}
+            onPressAddButton={() => props.navigation.navigate('AddInfo')}
+            headerText="Meus Grupos"
+            color
         />
+        <S.HeaderView>
         <S.InputView>
           <S.GroupsSearchInput
             placeholder="Pesquisar"
@@ -118,6 +120,7 @@ function GroupsScreen(props) {
             <Icon name="search" size={25} color="#8F8E8E" />
           </S.SearchIconButton>
         </S.InputView>
+        </S.HeaderView>
       </>
     );
   };

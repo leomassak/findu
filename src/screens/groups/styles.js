@@ -4,7 +4,6 @@ import * as ScaleUtils from '../../utils/scale';
 export const GroupsScreenContainer = styled.View`
     flex: 1;
     background-color: #FFF;
-    padding: 5% 5%;
 `;
 
 export const HeaderName = styled.Text`
@@ -15,6 +14,11 @@ export const HeaderName = styled.Text`
     width: 100%;
     margin-bottom: 20px;
 `;
+
+export const HeaderView = styled.View`
+    padding-horizontal: 5%;
+`;
+
 
 export const InputView = styled.View`
     margin-top: 20px;

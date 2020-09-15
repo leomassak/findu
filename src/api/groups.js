@@ -5,7 +5,7 @@ function getAllGroups(queryParams) {
 }
 
 function addGroup(name, color, members) {
-    return RestService.postAuthenticated('groups/add', { name, color, members });
+    return RestService.postAuthenticated('groups', { name, color, members });
 }
 
 function removeGroup(id) {

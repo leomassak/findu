@@ -24,16 +24,16 @@ export const AddButtonContainer = styled(HeaderBackButtonContainer)`
 export const HeaderText = styled.Text`
     font-size: ${ScaleUtils.pixelScale(22)}px;
     font-family: Poppins-Bold;
-    color: ${(props) => props.color ? '#FFF' : "#000"};
+    color: #FFF;
 `;
 
 
 export const RoundContainer = styled.View`
-        border-width: 2px;
-        width: 45;
-        height: 45;
-        align-items: center;
-        justify-content: center;
-        border-color: ${props => props.color};
-        border-radius: 400px;
+    border-width: 2px;
+    width: 45;
+    height: 45;
+    align-items: center;
+    justify-content: center;
+    border-color: ${props => props.color};
+    border-radius: 400px;
 `;

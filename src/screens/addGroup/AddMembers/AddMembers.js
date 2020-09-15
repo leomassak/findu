@@ -4,17 +4,19 @@ import {useSelector, useDispatch} from 'react-redux';
 import {Alert} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as S from './styles';
-import * as LoadingSelector from '../../redux/reducers/loading';
-import * as GroupsActions from '../../redux/actions/groups';
+import * as LoadingSelector from '../../../redux/reducers/loading';
+import * as FriendsActions from '../../../redux/actions/friends';
+import * as GroupsActions from '../../../redux/actions/groups';
 
-import Header from '../../components/Header/Header';
-import ContactCard from '../../components/Contacts/ContactCard';
-import Loading from '../../components/Loading/Loading';
+import Header from '../../../components/Header/Header';
+import ContactCard from '../../../components/Contacts/ContactCard';
+import Loading from '../../../components/Loading/Loading';
+import Logo from '../../../assets/svg/ic_logo.svg';
 
 function GroupsScreen(props) {
   const dispatch = useDispatch();
 
-  const getAllGroupsOnRequest = useSelector((state) =>
+  const getAllFriendsOnRequest = useSelector((state) =>
     LoadingSelector.getLoading(state),
   );
 
@@ -22,56 +24,39 @@ function GroupsScreen(props) {
   const [paginationEnd, setPaginationEnd] = useState(false);
   const [noSearchResult, setNoSearchResult] = useState(false);
   const [isLoading, setIsloading] = useState(false);
-  const [groups, setGroups] = useState([]);
-  const [filteredGroups, setFilteredGroups] = useState([]);
+  const [friends, setFriends] = useState([]);
+  const [selectedFriends, setSelectedFriends] = useState([]);
+  const [filteredFriends, setFilteredFriends] = useState([]);
   const [paginationParams, setPaginationParams] = useState({
-    page: 1,
-    limit: 10,
-    approved: true,
-    search: '',
+      page: 1,
+      limit: 10,
+      approved: true,
+      search: '',
   });
 
   useEffect(() => {
-    props.navigation.addListener('focus', () => getAllGroups());
+    getAllFriends();
+}, []);
 
-    return () => {
-      props.navigation.removeListener('focus', () => getAllGroups());
-    };
-  }, [props.navigation]);
-
-  useEffect(() => {
-    getAllGroups();
-  }, [paginationParams]);
-
-  const getAllGroups = async (addLoading = true) => {
+  const getAllFriends = async (addLoading = true) => {
     setIsloading(true);
     try {
-      const groupsInfo = await dispatch(
-        GroupsActions.getAllGroups(paginationParams, addLoading),
-      );
-      setGroups((prevGroups) =>
-        paginationParams.page === 1
-          ? groupsInfo.groups
-          : [...prevGroups, ...groupsInfo.groups],
-      );
-      setPaginationEnd(!groupsInfo.hasNextPage);
+        const friendsInfo = await dispatch(FriendsActions.getAllFriends(paginationParams, addLoading));
+        setFriends(prevFriends => paginationParams.page === 1 ? friendsInfo.friends : [...prevFriends, ...friendsInfo.friends]);
+        setPaginationEnd(!friendsInfo.hasNextPage);
     } catch (err) {
-      Alert.alert('Erro', err.message);
+        Alert.alert('Erro', err.message);
     } finally {
-      setIsloading(false);
+        setIsloading(false);
     }
-  };
+}
 
-  const onSearchGroup = (text) => {
-    if (groups && groups.length > 0) {
-      const filteredGroups = groups.filter((group) =>
-        group.name.includes(text),
-      );
-      setFilteredGroups(filteredGroups);
-      setNoSearchResult(filteredGroups.length === 0);
-      setSearch(text);
-    }
-  };
+const onSearchContact = (text) => {
+    const filteredContacts = friends.filter(friend => friend.name.includes(text));
+    setFilteredFriends(filteredContacts);
+    setNoSearchResult(filteredContacts.length === 0);
+    setSearch(text);
+}
 
   const handleFlatListEnd = async () => {
     if (!paginationEnd && !isLoading) {
@@ -93,25 +78,29 @@ function GroupsScreen(props) {
   };
 
   const renderEmptyState = () => {
-    return <S.EmptyGroupsText>Nenhum grupo na lista</S.EmptyGroupsText>;
+    return <S.EmptyFriendsText>Nenhum contato na lista</S.EmptyFriendsText>;
   };
 
   const renderHeader = () => {
     return (
       <>
-        <Header
+         <Header
           noStatusBar
-          addButton
+          addContinue
           onPressListener={() => props.navigation.goBack()}
-          onPressAddButton={() => props.navigation.navigate('AddInfo')}
-          headerText="Meus Grupos"
         />
+         <S.PageTitleContainer>
+            <Logo />
+            <S.PageTitleText>
+                Adicionar Membros
+            </S.PageTitleText>
+        </S.PageTitleContainer>
         <S.InputView>
-          <S.GroupsSearchInput
+          <S.FriendsSearchInput
             placeholder="Pesquisar"
             value={search}
             placeholderTextColor="#8F8E8E"
-            onChangeText={(text) => onSearchGroup(text)}
+            onChangeText={(text) => onSearchContact(text)}
             returnKeyType="search"
           />
           <S.SearchIconButton onPress={() => {}}>
@@ -122,13 +111,22 @@ function GroupsScreen(props) {
     );
   };
 
+  const handleAddGroup = async () => {
+    const { groupName, selectedColor } = props.route.params;
+    await dispatch(GroupsActions.addGroup(groupName, selectedColor, selectedFriends));
+    props.navigation.reset({
+      index: 0,
+      routes: [{ name: 'HomeNavigator' }]
+  });
+  }
+
   return (
     <>
-      {getAllGroupsOnRequest && <Loading />}
+      {getAllFriendsOnRequest && <Loading />}
       <StatusBar barStyle="light-content" backgroundColor="#4F80E1" />
-      <S.GroupsScreenContainer>
-        <S.GroupsFlatList
-          data={search.length > 0 ? filteredGroups : groups}
+      <S.AddMembersContainer>
+        <S.FriendsFlatList
+          data={search.length > 0 ? filteredFriends : friends}
           ListHeaderComponent={renderHeader}
           ListFooterComponent={renderFooter}
           ListEmptyComponent={renderEmptyState}
@@ -143,7 +141,10 @@ function GroupsScreen(props) {
             />
           )}
         />
-      </S.GroupsScreenContainer>
+        <S.ContinueButton onPress={handleAddGroup}>
+          <Icon name="arrow-right" color="#FFF" size={35} />
+        </S.ContinueButton>
+      </S.AddMembersContainer>
     </>
   );
 }

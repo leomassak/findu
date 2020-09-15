@@ -12,6 +12,7 @@ import EditProfileScreen from '../screens/editProfile/EditProfileScreen';
 import ContactsScreen from '../screens/contacts/ContactsScreen';
 import GroupsScreen from '../screens/groups/GroupsScreen';
 import AddGroupInfoScreen from '../screens/addGroup/Addinfo/AddInfo';
+import AddMembersScreen from '../screens/addGroup/AddMembers/AddMembers';
 
 import HomeNavigator from './HomeNavigator';
 
@@ -108,6 +109,13 @@ function AppNavigator() {
              <AppStack.Screen
               name="AddInfo"
               component={AddGroupInfoScreen}
+              options={{
+                ...TransitionPresets.SlideFromRightIOS,
+              }}
+            />
+             <AppStack.Screen
+              name="AddMembers"
+              component={AddMembersScreen}
               options={{
                 ...TransitionPresets.SlideFromRightIOS,
               }}
