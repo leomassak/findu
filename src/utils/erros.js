@@ -16,19 +16,19 @@ const errors = {
         internal_error: 'Ocorreu um erro, verifique seus dados e tente novamente!',
     },
     getAllFriends: {
-        internal_error: 'Não foi possível carregar sua lista de amigos, tente novamente mais tarde!',
+        internal_error: 'Não foi possível carregar sua lista de contatos, tente novamente mais tarde!',
     },
     getById: {
-        not_a_friend: 'Amigo não encontrado!',
+        not_a_friend: 'Contato não encontrado!',
     },
     addFriend: {
         invalid_code: 'O código inserido é inválido!',
-        already_friends: 'Este contato já está na sua lista de amigos!',
+        already_friends: 'Este contato já está na sua lista de contatos!',
 
     },
     removeFriend: {
         internal_error: 'Ocorreu um erro, verifique seus dados e tente novamente!',
-        friendship_not_found: 'Amigo não encontrado!',
+        friendship_not_found: 'Contato não encontrado!',
     },
     undefined: 'Ocorreu um erro, tente novamente mais tarde!',
 }

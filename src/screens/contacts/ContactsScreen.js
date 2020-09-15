@@ -79,7 +79,7 @@ function ContactsScreen(props) {
     const addContact = async () => {
         try {
             await dispatch(FriendsActions.addFriend(friendCode));
-            Alert.alert('Amigo adicionado com sucesso!');
+            Alert.alert('Solicitação realizada com sucesso!');
         } catch (err) {
             Alert.alert('Erro', err.message);
         }
@@ -138,14 +138,14 @@ function ContactsScreen(props) {
                 barStyle="light-content"
                 backgroundColor="#4F80E1"
             />
-             <Header
-                    noStatusBar
-                    addButton
-                    onPressListener={() => props.navigation.goBack()}
-                    onPressAddButton={() => toggleModal()}
-                    headerText="Meus Contatos"
-                    color
-                />
+            <Header
+                noStatusBar
+                addButton
+                onPressListener={() => props.navigation.goBack()}
+                onPressAddButton={() => toggleModal()}
+                headerText="Meus Contatos"
+                color
+            />
             <S.ContactsScreenContainer contentContainerStyle={{ paddingBottom: 15 }}>
                 <AddContactModal
                     isVisible={showAddModal}
@@ -177,25 +177,25 @@ function ContactsScreen(props) {
                 {friends.length > 0 && !noSearchResult
                     ? (
                         <S.ContactsFlatList
-                        data={search.length > 0 ? filteredFriends : friends}
-                        ListFooterComponent={renderFooter}
-                        onEndReachedThreshold={0.25}
-                        onEndReached={handleFlatListEnd}
-                        showsVerticalScrollIndicator={false}
-                        keyExtractor={item => item.id}
-                        renderItem={({ item, index }) => (
-                          <ContactCard 
-                          contact={item} 
-                          index={index} 
-                          onPress={() => props.navigation.navigate('Profile', { friendId: item._id, isFriend: currentFilter === 0 })} 
-                          invite={!isFriendCard} />
-                        )
-                      }
-                    /> 
+                            data={search.length > 0 ? filteredFriends : friends}
+                            ListFooterComponent={renderFooter}
+                            onEndReachedThreshold={0.25}
+                            onEndReached={handleFlatListEnd}
+                            showsVerticalScrollIndicator={false}
+                            keyExtractor={item => item.id}
+                            renderItem={({ item, index }) => (
+                                <ContactCard
+                                    contact={item}
+                                    index={index}
+                                    onPress={() => props.navigation.navigate('Profile', { friendId: item._id, isFriend: currentFilter === 0 })}
+                                    invite={!isFriendCard} />
+                            )
+                            }
+                        />
                     )
                     : (
                         <>
-                            {!getAllFriendsOnRequest && <S.EmptyFriendsText>Nenhum amigo na lista</S.EmptyFriendsText>}
+                            {!getAllFriendsOnRequest && <S.EmptyFriendsText>Nenhum contato na lista</S.EmptyFriendsText>}
                         </>
                     )
                 }

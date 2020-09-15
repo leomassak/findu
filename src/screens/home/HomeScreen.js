@@ -16,9 +16,11 @@ import * as FriendsActions from '../../redux/actions/friends';
 import * as FriendsSelectors from '../../redux/reducers/friends';
 
 import PermissionModal from '../../components/modal/PermissionModal';
+import Loading from '../../components/Loading/Loading';
 
 export default function HomeScreen(props) {
     const dispatch = useDispatch();
+    const loading = useSelector(state => LoadingSelector.getLoading(state))
     const friends = useSelector(state => FriendsSelectors.getAllFriends(state))
 
     const drawerOpened = useIsDrawerOpen();
@@ -36,12 +38,9 @@ export default function HomeScreen(props) {
     const LATITUDE_DELTA = 0.01;
     const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-    const MapMemo = useMemo(() => 
-    <S.HomeContainer
-        style={{ paddingTop: statusBarHeight }}
-        >
+    const MapMemo = useMemo(() =>
         <S.PageMapViewContainerView
-        height={friends.length === 0}
+            height={friends.length === 0}
         >
             {region.longitude && region.latitude && (
                 <S.PageMapView
@@ -56,10 +55,10 @@ export default function HomeScreen(props) {
                     //     longitudeDelta: LONGITUDE_DELTA,
                     // }}
                     region={{
-                    latitude: region.latitude,
-                    longitude: region.longitude,
-                    latitudeDelta: LATITUDE_DELTA,
-                    longitudeDelta: LONGITUDE_DELTA,
+                        latitude: region.latitude,
+                        longitude: region.longitude,
+                        latitudeDelta: LATITUDE_DELTA,
+                        longitudeDelta: LONGITUDE_DELTA,
                     }}
                 >
                     {friends.length > 0 && friends.map((item) => (
@@ -67,23 +66,23 @@ export default function HomeScreen(props) {
                             {item.location && (
                                 <S.PageMarker
                                     coordinate={{
-                                    latitude: item.location.lat,
-                                    longitude: item.location.lng,
-                                    latitudeDelta: LATITUDE_DELTA,
-                                    longitudeDelta: LONGITUDE_DELTA,
+                                        latitude: item.location.lat,
+                                        longitude: item.location.lng,
+                                        latitudeDelta: LATITUDE_DELTA,
+                                        longitudeDelta: LONGITUDE_DELTA,
                                     }}
                                 >
                                     <S.PageMarkerView>
-                                    {item.profilePhoto ? (
-                                    <S.PageMarkerImage
-                                    source={{ uri: item.profilePhoto.url }}
-                                    />
-                                    ) : (
-                                    <S.PageMarkerDefaultSvg
-                                    height={ScaleUtils.ScreenHeight * 0.035}
-                                    width={ScaleUtils.ScreenHeight * 0.035}
-                                    />
-                                    )}
+                                        {item.profilePhoto ? (
+                                            <S.PageMarkerImage
+                                                source={{ uri: item.profilePhoto.url }}
+                                            />
+                                        ) : (
+                                                <S.PageMarkerDefaultSvg
+                                                    height={ScaleUtils.ScreenHeight * 0.035}
+                                                    width={ScaleUtils.ScreenHeight * 0.035}
+                                                />
+                                            )}
                                     </S.PageMarkerView>
                                 </S.PageMarker>
                             )}
@@ -92,8 +91,7 @@ export default function HomeScreen(props) {
                 </S.PageMapView>
             )}
         </S.PageMapViewContainerView>
-        </S.HomeContainer>
-      , [region]);
+        , [region]);
 
     useEffect(() => {
         askForPermission();
@@ -111,10 +109,9 @@ export default function HomeScreen(props) {
         BackgroundGeolocation.configure({
             desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
             stationaryRadius: 20,
-            distanceFilter: 20,
+            distanceFilter: 30,
             notificationTitle: 'FindU',
             notificationText: 'FindU está utilizando sua localizção',
-            //debug: true,
             startOnBoot: false,
             stopOnTerminate: true,
             locationProvider: BackgroundGeolocation.DISTANCE_FILTER_PROVIDER, // DISTANCE_FILTER_PROVIDER for
@@ -203,8 +200,7 @@ export default function HomeScreen(props) {
 
     const startFriendsLoopRequest = () => setInterval(() => {
         getAllFriends();
-        // console.log('chamou')
-    }, 10000);
+    }, 5000);
 
 
     const askForPermission = async () => {
@@ -245,8 +241,6 @@ export default function HomeScreen(props) {
         );
     }
 
-    console.log(friends);
-
     useEffect(() => {
         Animated.timing(
             rotationValue,
@@ -265,6 +259,7 @@ export default function HomeScreen(props) {
 
     return (
         <>
+            {loading && <Loading />}
             <StatusBar
                 barStyle="light-content"
                 backgroundColor="#4F80E1"
@@ -277,41 +272,45 @@ export default function HomeScreen(props) {
             <S.HomeContainer
                 style={{ paddingTop: statusBarHeight }}
             >
-                { MapMemo }
-                <S.PageFriendListScrollView>
-                    {friends.length > 0 && friends.map((item) => (
-                        <S.PageFriendDetailsTouchableOpacity
-                            activeOpacity={0.7}
-                            onPress={() => setRegion({
-                                latitude: item.location.lat,
-                                longitude: item.location.lng,
-                            })}
-                        >
-                            <S.PageFriendImageView>
-                                {item.profilePhoto ? (
-                                    <S.PageFriendImage
-                                        source={{ uri: item.profilePhoto.url }}
-                                    />
-                                ) : (
-                                        <S.PageMarkerDefaultSvg
-                                            height={ScaleUtils.ScreenHeight * 0.065}
-                                            width={ScaleUtils.ScreenHeight * 0.065}
+                {Object.keys(friends).length >= 0 && MapMemo}
+                {Object.keys(friends).length > 0 && (
+                    <S.PageFriendListScrollView
+                        showsVerticalScrollIndicator={false}
+                    >
+                        {friends.length > 0 && friends.map((item) => (
+                            <S.PageFriendDetailsTouchableOpacity
+                                activeOpacity={0.7}
+                                onPress={() => setRegion({
+                                    latitude: item.location.lat,
+                                    longitude: item.location.lng,
+                                })}
+                            >
+                                <S.PageFriendImageView>
+                                    {item.profilePhoto ? (
+                                        <S.PageFriendImage
+                                            source={{ uri: item.profilePhoto.url }}
                                         />
-                                    )}
-                            </S.PageFriendImageView>
-                            <S.PageFriendTextView>
-                                <S.PageFriendNameText>
-                                    {item.name}
-                                </S.PageFriendNameText>
-                                <S.PageFriendDistanceText>
-                                    {item.location
-                                        ? `${Math.round(item.location.distance)} km`
-                                        : 'Não possui registro de localização'}
-                                </S.PageFriendDistanceText>
-                            </S.PageFriendTextView>
-                        </S.PageFriendDetailsTouchableOpacity>
-                    ))}
-                </S.PageFriendListScrollView>
+                                    ) : (
+                                            <S.PageMarkerDefaultSvg
+                                                height={ScaleUtils.ScreenHeight * 0.065}
+                                                width={ScaleUtils.ScreenHeight * 0.065}
+                                            />
+                                        )}
+                                </S.PageFriendImageView>
+                                <S.PageFriendTextView>
+                                    <S.PageFriendNameText>
+                                        {item.name}
+                                    </S.PageFriendNameText>
+                                    <S.PageFriendDistanceText>
+                                        {item.location
+                                            ? `${item.location.distance.toFixed(1)} km`
+                                            : 'Não possui registro de localização'}
+                                    </S.PageFriendDistanceText>
+                                </S.PageFriendTextView>
+                            </S.PageFriendDetailsTouchableOpacity>
+                        ))}
+                    </S.PageFriendListScrollView>
+                )}
                 <S.BurguerButton
                     onPress={() => {
                         setRegion(initialCordinates)

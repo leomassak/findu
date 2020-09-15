@@ -32,7 +32,7 @@ export default function ProfileScreen({ navigation, route }) {
     const handleRemoveFriend = async () => {
         try {
             await dispatch(FriendsActions.removeFriend(friend._id));
-            Alert.alert('', 'Amigo removido com sucesso!', [
+            Alert.alert('', `${friend.name} foi removido dos contatos`, [
                 {
                     text: 'OK',
                     onPress: () => navigation.goBack(),
@@ -59,7 +59,7 @@ export default function ProfileScreen({ navigation, route }) {
 
     return (
         <>
-        {console.log('profile is friend', isFriend)}
+            {console.log('profile is friend', isFriend)}
             {isLoading && <Loading />}
             <S.ProfileContainerScrollView>
                 <Header
@@ -86,17 +86,17 @@ export default function ProfileScreen({ navigation, route }) {
                 <S.InputContainer>
                     <S.InputLabel>Telefone</S.InputLabel>
                     <S.ProfileInfoText> {friend.phone} </S.ProfileInfoText>
-                    <S.InputLabel> Grupos</S.InputLabel>
-                    <S.ProfileInfoText> - Amigos </S.ProfileInfoText>
+                    {/* <S.InputLabel> Grupos</S.InputLabel>
+                    <S.ProfileInfoText> - Amigos </S.ProfileInfoText> */}
                 </S.InputContainer>
                 <S.ButtonsContainer>
-                    <DefaultButton
+                    {/* <DefaultButton
                         text="Adicionar a um grupo"
                         onPressListener={() => { }}
                         border="#FFF"
                         fontColor="#FFF"
                         background="transparent"
-                    />
+                    /> */}
                     <DefaultButton
                         text={isFriend ? "Remover contato" : "Remover dos Seguidores"}
                         onPressListener={isFriend ? handleRemoveFriend : handleUpdateStatus}

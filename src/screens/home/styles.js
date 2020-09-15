@@ -36,9 +36,9 @@ export const PageMarkerView = styled.View`
 `;
 
 export const PageMarkerImage = styled.Image`
-  height: ${`${ScaleUtils.ScreenHeight * 0.04}px`};
-  width: ${`${ScaleUtils.ScreenHeight * 0.04}px`};
-  border-radius: ${`${ScaleUtils.ScreenHeight * 0.02}px`};
+  height: ${`${ScaleUtils.ScreenHeight * 0.045}px`};
+  width: ${`${ScaleUtils.ScreenHeight * 0.045}px`};
+  border-radius: ${`${ScaleUtils.ScreenHeight * 0.0225}px`};
 `;
 
 export const PageMarkerDefaultSvg = styled(SvgProfile)`
