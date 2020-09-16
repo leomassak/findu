@@ -4,12 +4,21 @@ import { TextInputMask } from 'react-native-masked-text';
 import * as ScaleUtils from '../../utils/scale';
 import Svg from '../../assets/svg/profile.svg';
 import DefaultInput from '../../components/Input/Input';
+import Logo from '../../assets/svg/ic_logo.svg';
 
 
 export const PageContainer = styled.ScrollView`
     flex: 1;
     background-color: #FFFF;
-    padding: 3% 6%;
+`;
+
+export const HeaderName = styled.Text`
+    font-size: ${`${ScaleUtils.pixelScale(22)}`};
+    font-family: Poppins-Bold;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
 `;
 
 export const PageTitleContainer = styled.View`
@@ -38,7 +47,7 @@ export const UnderlineButtonContainer = styled.View`
 `;
 
 export const CheckBoxContainerView = styled.View`
-    height: ${`${ScaleUtils.nearestWidthPixelScale(48)}`};
+    height: ${`${ScaleUtils.nearestWidthPixelScale(52)}`};
     justify-content: space-between;
     margin-bottom: ${ScaleUtils.ScreenHeight * 0.04}px;
     margin-top: ${ScaleUtils.ScreenHeight * 0.03}px;
@@ -85,4 +94,36 @@ export const ProfilePicImage = styled.ImageBackground`
 export const ProfileSvg = styled(Svg)`
     height: ${`${ScaleUtils.getPixelRatio * 18.5}px`};
     width: ${`${ScaleUtils.getPixelRatio * 18.5}px`};
+`;
+
+export const MapImageView = styled.View`
+    width: 100%;
+    height: ${ScaleUtils.ScreenHeight * 0.25}px;
+    background-color: #4F80E1;
+`;
+
+export const MapImage = styled.Image`
+    position: absolute;
+    bottom: 0;
+`;
+
+export const RegisterContentView = styled.View`
+    padding-horizontal: 7%;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    background-color: #FFF;
+    margin-top: -5%;
+`;
+
+export const IconLogo = styled(Logo)`
+    position: absolute;
+    right: 10%;
+    top: 10%;
+`;
+
+export const HeaderBackButtonContainer = styled.TouchableOpacity`
+    width: ${`${ScaleUtils.ScreenHeight * 0.1}px`};
+    height: ${`${ScaleUtils.ScreenHeight * 0.1}px`};
+    justify-content: center;
+    align-items: center;
 `;

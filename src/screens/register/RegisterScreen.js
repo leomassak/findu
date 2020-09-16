@@ -12,17 +12,17 @@ import * as LoadingSelector from '../../redux/reducers/loading';
 import * as UserAction from '../../redux/actions/user';
 import * as validator from '../../helpers/form-validator';
 
-import Header from '../../components/Header/Header';
 import Input from '../../components/Input/Input';
 import CheckBox from '../../components/CheckBox/Checkbox';
 import DefaultButton from '../../components/button/DefaultButton';
 import Loading from '../../components/Loading/Loading';
 import Snackbar from '../../utils/Snackbar';
 import SucessModal from '../../components/modal/SucessModal';
+import TransparentWave from '../../assets/images/transparentWave.png';
+import BackIcon from 'react-native-vector-icons/EvilIcons'
 
 import { pickerOptions } from '../../configs/imagePickerOptions';
 
-import Logo from '../../assets/svg/ic_logo.svg';
 import AddIcon from '../../assets/svg/ic_icon-add.svg';
 
 const RegisterScreen = (props) => {
@@ -136,16 +136,17 @@ const RegisterScreen = (props) => {
             <S.PageContainer
                 contentContainerStyle={{ paddingBottom: 40 }}
             >
-                <Header
-                    onPressListener={() => props.navigation.goBack()}
-                    noStatusBar
-                />
-                <S.PageTitleContainer>
-                    <Logo />
-                    <S.PageTitleText>
-                        Faça seu cadastro
-                    </S.PageTitleText>
-                </S.PageTitleContainer>
+                <S.MapImageView>
+                <S.HeaderBackButtonContainer
+                    onPress={() => props.navigation.goBack()}
+                >
+                    <BackIcon name="arrow-left" color="#000" size={60}/>
+                </S.HeaderBackButtonContainer> 
+                    <S.MapImage source={TransparentWave} />
+                    <S.IconLogo width={105} height={105} />
+                </S.MapImageView>
+                <S.RegisterContentView>
+                <S.HeaderName>Faça seu cadastro</S.HeaderName>
                 <S.ProfilePicView>
                     <S.ProfilePicAddTouchableOpacity
                         onPress={onSelectProfileImage}
@@ -260,6 +261,7 @@ const RegisterScreen = (props) => {
                     fontColor="#FFF"
                     background="#4F80E1"
                 />
+                </S.RegisterContentView>
             </S.PageContainer>
         </>
     )

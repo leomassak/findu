@@ -11,23 +11,19 @@ export const TextInputTitle = styled.Text`
     font-size: ${ScaleUtils.pixelScale(16)}px;
     font-family: Poppins-Medium;
     text-align: left;
-    margin-bottom: 5px;
+    color: #4F80E1;
 `;
 
 export const TextInput = styled.TextInput`
-    border: solid #000 1px;
-    height: ${`${ScaleUtils.nearestWidthPixelScale(14)}px`};
-    border-radius: 10px;
-    padding: 5%;
+    border-bottom-width: 1px;
+    border-color: #4F80E1;
     font-size: ${ScaleUtils.pixelScale(15)}px;
 `;
 
 export const MaskedInput = styled(TextInputMask)`
-    border: solid #000 1px;
-    height: ${`${ScaleUtils.nearestWidthPixelScale(14)}px`};
-    border-radius: 10px;
-    padding: 5%;
-    font-size: ${ScaleUtils.pixelScale(13)}px;
+    border-bottom-width: 1px;
+    border-color: #4F80E1;
+    font-size: ${ScaleUtils.pixelScale(15)}px;
 `;
 
 export const TextInputContainerIconTouchableOpacity = styled.TouchableOpacity`

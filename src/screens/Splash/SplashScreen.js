@@ -5,6 +5,10 @@ import * as S from './styles';
 import AppStorage from '../../services/storage';
 import * as ScaleUtils from '../../utils/scale';
 import * as AuthActions from '../../redux/actions/auth';
+import TopWave1 from '../../assets/images/topWave1.png';
+import TopWave2 from '../../assets/images/topWave2.png';
+import BottomWave1 from '../../assets/images/bottomWave1.png';
+import BottomWave2 from '../../assets/images/bottomWave2.png';
 
 function Splash ({navigation}) {
 
@@ -43,11 +47,16 @@ function Splash ({navigation}) {
            <Animated.View 
            style={{
                 opacity: opacityValue,
+                flex: 1,
             }}>
+                <S.TopWaveImage source={TopWave1} />
+                <S.TopWaveImage source={TopWave2} />
                 <S.LogoSvg
                     width={ScaleUtils.ScreenWidth * 0.7}
                     height={ScaleUtils.ScreenWidth * 0.7}
                 />
+                <S.BottomWaveImage source={BottomWave1} />
+                <S.BottomWaveImage source={BottomWave2} />
             </Animated.View>
       </S.SplashContainer>
   );

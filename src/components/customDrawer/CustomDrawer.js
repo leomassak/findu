@@ -16,6 +16,8 @@ import ShareCodeModal from '../modal/ShareCodeModal';
 import * as S from './styles';
 import * as ScaleUtils from '../../utils/scale';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 function CustomDrawer(props) {
     const userData = useSelector(state => UserReducer.getUser(state));
     const [isModalOpen, setModalOpen] = useState(false);
@@ -56,21 +58,25 @@ function CustomDrawer(props) {
                     label="Editar Perfil"
                     labelStyle={{ fontFamily: 'Poppins-Regular', fontSize: 18, color: '#000' }}
                     onPress={() => props.navigation.navigate('EditProfile')}
+                    icon={() => <Icon name="edit" size={25} color="#000" />}
                 />
                 <DrawerItem
                     label="Meus Contatos"
                     labelStyle={{ fontFamily: 'Poppins-Regular', fontSize: 18, color: '#000' }}
                     onPress={() => props.navigation.navigate('Contacts')}
+                    icon={() => <Icon name="address-book" size={25} color="#000" />}
                 />
                 <DrawerItem
                     label="Meus Grupos"
                     labelStyle={{ fontFamily: 'Poppins-Regular', fontSize: 18, color: '#000' }}
                     onPress={() => props.navigation.navigate('Groups')}
+                    icon={() => <Icon name="group" size={25} color="#000" />}
                 />
                  <DrawerItem
                     label="Gerar Código"
                     labelStyle={{ fontFamily: 'Poppins-Regular', fontSize: 18, color: '#000' }}
                     onPress={() => setModalOpen(true)}
+                    icon={() => <Icon name="code" size={25} color="#000" />}
                 />
                 {/* <DrawerItem
                     label="Configurações"
@@ -79,6 +85,7 @@ function CustomDrawer(props) {
                 /> */}
                 <DrawerItem
                     label="Logout"
+                    icon={() => <Icon name="sign-out" size={25} color="#000" />}
                     labelStyle={{ fontFamily: 'Poppins-Regular', fontSize: 18, color: '#000' }}
                     onPress={async () => {
                         await AuthActions.logout();

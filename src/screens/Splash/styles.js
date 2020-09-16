@@ -5,8 +5,20 @@ import Logo from '../../assets/svg/logo.svg';
 export const SplashContainer = styled.View`
     flex: 1;
     background-color: #FFF;
-    align-items: center;
-    justify-content: center;
 `;
 
-export const LogoSvg = styled(Logo)``;
+export const LogoSvg = styled(Logo)`
+    align-self: center;
+    margin-top: 55%;
+`;
+
+export const TopWaveImage = styled.Image`
+    position: absolute;
+    top: 0;
+`;
+
+export const BottomWaveImage = styled.Image`
+    position: absolute;
+    bottom: 0;
+`;
+

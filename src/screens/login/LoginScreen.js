@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { StatusBar } from 'react-native';
 import md5 from 'md5';
 import { useSelector, useDispatch } from 'react-redux';
 import * as S from './styles';
@@ -14,6 +15,8 @@ import CheckBox from '../../components/CheckBox/Checkbox';
 import UnderlineButton from '../../components/button/UnderlineTextButton';
 import DefaultButton from '../../components/button/DefaultButton';
 import Loading from '../../components/Loading/Loading';
+import LocationImage from '../../assets/images/location.png';
+import BackIcon from 'react-native-vector-icons/EvilIcons'
 
 import Logo from '../../assets/svg/ic_logo.svg';
 
@@ -51,17 +54,24 @@ const LoginScreen = (props) => {
 
     return (
         <>
+            <StatusBar 
+               barStyle="light-content"
+               backgroundColor="#4F80E1" 
+            />
             {isLoading && <Loading />}
             <S.PageContainer>
-                <Header
-                    onPressListener={() => props.navigation.goBack()}
-                />
-                <S.PageTitleContainer>
-                    <Logo />
-                    <S.PageTitleText>
-                        Faça seu login
-                    </S.PageTitleText>
-                </S.PageTitleContainer>
+            <S.MapImageView>
+                <S.HeaderBackButtonContainer
+                    onPress={() => props.navigation.goBack()}
+                >
+                    <BackIcon name="arrow-left" color="#FFF" size={60}/>
+                </S.HeaderBackButtonContainer> 
+                    <S.MapImage source={LocationImage} />
+                    <S.HeaderTitleText>
+                        FindU
+                    </S.HeaderTitleText>
+                </S.MapImageView>
+                <S.RegisterContentView>
                 <S.InputContainer>
                     <Input
                         title="E-mail"
@@ -82,13 +92,6 @@ const LoginScreen = (props) => {
                         eyeOpen={passwordEyeStatus}
                     />
                 </S.InputContainer>
-
-                <CheckBox
-                    title="Lembrar de mim"
-                    onChangeValue={() => setCheckBoxStatus(!checkBoxStatus)}
-                    value={checkBoxStatus}
-                />
-
                 <S.UnderlineButtonContainer>
                     <UnderlineButton
                         text="Esqueceu sua senha?"
@@ -102,6 +105,7 @@ const LoginScreen = (props) => {
                     fontColor="#FFF"
                     background="#4F80E1"
                 />
+                </S.RegisterContentView>
             </S.PageContainer>
         </>
     )
