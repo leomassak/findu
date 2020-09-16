@@ -34,7 +34,7 @@ function CustomDrawer(props) {
             <DrawerContentScrollView {...props}>
                 <S.UserProfileView>
                     <S.ProfileImageView>
-                        {userData.profilePhoto ? (
+                        {userData && userData.profilePhoto ? (
                             <S.ProfileImage
                                 source={{ uri: userData.profilePhoto.url }}
                             />
