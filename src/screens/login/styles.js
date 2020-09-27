@@ -12,8 +12,8 @@ export const PageTitleContainer = styled.View`
     width: 100%;
     flex-direction: row;
     align-items: center;
-    margin-bottom: ${ScaleUtils.ScreenHeight * 0.04}px;
-    margin-top: ${ScaleUtils.ScreenHeight * 0.05}px;
+    margin-bottom: ${`${ScaleUtils.ScreenHeight * 0.04}px`};
+    margin-top: ${`${ScaleUtils.ScreenHeight * 0.05}px`};
 `;
 
 export const PageTitleText = styled.Text`
@@ -31,7 +31,7 @@ export const HeaderTitleText = styled.Text`
 `;
 
 export const InputContainer = styled.View`
-    margin-bottom: ${ScaleUtils.ScreenHeight * 0.024}px;;
+    margin-bottom: ${`${ScaleUtils.ScreenHeight * 0.024}px`};
 `;
 
 export const UnderlineButtonContainer = styled.View`
@@ -40,7 +40,7 @@ export const UnderlineButtonContainer = styled.View`
 
 export const MapImageView = styled.View`
     width: 100%;
-    height: ${ScaleUtils.ScreenHeight * 0.4}px;
+    height: ${`${ScaleUtils.ScreenHeight * 0.4}px`};
     align-items: center;
     justify-content: center;
     background-color: #4F80E1;

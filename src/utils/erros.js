@@ -33,6 +33,9 @@ const errors = {
         invalid_name: 'Esse nome já está sendo usado em outro grupo',
         invalid_color: 'Esta cor já está sendo usada em outro grupo',
     },
+    updateGroup: {
+        internal_error: 'Ocorreu um erro, verifique seus dados e tente novamente!',
+    },
     removeFriend: {
         internal_error: 'Ocorreu um erro, verifique seus dados e tente novamente!',
         friendship_not_found: 'Contato não encontrado!',

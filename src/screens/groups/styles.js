@@ -25,7 +25,7 @@ export const InputView = styled.View`
 `;
 
 export const GroupsSearchInput = styled.TextInput`
-    height: ${ScaleUtils.ScreenWidth * 0.15}px;
+    height: ${`${ScaleUtils.ScreenWidth * 0.15}px`};
     width: 100%;
     border-radius: 10px;
     background-color: #F2F2F2;
@@ -47,10 +47,10 @@ export const SearchIconButton = styled.TouchableOpacity`
 export const GroupsFlatList = styled.FlatList``;
 
 export const PaginationLoadingView = styled.View`
-    height: ${ScaleUtils.ScreenWidth * 0.1}px;
+    height: ${`${ScaleUtils.ScreenWidth * 0.1}px`};
     align-items: center;
     justify-content: center;
-    margin-top: ${ScaleUtils.ScreenWidth * 0.1}px;
+    margin-top: ${`${ScaleUtils.ScreenWidth * 0.1}px`};
 `;
 
 export const EmptyGroupsText = styled.Text`
@@ -64,7 +64,7 @@ export const EmptyGroupsText = styled.Text`
 export const GroupCardContainer = styled.TouchableOpacity`
     width: 90%;
     align-self: center;
-    height: ${ScaleUtils.ScreenWidth * 0.22};
+    height: ${`${ScaleUtils.ScreenWidth * 0.22}`};
     background-color: #FFF;
     border-bottom-width: 1px;
     border-color: #CECECE;
@@ -75,15 +75,15 @@ export const GroupCardContainer = styled.TouchableOpacity`
 `;
 
 export const GroupName = styled.Text`
-    font-size: ${ScaleUtils.pixelScale(20)}px;
+    font-size: ${`${ScaleUtils.pixelScale(20)}px`};
     font-family: Poppins-Regular;
     width: 70%;
     color: #000;
 `;
 
 export const GroupColorView = styled.View`
-    height: ${ScaleUtils.ScreenWidth * 0.05};
-    width: ${ScaleUtils.ScreenWidth * 0.05};
+    height: ${`${ScaleUtils.ScreenWidth * 0.05}px`};
+    width: ${`${ScaleUtils.ScreenWidth * 0.05}px`};
     background-color: ${({ backgroundColor }) => backgroundColor};
-    border-radius: ${ScaleUtils.ScreenWidth * 0.05};
+    border-radius: ${`${ScaleUtils.ScreenWidth * 0.05}px`};
 `;

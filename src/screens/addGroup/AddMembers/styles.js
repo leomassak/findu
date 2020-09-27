@@ -13,8 +13,8 @@ export const PageTitleContainer = styled.View`
     width: 80%;
     flex-direction: row;
     align-items: center;
-    margin-bottom: ${ScaleUtils.ScreenHeight * 0.04}px;
-    margin-top: ${ScaleUtils.ScreenHeight * 0.03}px;
+    margin-bottom: ${`${ScaleUtils.ScreenHeight * 0.04}px`};
+    margin-top: ${`${ScaleUtils.ScreenHeight * 0.03}px`};
 `;
 
 export const PageTitleText = styled.Text`
@@ -46,14 +46,14 @@ export const EmptyFriendsText = styled.Text`
 `;
 
 export const PaginationLoadingView = styled.View`
-    height: ${ScaleUtils.ScreenWidth * 0.3}px;
+    height: ${`${ScaleUtils.ScreenWidth * 0.3}px`};
     align-items: center;
     justify-content: center;
-    margin-top: ${ScaleUtils.ScreenWidth * 0.01}px;
+    margin-top: ${`${ScaleUtils.ScreenWidth * 0.01}px`};
 `;
 
 export const FriendsSearchInput = styled.TextInput`
-    height: ${ScaleUtils.ScreenWidth * 0.15}px;
+    height: ${`${ScaleUtils.ScreenWidth * 0.15}px`};
     width: 100%;
     border-radius: 10px;
     background-color: #F2F2F2;
@@ -77,7 +77,7 @@ export const ContinueButton = styled.TouchableOpacity`
 
 export const ContactCardContainer = styled.TouchableOpacity`
     width: 100%;
-    height: ${ScaleUtils.ScreenWidth * 0.3};
+    height: ${`${ScaleUtils.ScreenWidth * 0.3}px`};
     background-color: #FFF;
     border-bottom-width: 1px;
     border-color: #CECECE;
@@ -86,15 +86,15 @@ export const ContactCardContainer = styled.TouchableOpacity`
 `;
 
 export const ProfileImageContainer = styled.View`
-    height: ${ScaleUtils.nearestWidthPixelScale(20)};
-    width: ${ScaleUtils.nearestWidthPixelScale(20)};
+    height: ${`${ScaleUtils.nearestWidthPixelScale(20)}px`};
+    width: ${`${ScaleUtils.nearestWidthPixelScale(20)}px`};
     border-radius: 400px;
     overflow: hidden;
     background-color: #CECECE;
     border: solid black 1px;
     justify-content: center;
     align-items: center;
-    margin-horizontal: ${ScaleUtils.nearestWidthPixelScale(5)};
+    margin-horizontal: ${`${ScaleUtils.nearestWidthPixelScale(5)}px`};
 `;
 
 export const ProfileImage = styled.ImageBackground`
@@ -104,7 +104,7 @@ export const ProfileImage = styled.ImageBackground`
 `;
 
 export const ContactName = styled.Text`
-    font-size: ${ScaleUtils.pixelScale(20)}px;
+    font-size: ${`${ScaleUtils.pixelScale(20)}px`};
     font-family: Poppins-Regular;
     width: 50%;
     color: #000;

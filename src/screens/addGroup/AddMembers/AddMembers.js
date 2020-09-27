@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {ActivityIndicator, StatusBar, RefreshControl} from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {Alert} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconAntd from 'react-native-vector-icons/AntDesign';
 
 import * as S from './styles';
-import * as LoadingSelector from '../../../redux/reducers/loading';
 import * as FriendsActions from '../../../redux/actions/friends';
 import * as GroupsActions from '../../../redux/actions/groups';
 
@@ -97,11 +96,11 @@ function GroupsScreen(props) {
     setSendLoading(true);
     try {
       await dispatch(GroupsActions.addGroup(groupName, selectedColor, selectedFriends));
-      Snackbar('O grupo foi criado com sucesso!');
       props.navigation.reset({
         index: 0,
         routes: [{ name: 'HomeNavigator' }]
       });
+      Snackbar('O grupo foi criado com sucesso!');
     } catch (err) {
       Snackbar(err.message);
     } finally {

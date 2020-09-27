@@ -5,7 +5,7 @@ import Svg from '../../assets/svg/profile.svg';
 
 export const ContactCardContainer = styled.TouchableOpacity`
     width: 100%;
-    height: ${ScaleUtils.ScreenWidth * 0.3};
+    height: ${`${ScaleUtils.ScreenWidth * 0.3}`};
     background-color: #FFF;
     border-bottom-width: 1px;
     border-color: #CECECE;
@@ -15,8 +15,8 @@ export const ContactCardContainer = styled.TouchableOpacity`
 `;
 
 export const ProfileImageContainer = styled.View`
-    height: ${ScaleUtils.nearestWidthPixelScale(20)};
-    width: ${ScaleUtils.nearestWidthPixelScale(20)};
+    height: ${`${ScaleUtils.nearestWidthPixelScale(20)}`};
+    width: ${`${ScaleUtils.nearestWidthPixelScale(20)}`};
     border-radius: 400px;
     overflow: hidden;
     background-color: #CECECE;
@@ -32,7 +32,7 @@ export const ProfileImage = styled.ImageBackground`
 `;
 
 export const ContactName = styled.Text`
-    font-size: ${ScaleUtils.pixelScale(20)}px;
+    font-size: ${`${ScaleUtils.pixelScale(20)}px`};
     font-family: Poppins-Regular;
     width: 50%;
     color: #000;

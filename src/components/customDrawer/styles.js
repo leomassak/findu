@@ -13,8 +13,8 @@ export const UserProfileView = styled.View`
 export const ProfileImageView = styled.View`
     border-width: 1px;
     border-color: #000;
-    height: ${ScaleUtils.ScreenHeight * 0.1}px;
-    width: ${ScaleUtils.ScreenHeight * 0.1}px;
+    height: ${`${ScaleUtils.ScreenHeight * 0.1}px`};
+    width: ${`${ScaleUtils.ScreenHeight * 0.1}px`};
     border-radius: 100px;
     justify-content: center;
     align-items: center;
