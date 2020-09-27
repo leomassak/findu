@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState, useMemo } from 'react';
-import { StatusBar } from 'react-native';
+import { StatusBar, Linking } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Alert } from 'react-native';
 import BackgroundGeolocation from '@mauron85/react-native-background-geolocation';
@@ -9,6 +9,7 @@ import { Animated, PermissionsAndroid } from 'react-native';
 
 import * as ScaleUtils from '../../utils/scale';
 import * as S from './styles';
+import IconCloseModal from '../../assets/svg/ic-close.svg';
 
 import * as UserActions from '../../redux/actions/user';
 import * as LoadingSelector from '../../redux/reducers/loading';
@@ -17,6 +18,7 @@ import * as FriendsSelectors from '../../redux/reducers/friends';
 
 import PermissionModal from '../../components/modal/PermissionModal';
 import Loading from '../../components/Loading/Loading';
+import DefaultButton from '../../components/button/DefaultButton';
 
 export default function HomeScreen(props) {
     const dispatch = useDispatch();
@@ -33,6 +35,8 @@ export default function HomeScreen(props) {
     const [region, setRegion] = useState({});
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [statusBarHeight, setStatusBarHeight] = useState(0);
+    const [userSelected, setUserSelected] = useState({});
+    const [userSelectedPage, setUserSelectedPage] = useState(0);
 
     const ASPECT_RATIO = ScaleUtils.ScreenWidth / ScaleUtils.ScreenHeight;
     const LATITUDE_DELTA = 0.01;
@@ -48,12 +52,6 @@ export default function HomeScreen(props) {
                     showsCompass={false}
                     followsUserLocation
                     zoomEnabled
-                    // initialRegion={{
-                    //     latitude: initialCordinates.latitude,
-                    //     longitude: initialCordinates.longitude,
-                    //     latitudeDelta: LATITUDE_DELTA,
-                    //     longitudeDelta: LONGITUDE_DELTA,
-                    // }}
                     region={{
                         latitude: region.latitude,
                         longitude: region.longitude,
@@ -63,11 +61,11 @@ export default function HomeScreen(props) {
                 >
                     {friends.length > 0 && friends.map((item) => (
                         <>
-                            {item.location && (
+                            {item.location && item.location.coordinates && (
                                 <S.PageMarker
                                     coordinate={{
-                                        latitude: item.location.lat,
-                                        longitude: item.location.lng,
+                                        latitude: item.location.coordinates[1],
+                                        longitude: item.location.coordinates[0],
                                         latitudeDelta: LATITUDE_DELTA,
                                         longitudeDelta: LONGITUDE_DELTA,
                                     }}
@@ -273,17 +271,21 @@ export default function HomeScreen(props) {
                 style={{ paddingTop: statusBarHeight }}
             >
                 {Object.keys(friends).length >= 0 && MapMemo}
-                {Object.keys(friends).length > 0 && (
+                {Object.keys(userSelected).length === 0 && Object.keys(friends).length > 0 && (
                     <S.PageFriendListScrollView
                         showsVerticalScrollIndicator={false}
                     >
                         {friends.length > 0 && friends.map((item) => (
                             <S.PageFriendDetailsTouchableOpacity
                                 activeOpacity={0.7}
-                                onPress={() => setRegion({
-                                    latitude: item.location.lat,
-                                    longitude: item.location.lng,
-                                })}
+                                disabled={!item.location.coordinates}
+                                onPress={() => {
+                                    setRegion({
+                                        latitude: item.location.coordinates[1],
+                                        longitude: item.location.coordinates[0],
+                                    })
+                                    setUserSelected(item);
+                                }}
                             >
                                 <S.PageFriendImageView>
                                     {item.profilePhoto ? (
@@ -302,13 +304,91 @@ export default function HomeScreen(props) {
                                         {item.name}
                                     </S.PageFriendNameText>
                                     <S.PageFriendDistanceText>
-                                        {item.location
+                                        {item.location.coordinates
                                             ? `${item.location.distance.toFixed(1)} km`
                                             : 'Não possui registro de localização'}
                                     </S.PageFriendDistanceText>
                                 </S.PageFriendTextView>
                             </S.PageFriendDetailsTouchableOpacity>
                         ))}
+                    </S.PageFriendListScrollView>
+                )}
+                {Object.keys(userSelected).length > 0 && (
+                    <S.PageFriendListScrollView
+                        showsVerticalScrollIndicator={false}
+                    >
+                        <S.CloseTouchableOpacity
+                            onPress={() => {
+                                if (userSelectedPage === 0) setUserSelected({});
+                                else setUserSelectedPage(0);
+                            }}
+                        >
+                            <IconCloseModal />
+                        </S.CloseTouchableOpacity>
+                        <S.PageFriendDetailsView>
+                            <S.PageFriendImageView>
+                                {userSelected.profilePhoto ? (
+                                    <S.PageFriendImage
+                                        source={{ uri: userSelected.profilePhoto.url }}
+                                    />
+                                ) : (
+                                        <S.PageMarkerDefaultSvg
+                                            height={ScaleUtils.ScreenHeight * 0.065}
+                                            width={ScaleUtils.ScreenHeight * 0.065}
+                                        />
+                                    )}
+                            </S.PageFriendImageView>
+                            <S.PageFriendTextView>
+                                <S.PageFriendNameText>
+                                    {userSelected.name}
+                                </S.PageFriendNameText>
+                                <S.PageFriendDistanceText>
+                                    {userSelected.location.coordinates
+                                        ? `${userSelected.location.distance.toFixed(1)} km`
+                                        : 'Não possui registro de localização'}
+                                </S.PageFriendDistanceText>
+                            </S.PageFriendTextView>
+                        </S.PageFriendDetailsView>
+                        <S.PageFriendDetailsButtonView>
+                            <DefaultButton
+                                text={userSelectedPage === 0
+                                    ? 'Notificar quando...'
+                                    : 'Sair da área'}
+                                onPressListener={() => {
+                                    if (userSelectedPage === 0) {
+                                        setUserSelectedPage(1)
+                                    } else {
+                                        console.log('Sair da área')
+                                    }
+                                }}
+                            />
+                            <DefaultButton
+                                text={userSelectedPage === 0
+                                    ? 'Entrar em contato'
+                                    : 'Chegar no local'}
+                                onPressListener={() => {
+                                    if (userSelectedPage === 0) {
+                                        Alert.alert(
+                                            'Entrar em contato',
+                                            'Deseja ligar para o usuário selecionado?',
+                                            [
+                                                {
+                                                    text: 'Não',
+                                                    onPress: () => { },
+                                                },
+                                                {
+                                                    text: 'Sim',
+                                                    onPress: () => Linking.openURL(`tel:${userSelected.phone}`),
+                                                },
+                                            ],
+                                        );
+                                    } else {
+                                        console.log('Chegar no local')
+                                    }
+                                }}
+                            />
+                        </S.PageFriendDetailsButtonView>
+ 
                     </S.PageFriendListScrollView>
                 )}
                 <S.BurguerButton

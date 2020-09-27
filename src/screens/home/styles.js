@@ -56,6 +56,26 @@ export const PageFriendListScrollView = styled.ScrollView`
   border-top-left-radius: 30px;
 `;
 
+export const CloseTouchableOpacity = styled.TouchableOpacity`
+    padding: 5%;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    align-self: flex-end;
+`;
+
+export const PageFriendDetailsView = styled.View`
+  width: 100%;
+  padding: 0 5%;
+  flex-direction: row;
+  margin-top: -7%;
+`;
+
+export const PageFriendDetailsButtonView = styled.View`
+  padding: 0 6%;
+  margin-top: 5%;
+`;
+
 export const PageFriendDetailsTouchableOpacity = styled.TouchableOpacity`
   width: 100%;
   padding: 4% 5%;
