@@ -17,7 +17,7 @@ export const PageMapViewContainerView = styled.View`
 
 export const PageMapView = styled(MapView)`
   position: absolute;
-  top: -5;
+  top: -5px;
   bottom: 0;
   left: 0;
   right: 0;
