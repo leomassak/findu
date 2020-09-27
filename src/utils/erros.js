@@ -24,9 +24,13 @@ const errors = {
     addFriend: {
         invalid_code: 'O código inserido é inválido!',
         already_friends: 'Este contato já está na sua lista de contatos!',
-
     },
     addGroup: {
+        invalid_name: 'Esse nome já está sendo usado em outro grupo',
+        invalid_color: 'Esta cor já está sendo usada em outro grupo',
+    },
+    updateGroup: {
+        invalid_name: 'Esse nome já está sendo usado em outro grupo',
         invalid_color: 'Esta cor já está sendo usada em outro grupo',
     },
     removeFriend: {

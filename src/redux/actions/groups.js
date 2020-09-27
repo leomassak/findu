@@ -42,7 +42,6 @@ export const updateGroup = (id, params) => async (dispatch) => {
     try {
         await GroupsApi.updateGroup(id, params);
     } catch (err) {
-        console.log('err', err);
         if (Errors.updateGroup[err.message] !== undefined) {
             throw new Error(Errors.updateGroup[err.message]);
         } else {
@@ -59,7 +58,6 @@ export const addGroup = (name, color, members) => async (dispatch) => {
     try {
         await GroupsApi.addGroup(name, color, members);
     } catch (err) {
-        console.log('err', err);
         if (Errors.addGroup[err.message] !== undefined) {
             throw new Error(Errors.addGroup[err.message]);
         } else {

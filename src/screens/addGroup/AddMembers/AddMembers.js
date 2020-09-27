@@ -34,9 +34,21 @@ function GroupsScreen(props) {
       search: '',
   });
 
+  const [isEditPage, setIsEditPage] = useState(false);
+  const [oldGroup, setOldGroup] = useState({});
+
   useEffect(() => {
     getAllFriends();
   }, [paginationParams]);
+
+  useEffect(() => {
+    const { params } = props.route;
+    if (params && params.oldGroup) {
+      setIsEditPage(true);
+      setOldGroup(params.oldGroup);
+      setSelectedFriends(params.oldGroup.members)
+    }
+  }, []);
 
   const getAllFriends = async (addLoading = true) => {
     try {
@@ -80,41 +92,34 @@ function GroupsScreen(props) {
     return <S.EmptyFriendsText>Nenhum contato na lista</S.EmptyFriendsText>;
   };
 
-  const renderHeader = () => {
-    return (
-      <>
-         <Header
-          noStatusBar
-          addContinue
-          onPressListener={() => props.navigation.goBack()}
-        />
-         <S.PageTitleContainer>
-            <Logo />
-            <S.PageTitleText>
-                Adicionar Membros
-            </S.PageTitleText>
-        </S.PageTitleContainer>
-        <S.InputView>
-          <S.FriendsSearchInput
-            placeholder="Pesquisar"
-            value={search}
-            placeholderTextColor="#8F8E8E"
-            onChangeText={(text) => onSearchContact(text)}
-            returnKeyType="search"
-          />
-          <S.SearchIconButton onPress={() => {}}>
-            <Icon name="search" size={25} color="#8F8E8E" />
-          </S.SearchIconButton>
-        </S.InputView>
-      </>
-    );
-  };
-
   const handleAddGroup = async () => {
     const { groupName, selectedColor } = props.route.params;
     setSendLoading(true);
     try {
       await dispatch(GroupsActions.addGroup(groupName, selectedColor, selectedFriends));
+      Snackbar('O grupo foi criado com sucesso!');
+      props.navigation.reset({
+        index: 0,
+        routes: [{ name: 'HomeNavigator' }]
+      });
+    } catch (err) {
+      Snackbar(err.message);
+    } finally {
+      setSendLoading(false);
+    }
+  }
+
+  const handleEditGroup = async () => {
+    const { groupName, selectedColor } = props.route.params;
+    setSendLoading(true);
+    try {
+      await dispatch(GroupsActions.updateGroup(oldGroup._id, {
+        ...oldGroup,
+        name: groupName,
+        color: selectedColor,
+        members: selectedFriends,
+      }));
+      Snackbar('O grupo foi editado com sucesso!');
       props.navigation.reset({
         index: 0,
         routes: [{ name: 'HomeNavigator' }]
@@ -138,9 +143,33 @@ function GroupsScreen(props) {
     <>
       <StatusBar barStyle="light-content" backgroundColor="#4F80E1" />
       <S.AddMembersContainer>
+        <Header
+          noStatusBar
+          addContinue
+          onPressListener={() => props.navigation.goBack()}
+        />
+        <S.PageTitleContainer>
+          <Logo />
+          <S.PageTitleText>
+            {isEditPage
+              ? 'Editar Membros'
+              : 'Adicionar Membros'}
+          </S.PageTitleText>
+        </S.PageTitleContainer>
+        <S.InputView>
+          <S.FriendsSearchInput
+            placeholder="Pesquisar"
+            value={search}
+            placeholderTextColor="#8F8E8E"
+            onChangeText={(text) => onSearchContact(text)}
+            returnKeyType="search"
+          />
+          <S.SearchIconButton onPress={() => { }}>
+            <Icon name="search" size={25} color="#8F8E8E" />
+          </S.SearchIconButton>
+        </S.InputView>
         <S.FriendsFlatList
           data={search.length > 0 ? filteredFriends : friends}
-          ListHeaderComponent={renderHeader}
           ListFooterComponent={renderFooter}
           ListEmptyComponent={!isLoading && renderEmptyState}
           onEndReachedThreshold={0.25}
@@ -191,7 +220,7 @@ function GroupsScreen(props) {
             />
           )}
         />
-        <S.ContinueButton onPress={handleAddGroup}>
+        <S.ContinueButton onPress={isEditPage ? handleEditGroup : handleAddGroup}>
           {sendLoading && (
             <ActivityIndicator size="large" color="white" />
           )}

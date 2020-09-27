@@ -15,6 +15,10 @@ export const PageTitleContainer = styled.View`
     margin-top: ${ScaleUtils.ScreenHeight * 0.03}px;
 `;
 
+export const InputContainer = styled.View`
+    margin-bottom: 5%;
+`;
+
 export const PageTitleText = styled.Text`
     font-size: ${`${ScaleUtils.ScreenHeight * 0.037}px`};
     font-family: Poppins-Bold;

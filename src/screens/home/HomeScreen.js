@@ -200,7 +200,7 @@ export default function HomeScreen(props) {
 
     const startFriendsLoopRequest = () => setInterval(() => {
         getAllFriends();
-    }, 5000);
+    }, 10000);
 
 
     const askForPermission = async () => {

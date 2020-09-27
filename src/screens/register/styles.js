@@ -105,6 +105,7 @@ export const MapImageView = styled.View`
 export const MapImage = styled.Image`
     position: absolute;
     bottom: 0;
+    width: 100%;
 `;
 
 export const RegisterContentView = styled.View`
