@@ -3,7 +3,7 @@ import * as ScaleUtils from '../../../utils/scale';
 
 export const FilterButtonContainer = styled.TouchableOpacity`
     height: ${ScaleUtils.ScreenWidth * 0.15}px;
-    width: ${props => props.customWidth || (ScaleUtils.ScreenWidth * 0.28)};
+    width: ${props => props.customWidth || `${ScaleUtils.ScreenWidth * 0.28}px`};
     background-color: ${props => props.selected ? '#4F80E1' : "#FFF" };
     border-width: 1px;
     border-color: #4F80E1;

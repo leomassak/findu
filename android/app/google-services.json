@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "240005745969",
+    "firebase_url": "https://findu-a133c.firebaseio.com",
+    "project_id": "findu-a133c",
+    "storage_bucket": "findu-a133c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:240005745969:android:43e727936b9d77b932b410",
+        "android_client_info": {
+          "package_name": "com.findumobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "240005745969-de578t2cllr1qqsfg1a1o5tu3is11n58.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXSW2VXD0PfY41KBzsicG1Y9TptkinOIY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "240005745969-de578t2cllr1qqsfg1a1o5tu3is11n58.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -13,7 +13,7 @@ function removeGroup(id) {
 }
 
 function updateGroup(id, params) {
-    return RestService.postAuthenticated(`groups/${id}`, {...params });
+    return RestService.putAuthenticated(`groups/${id}`, {...params });
 }
 
 export default {

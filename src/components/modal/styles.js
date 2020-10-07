@@ -31,6 +31,7 @@ export const ModalCloseIcon = styled.Image`
 
 export const ModalEmailIconView = styled.View`
     margin-bottom: 5%;
+    margin-top: auto;
 `;
 
 export const ModalEmailTitle = styled.Text`
@@ -46,7 +47,7 @@ export const ModalCodeText = styled.Text`
 `;
 
 export const ModalEmailButtonView = styled.View`
-    margin-top: 5%;
+    margin-top: auto;
     width: 100%;
 `;
 
@@ -59,7 +60,7 @@ export const AddInputContainer = styled.View`
 `;
 
 export const AddContactOptInput = styled(OTPInputView)`
-    height: ${ScaleUtils.ScreenWidth * 0.16}px;
+    height: ${`${ScaleUtils.ScreenWidth * 0.16}px`};
     font-size: 25px;
     font-family: Poppins-Bold;
     color: #000;

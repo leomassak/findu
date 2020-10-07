@@ -1,8 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Animated } from 'react-native';
+import analytics from '@react-native-firebase/analytics';
+import crashlytics from '@react-native-firebase/crashlytics';
+
 import * as S from './styles';
-import AppStorage from '../../services/storage';
+import { requestFirebaseMessagingPermission } from '../../utils/permissions';
+
+// import AppStorage from '../../services/storage';
 import * as ScaleUtils from '../../utils/scale';
 import * as AuthActions from '../../redux/actions/auth';
 import TopWave1 from '../../assets/images/topWave1.png';
@@ -16,16 +21,26 @@ function Splash ({navigation}) {
     const opacityValue = useRef(new Animated.Value(0)).current;
 
     useEffect(() => {
+        loadFirebase();
         Animated.timing(
             opacityValue,
             {
-                toValue:1,
+                toValue: 1,
                 duration: 500,
                 useNativeDriver: true,
             }
         ).start();
         setTimeout(() => initialScreen(), 1000);
+
     }, []);
+
+    const loadFirebase = async () => {
+        await requestFirebaseMessagingPermission();
+
+        await analytics().setAnalyticsCollectionEnabled(true);
+
+        await crashlytics().setCrashlyticsCollectionEnabled(true);
+    }
 
     const initialScreen = async () => {
         const isAuthenticated = await dispatch(AuthActions.verifyInitiaFlow());

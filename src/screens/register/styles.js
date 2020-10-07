@@ -25,12 +25,12 @@ export const PageTitleContainer = styled.View`
     width: 100%;
     flex-direction: row;
     align-items: center;
-    margin-bottom: ${ScaleUtils.ScreenHeight * 0.04}px;
-    margin-top: ${ScaleUtils.ScreenHeight * 0.03}px;
+    margin-bottom: ${`${ScaleUtils.ScreenHeight * 0.04}px`};
+    margin-top: ${`${ScaleUtils.ScreenHeight * 0.03}px`};
 `;
 
 export const PageTitleText = styled.Text`
-    font-size: ${`${ScaleUtils.pixelScale(22)}`};
+    font-size: ${`${ScaleUtils.pixelScale(22)}px`};
     font-family: Poppins-Bold;
     width: 80%;
 `;
@@ -47,10 +47,10 @@ export const UnderlineButtonContainer = styled.View`
 `;
 
 export const CheckBoxContainerView = styled.View`
-    height: ${`${ScaleUtils.nearestWidthPixelScale(52)}`};
+    height: ${`${ScaleUtils.nearestWidthPixelScale(52)}px`};
     justify-content: space-between;
-    margin-bottom: ${ScaleUtils.ScreenHeight * 0.04}px;
-    margin-top: ${ScaleUtils.ScreenHeight * 0.03}px;
+    margin-bottom: ${`${ScaleUtils.ScreenHeight * 0.04}px`};
+    margin-top: ${`${ScaleUtils.ScreenHeight * 0.03}px`};
 `;
 
 export const ProfilePicView = styled.View`
@@ -98,13 +98,14 @@ export const ProfileSvg = styled(Svg)`
 
 export const MapImageView = styled.View`
     width: 100%;
-    height: ${ScaleUtils.ScreenHeight * 0.25}px;
+    height: ${`${ScaleUtils.ScreenHeight * 0.25}px`};
     background-color: #4F80E1;
 `;
 
 export const MapImage = styled.Image`
     position: absolute;
     bottom: 0;
+    width: 100%;
 `;
 
 export const RegisterContentView = styled.View`

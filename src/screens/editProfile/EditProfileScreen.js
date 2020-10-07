@@ -26,9 +26,9 @@ export default function EditProfileScreen(props) {
     const userData = useSelector(state => UserReducer.getUser(state));
     const isLoading = useSelector(state => LoadingSelector.getLoading(state));
     const [formData, setFormdata] = useState({
-        name: userData.name,
-        phone: userData.phone,
-        birthday: userData.birthday
+        name: userData && userData.name,
+        phone: userData && userData.phone,
+        birthday: userData && userData.birthday
     });
     const [photo, setPhoto] = useState({
         uri: ((userData && userData.profilePhoto) ? userData.profilePhoto.url : null),

@@ -20,7 +20,7 @@ export const InputView = styled.View`
 `;
 
 export const ContactSearchInput = styled.TextInput`
-    height: ${ScaleUtils.ScreenWidth * 0.15}px;
+    height: ${`${ScaleUtils.ScreenWidth * 0.15}px`};
     width: 100%;
     border-radius: 10px;
     background-color: #F2F2F2;
@@ -42,10 +42,10 @@ export const SearchIconButton = styled.TouchableOpacity`
 export const ContactsFlatList = styled.FlatList``;
 
 export const PaginationLoadingView = styled.View`
-    height: ${ScaleUtils.ScreenWidth * 0.1}px;
+    height: ${`${ScaleUtils.ScreenWidth * 0.1}px`};
     align-items: center;
     justify-content: center;
-    margin-top: ${ScaleUtils.ScreenWidth * 0.1}px;
+    margin-top: ${`${ScaleUtils.ScreenWidth * 0.1}px`};
 `;
 
 export const EmptyFriendsText = styled.Text`
@@ -53,7 +53,7 @@ export const EmptyFriendsText = styled.Text`
     font-family: Poppins-Bold;
     margin-top: 20px;
     text-align:center;
-    height: ${ScaleUtils.ScreenWidth * 0.2}px;
+    height: ${`${ScaleUtils.ScreenWidth * 0.2}px`};
 `;
 
 export const FilterButtonsView = styled.View`

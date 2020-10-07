@@ -8,7 +8,7 @@ export const TextInputContainer = styled.View`
 `;
 
 export const TextInputTitle = styled.Text`
-    font-size: ${ScaleUtils.pixelScale(16)}px;
+    font-size: ${`${ScaleUtils.pixelScale(16)}px`};
     font-family: Poppins-Medium;
     text-align: left;
     color: #4F80E1;
@@ -17,13 +17,13 @@ export const TextInputTitle = styled.Text`
 export const TextInput = styled.TextInput`
     border-bottom-width: 1px;
     border-color: #4F80E1;
-    font-size: ${ScaleUtils.pixelScale(15)}px;
+    font-size: ${`${ScaleUtils.pixelScale(15)}px`};
 `;
 
 export const MaskedInput = styled(TextInputMask)`
     border-bottom-width: 1px;
     border-color: #4F80E1;
-    font-size: ${ScaleUtils.pixelScale(15)}px;
+    font-size: ${`${ScaleUtils.pixelScale(15)}px`};
 `;
 
 export const TextInputContainerIconTouchableOpacity = styled.TouchableOpacity`

@@ -47,10 +47,10 @@ function CustomDrawer(props) {
                     </S.ProfileImageView>
                     <S.UserInfoView>
                         <S.UserName>
-                            {userData.name}
+                            {userData && userData.name}
                         </S.UserName>
                         <S.UserAge>
-                            {`${moment().diff(moment(userData.birthday, 'DDMMYYYY'), 'years')} anos`}
+                            {userData && `${moment().diff(moment(userData.birthday, 'DDMMYYYY'), 'years')} anos`}
                         </S.UserAge>
                     </S.UserInfoView>
                 </S.UserProfileView>

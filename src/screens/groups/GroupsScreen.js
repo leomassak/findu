@@ -63,6 +63,7 @@ function GroupsScreen(props) {
   };
 
   const onSearchGroup = (text) => {
+    console.log('text', text);
     if (groups && groups.length > 0) {
       const filteredGroups = groups.filter((group) =>
         group.name.includes(text),
@@ -96,42 +97,34 @@ function GroupsScreen(props) {
     return <S.EmptyGroupsText>Nenhum grupo na lista</S.EmptyGroupsText>;
   };
 
-  const renderHeader = () => {
-    return (
-      <>
-         <Header
-            noStatusBar
-            addButton
-            onPressListener={() => props.navigation.goBack()}
-            onPressAddButton={() => props.navigation.navigate('AddInfo')}
-            headerText="Meus Grupos"
-            color
-        />
-        <S.HeaderView>
-        <S.InputView>
-          <S.GroupsSearchInput
-            placeholder="Pesquisar"
-            value={search}
-            placeholderTextColor="#8F8E8E"
-            onChangeText={(text) => onSearchGroup(text)}
-            returnKeyType="search"
-          />
-          <S.SearchIconButton onPress={() => {}}>
-            <Icon name="search" size={25} color="#8F8E8E" />
-          </S.SearchIconButton>
-        </S.InputView>
-        </S.HeaderView>
-      </>
-    );
-  };
-
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor="#4F80E1" />
       <S.GroupsScreenContainer>
+        <Header
+          noStatusBar
+          addButton
+          onPressListener={() => props.navigation.goBack()}
+          onPressAddButton={() => props.navigation.navigate('AddInfo')}
+          headerText="Meus Grupos"
+          color
+        />
+        <S.HeaderView>
+          <S.InputView>
+            <S.GroupsSearchInput
+              placeholder="Pesquisar"
+              value={search}
+              placeholderTextColor="#8F8E8E"
+              onChangeText={(text) => onSearchGroup(text)}
+              returnKeyType="search"
+            />
+            <S.SearchIconButton onPress={() => { }}>
+              <Icon name="search" size={25} color="#8F8E8E" />
+            </S.SearchIconButton>
+          </S.InputView>
+        </S.HeaderView>
         <S.GroupsFlatList
           data={search.length > 0 ? filteredGroups : groups}
-          ListHeaderComponent={renderHeader}
           ListFooterComponent={renderFooter}
           ListEmptyComponent={!isLoading && renderEmptyState}
           refreshControl={(
@@ -139,6 +132,7 @@ function GroupsScreen(props) {
               colors={['#4F80E1']}
               refreshing={refreshing}
               onRefresh={() => {
+                setGroups([]);
                 setIsloading(true);
                 setPaginationParams({
                   page: 1,
@@ -153,9 +147,9 @@ function GroupsScreen(props) {
           onEndReached={handleFlatListEnd}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item) => item.id}
-          renderItem={({item, index}) => (
+          renderItem={({ item }) => (
             <S.GroupCardContainer
-              onPress={() => console.log('teste')}
+              onPress={() => props.navigation.navigate('AddInfo', { group: item })}
             >
               <S.GroupName>
                 {item.name}

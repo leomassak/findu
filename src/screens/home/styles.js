@@ -11,13 +11,12 @@ export const HomeContainer = styled.View`
 `;
 
 export const PageMapViewContainerView = styled.View`
-  /* height: ${(props) => (props.height ? '100%' : '80%')}; */
   height: 100%;
 `;
 
 export const PageMapView = styled(MapView)`
   position: absolute;
-  top: -5;
+  top: -5px;
   bottom: 0;
   left: 0;
   right: 0;
@@ -55,6 +54,26 @@ export const PageFriendListScrollView = styled.ScrollView`
   background-color: white;
   border-top-right-radius: 30px;
   border-top-left-radius: 30px;
+`;
+
+export const CloseTouchableOpacity = styled.TouchableOpacity`
+    padding: 5%;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    align-self: flex-end;
+`;
+
+export const PageFriendDetailsView = styled.View`
+  width: 100%;
+  padding: 0 5%;
+  flex-direction: row;
+  margin-top: -7%;
+`;
+
+export const PageFriendDetailsButtonView = styled.View`
+  padding: 0 6%;
+  margin-top: 5%;
 `;
 
 export const PageFriendDetailsTouchableOpacity = styled.TouchableOpacity`
@@ -104,8 +123,8 @@ export const BurguerButton = styled.TouchableOpacity`
     position: absolute;
     left: 20px;
     top: 10px;
-    width: ${ScaleUtils.ScreenHeight * 0.08}px;
-    height: ${ScaleUtils.ScreenHeight * 0.08}px;
+    width: ${`${ScaleUtils.ScreenHeight * 0.08}px`};
+    height: ${`${ScaleUtils.ScreenHeight * 0.08}px`};
     border-radius: 100px;
     background-color: #FEFEFE;
     justify-content: center;

@@ -12,8 +12,8 @@ export const PageTitleContainer = styled.View`
     width: 80%;
     flex-direction: row;
     align-items: center;
-    margin-bottom: ${ScaleUtils.ScreenHeight * 0.04}px;
-    margin-top: ${ScaleUtils.ScreenHeight * 0.03}px;
+    margin-bottom: ${`${ScaleUtils.ScreenHeight * 0.04}px`};
+    margin-top: ${`${ScaleUtils.ScreenHeight * 0.03}px`};
 `;
 
 export const PageTitleText = styled.Text`
