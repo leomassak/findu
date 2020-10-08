@@ -1,11 +1,14 @@
 import React, { useRef, useEffect, useState, useMemo } from 'react';
 import { StatusBar, Linking } from 'react-native';
+import { Circle, Marker } from 'react-native-maps';
 import { useDispatch, useSelector } from 'react-redux';
 import { Alert } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import BackgroundGeolocation from '@mauron85/react-native-background-geolocation';
 import Geolocation from '@react-native-community/geolocation';
 import { useIsDrawerOpen } from '@react-navigation/drawer';
 import { Animated, PermissionsAndroid } from 'react-native';
+import * as LocationRules from '../../enumerators/rules';
 
 import * as ScaleUtils from '../../utils/scale';
 import * as S from './styles';
@@ -21,6 +24,8 @@ import Loading from '../../components/Loading/Loading';
 import DefaultButton from '../../components/button/DefaultButton';
 
 export default function HomeScreen(props) {
+    const ASPECT_RATIO = ScaleUtils.ScreenWidth / ScaleUtils.ScreenHeight;
+
     const dispatch = useDispatch();
     const loading = useSelector(state => LoadingSelector.getLoading(state))
     const friends = useSelector(state => FriendsSelectors.getAllFriends(state))
@@ -37,10 +42,12 @@ export default function HomeScreen(props) {
     const [statusBarHeight, setStatusBarHeight] = useState(0);
     const [userSelected, setUserSelected] = useState({});
     const [userSelectedPage, setUserSelectedPage] = useState(0);
+    const [userArea, setUserArea] = useState(0);
+    const [userAreaName, setUserAreaName] = useState('');
+    const [showUserArea, setShowUserArea] = useState(false);
+    const [latitudeDelta, setLatitudeDelta] = useState(0.01);
+    const [longitudeDelta, setLongitudeDelta] = useState(latitudeDelta * ASPECT_RATIO);
 
-    const ASPECT_RATIO = ScaleUtils.ScreenWidth / ScaleUtils.ScreenHeight;
-    const LATITUDE_DELTA = 0.01;
-    const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
     const MapMemo = useMemo(() =>
         <S.PageMapViewContainerView
@@ -51,23 +58,52 @@ export default function HomeScreen(props) {
                     showsUserLocation
                     showsCompass={false}
                     followsUserLocation
+                    onPress={(e) => handleMapPress(e)}
                     zoomEnabled
                     region={{
                         latitude: region.latitude,
                         longitude: region.longitude,
-                        latitudeDelta: LATITUDE_DELTA,
-                        longitudeDelta: LONGITUDE_DELTA,
+                        latitudeDelta: latitudeDelta,
+                        longitudeDelta: longitudeDelta,
                     }}
                 >
                     {friends.length > 0 && friends.map((item) => (
                         <>
+                        {showUserArea && (
+                            <>
+                            <Circle 
+                                center={{
+                                    latitude: region.latitude,
+                                    longitude: region.longitude,
+                                }}
+                                radius={userArea * 1000}
+                                fillColor="#4F80E1cc"
+                                strokeColor="#CECECE"
+                            />
+                               <S.PageMarker
+                                    coordinate={{
+                                        latitude: region.latitude,
+                                        longitude: region.longitude,
+                                        latitudeDelta: latitudeDelta,
+                                        longitudeDelta: longitudeDelta,
+                                    }}
+                                >
+                                    <S.PageMarkerView>
+                                        <S.PageMarkerDefaultSvg
+                                            height={ScaleUtils.ScreenHeight * 0.035}
+                                            width={ScaleUtils.ScreenHeight * 0.035}
+                                        />
+                                    </S.PageMarkerView>
+                                </S.PageMarker>
+                            </>
+                        )}
                             {item.location && item.location.coordinates && (
                                 <S.PageMarker
                                     coordinate={{
                                         latitude: item.location.coordinates[1],
                                         longitude: item.location.coordinates[0],
-                                        latitudeDelta: LATITUDE_DELTA,
-                                        longitudeDelta: LONGITUDE_DELTA,
+                                        latitudeDelta: latitudeDelta,
+                                        longitudeDelta: longitudeDelta,
                                     }}
                                 >
                                     <S.PageMarkerView>
@@ -89,7 +125,7 @@ export default function HomeScreen(props) {
                 </S.PageMapView>
             )}
         </S.PageMapViewContainerView>
-        , [region]);
+        , [region, userArea, showUserArea]);
 
     useEffect(() => {
         askForPermission();
@@ -255,6 +291,52 @@ export default function HomeScreen(props) {
         askForPermission();
     }
 
+    const onChangeArea = (text) => {
+        if (text != '') {
+            setUserArea(parseFloat(text))
+        } else {
+            setUserArea(0)
+        }
+    }
+
+    const saveUserArea = async () => {
+        const action = userSelectedPage === 2 ? LocationRules.RuleType.LEAVE_AREA : LocationRules.RuleType.ENTER_AREA;
+         try {
+            await dispatch(FriendsActions.createFriendRule(
+                userSelected._id, 
+                region, 
+                userArea,
+                userAreaName, 
+                LocationRules.RuleLocationType.POINT, 
+                action,
+                ));
+                Alert.alert('Sucesso', 'Regra criada com sucesso');
+                clearFriendRule();
+                setRegion({ 
+                    latitude: userSelected.location.coordinates[1],
+                    longitude: userSelected.location.coordinates[0],
+                });
+         } catch(err) {
+            Alert.alert('Erro', err.message);
+         }
+    }
+
+    const clearFriendRule = () => {
+        setUserSelected({});
+        setUserSelectedPage(0);
+        setShowUserArea(false);
+        setUserArea(0);
+        setLatitudeDelta(0.01);
+        setUserAreaName('');
+    }
+
+    const handleMapPress = (event) => {
+        if(showUserArea) {
+            console.log('entrei');
+            setRegion(event.nativeEvent.coordinate);
+        }
+    }
+
     return (
         <>
             {loading && <Loading />}
@@ -320,7 +402,10 @@ export default function HomeScreen(props) {
                         <S.CloseTouchableOpacity
                             onPress={() => {
                                 if (userSelectedPage === 0) setUserSelected({});
-                                else setUserSelectedPage(0);
+                                else{ 
+                                    setUserSelectedPage(0);
+                                    clearFriendRule();
+                                };
                             }}
                         >
                             <IconCloseModal />
@@ -350,7 +435,9 @@ export default function HomeScreen(props) {
                             </S.PageFriendTextView>
                         </S.PageFriendDetailsView>
                         <S.PageFriendDetailsButtonView>
-                            <DefaultButton
+                            { userSelectedPage === 0 || userSelectedPage === 1 ? (
+                                <>
+                                    <DefaultButton
                                 text={userSelectedPage === 0
                                     ? 'Notificar quando...'
                                     : 'Sair da área'}
@@ -359,6 +446,8 @@ export default function HomeScreen(props) {
                                         setUserSelectedPage(1)
                                     } else {
                                         console.log('Sair da área')
+                                        setUserSelectedPage(2)
+                                        setShowUserArea(true);
                                     }
                                 }}
                             />
@@ -384,9 +473,40 @@ export default function HomeScreen(props) {
                                         );
                                     } else {
                                         console.log('Chegar no local')
+                                        setUserSelectedPage(3)
+                                        setShowUserArea(true);
                                     }
                                 }}
                             />
+                                </>
+                            ) : (
+                                <S.DefineUserAreaView>
+                                     <S.DefineUserAreaText>
+                                        Definir nome de área:
+                                    </S.DefineUserAreaText>
+                                    <S.AreaNameInput onChangeText={(text) => setUserAreaName(text)} placeholder="Nome da área" placeholderTextColor="#CECECE" />
+                                    <S.DefineUserAreaText>
+                                        Definir raio de área:
+                                    </S.DefineUserAreaText>
+                                    <S.DefineUserAreaContent>
+                                        <S.ButtonAreaView>
+                                            <S.DefineAreaButton onPress={() => {setUserArea(userArea + 1); setLatitudeDelta(latitudeDelta + 0.05)}}>
+                                                <Icon name="keyboard-arrow-up" color="#000" size={30} />
+                                            </S.DefineAreaButton>
+                                            <S.DefineAreaButton onPress={userArea > 0 ? () => {setUserArea(userArea - 1);setLatitudeDelta(latitudeDelta - 0.05)} : () => {}}>
+                                                <Icon name="keyboard-arrow-down" color="#000" size={30}/>
+                                            </S.DefineAreaButton>
+                                        </S.ButtonAreaView>
+                                        <S.AreaValue onChangeText={(text) => onChangeArea(text)}>{userArea === NaN ? 0 : userArea}</S.AreaValue>
+                                        <S.AreaUnity>Km</S.AreaUnity>
+                                    </S.DefineUserAreaContent>
+                                    <DefaultButton
+                                text="Salvar"
+                                onPressListener={() => saveUserArea()}
+                            />
+                                </S.DefineUserAreaView>
+                            ) }
+                            
                         </S.PageFriendDetailsButtonView>
  
                     </S.PageFriendListScrollView>

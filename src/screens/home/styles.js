@@ -68,7 +68,7 @@ export const PageFriendDetailsView = styled.View`
   width: 100%;
   padding: 0 5%;
   flex-direction: row;
-  margin-top: -7%;
+  margin-top: -8%;
 `;
 
 export const PageFriendDetailsButtonView = styled.View`
@@ -85,8 +85,8 @@ export const PageFriendDetailsTouchableOpacity = styled.TouchableOpacity`
 `;
 
 export const PageFriendImageView = styled.View`
-  height: ${`${ScaleUtils.ScreenHeight * 0.1}px`};
-  width: ${`${ScaleUtils.ScreenHeight * 0.1}px`};
+  height: ${`${ScaleUtils.ScreenHeight * 0.08}px`};
+  width: ${`${ScaleUtils.ScreenHeight * 0.08}px`};
   border-radius: ${`${ScaleUtils.ScreenHeight * 0.05}px`};
   border: solid black 1px;
   justify-content: center;
@@ -133,4 +133,61 @@ export const BurguerButton = styled.TouchableOpacity`
 `;
 
 export const BurguerIcon = styled(Svg)`
+`;
+
+export const DefineUserAreaView = styled.View`
+  flex: 1;
+  border-top-width: 1px;
+  border-color: #8A8A8A;
+  padding-top: 10px;
+`;
+
+export const DefineUserAreaText = styled.Text`
+  font-weight: bold;
+  font-size: ${ScaleUtils.pixelScale(18)};
+  margin-top: 5px;
+`;
+
+export const DefineUserAreaContent = styled.View`
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 80px;
+  margin-bottom: 10px;
+`;
+
+export const ButtonAreaView = styled.View`
+  height: 100%;
+  justify-content: space-around;
+`;
+
+export const DefineAreaButton = styled.TouchableOpacity`
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+`;
+
+export const AreaValue = styled.TextInput`
+  padding: 5px;
+  border-bottom-width: 1px;
+  border-color: #CECECE;
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 20px;
+  text-align: center;
+`;
+
+export const AreaUnity = styled.Text`
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+`;
+
+export const AreaNameInput = styled.TextInput`
+  border-bottom-width: 1px;
+  border-color: #CECECE;
+  width: 100%;
+  margin-bottom: 15px;
+  font-size: 16px;
 `;

@@ -40,6 +40,21 @@ const errors = {
         internal_error: 'Ocorreu um erro, verifique seus dados e tente novamente!',
         friendship_not_found: 'Contato não encontrado!',
     },
+    createRule: {
+        user_not_found: 'Usuário não encontrado',
+        friend_not_found: 'Amigo não encontrado',
+        friendship_not_found: 'Este contato precisa aceitar sua solicitação de amizade',
+        missing_action: 'Tipo de ação não encontrado',
+        invalid_action: 'Ação inválida',
+        missing_location: 'Localização não enviada',
+        missing_location_type: 'Tipo de delimitação não enviado',
+        invalid_location_type: 'Tipo de delimitação inválido',
+        missing_location_radius: 'Raio da delimitação não enviado',
+        missing_location_coordinates: 'Coordenadas não enviadas',
+        invalid_location_coordinates: 'Coordenadas inválidas',
+        invalid_operation: 'Operação inválida',
+        missing_location_name: 'Nome do local não definido',
+    },
     undefined: 'Ocorreu um erro, tente novamente mais tarde!',
 }
 

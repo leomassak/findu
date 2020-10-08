@@ -20,10 +20,24 @@ function updateFriendStatus(id, approved) {
     return RestService.putAuthenticated(`friends/${id}`, approved);
 }
 
+function createRule(friendId, latLong, radius, name, areaType, action) {
+    const params = {
+        action,
+        location: {
+            type: areaType,
+            coordinates: [latLong.longitude, latLong.latitude],
+            radius,
+            name,
+        },
+    };
+    return RestService.postAuthenticated(`friends/${friendId}/rules`, params);
+}
+
 export default {
     getAllFriends,
     addFriend,
     removeFriend,
     getAllFollowers,
     updateFriendStatus,
+    createRule,
 }
