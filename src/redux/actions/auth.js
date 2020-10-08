@@ -1,5 +1,6 @@
 import AuthApi from '../../api/auth';
 import UserApi from '../../api/user';
+import * as UserAction from './user';
 import AppStorage from '../../services/storage';
 
 import Errors from '../../utils/erros';
@@ -17,7 +18,9 @@ export const authenticate = (userData) => async (dispatch) => {
         await AppStorage.createUserAuthData(response.token);
         const userData = await UserApi.getUser();
         dispatch(saveUser(userData))
+        await dispatch(UserAction.changePushToken());
     } catch (err) {
+        console.log(err);
         if (Errors.login[err.message] !== undefined) {
             throw new Error(Errors.login[err.message]);
         } else {
@@ -70,15 +73,13 @@ export const verifyInitiaFlow = () => async (dispatch) => {
         const isAuthenticated = await AppStorage.isAuthenticated();
         if (isAuthenticated) {
             isLogged = true;
-            // const auth = await AuthService.get();
-            // dispatch(saveAuthentication(auth));
-            // await dispatch(getMe());
             const userData = await UserApi.getUser();
             dispatch(saveUser(userData))
+            await dispatch(UserAction.changePushToken());
         }
         return isLogged;
     } catch (e) {
-        //
+        console.log(e);
     } finally {
         dispatch(removeLoading());
     }

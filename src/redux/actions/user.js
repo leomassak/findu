@@ -1,3 +1,5 @@
+import messaging from '@react-native-firebase/messaging';
+
 import UserApi from '../../api/user';
 import Errors from '../../utils/erros';
 import AppStorage from '../../services/storage';
@@ -28,6 +30,11 @@ export const register = (registerData) => async (dispatch) => {
     } finally {
         dispatch(removeLoading());
     }
+};
+
+export const changePushToken = () => async (dispatch) => {
+    const tokenFcm = await messaging().getToken();
+    dispatch(updateUserData({ pushToken: tokenFcm }));
 };
 
 export const updateUserData = (registerData) => async (dispatch) => {
