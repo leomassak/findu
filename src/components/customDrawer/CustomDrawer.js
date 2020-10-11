@@ -4,7 +4,7 @@ import {
     DrawerItem,
 } from '@react-navigation/drawer';
 import BackgroundGeolocation from '@mauron85/react-native-background-geolocation';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 
 import * as UserReducer from '../../redux/reducers/user';
@@ -19,6 +19,8 @@ import * as ScaleUtils from '../../utils/scale';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 function CustomDrawer(props) {
+    const dispatch = useDispatch();
+
     const userData = useSelector(state => UserReducer.getUser(state));
     const [isModalOpen, setModalOpen] = useState(false);
 
@@ -72,7 +74,7 @@ function CustomDrawer(props) {
                     onPress={() => props.navigation.navigate('Groups')}
                     icon={() => <Icon name="group" size={25} color="#000" />}
                 />
-                 <DrawerItem
+                <DrawerItem
                     label="Gerar Código"
                     labelStyle={{ fontFamily: 'Poppins-Regular', fontSize: 18, color: '#000' }}
                     onPress={() => setModalOpen(true)}
@@ -84,11 +86,17 @@ function CustomDrawer(props) {
                     onPress={() => { }}
                 /> */}
                 <DrawerItem
+                    label="Notificações"
+                    labelStyle={{ fontFamily: 'Poppins-Regular', fontSize: 18, color: '#000' }}
+                    onPress={() => props.navigation.navigate('Notifications')}
+                    icon={() => <Icon name="bell-o" size={25} color="#000" />}
+                />
+                <DrawerItem
                     label="Logout"
                     icon={() => <Icon name="sign-out" size={25} color="#000" />}
                     labelStyle={{ fontFamily: 'Poppins-Regular', fontSize: 18, color: '#000' }}
                     onPress={async () => {
-                        await AuthActions.logout();
+                        await dispatch(AuthActions.logout());
                         BackgroundGeolocation.stop();
                         props.navigation.reset({
                             index: 0,

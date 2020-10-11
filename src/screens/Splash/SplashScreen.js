@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Animated } from 'react-native';
 import analytics from '@react-native-firebase/analytics';
-import crashlytics from '@react-native-firebase/crashlytics';
+// import crashlytics from '@react-native-firebase/crashlytics';
 
 import * as S from './styles';
 import { requestFirebaseMessagingPermission } from '../../utils/permissions';
@@ -39,7 +39,7 @@ function Splash ({navigation}) {
 
         await analytics().setAnalyticsCollectionEnabled(true);
 
-        await crashlytics().setCrashlyticsCollectionEnabled(true);
+        // await crashlytics().setCrashlyticsCollectionEnabled(true);
     }
 
     const initialScreen = async () => {

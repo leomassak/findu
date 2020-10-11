@@ -3,6 +3,12 @@ import UserApi from '../../api/user';
 import * as UserAction from './user';
 import AppStorage from '../../services/storage';
 
+import * as FriendsActions from './friends';
+import * as GroupsActions from './groups';
+import * as LoadingActions from './loading';
+import * as NotificationsActions from './notifications';
+import * as UserActions from './user';
+
 import Errors from '../../utils/erros';
 
 import { addLoading, removeLoading } from './loading';
@@ -85,6 +91,18 @@ export const verifyInitiaFlow = () => async (dispatch) => {
     }
 };
 
-export const logout = async () => {
+export const logout = () => async (dispatch, getState) => {
+    try {
+        AuthApi.userLogout(getState().user.me._id);
+    } catch (err) {
+        console.log(err);
+    }
     await AppStorage.cleanAuth();
+    FriendsActions.saveAllFriends([]);
+    FriendsActions.saveFriendsInfo([]);
+    GroupsActions.saveAllFriends([]);
+    GroupsActions.saveFriendsInfo([]);
+    NotificationsActions.saveNotificationsLimit(true);
+    NotificationsActions.saveAllNotifications([]);
+    UserAction.saveUser(null);
 };

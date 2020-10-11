@@ -9,6 +9,7 @@ import {
   import loadingReducer from './reducers/loading';
   import UserReducer from './reducers/user';
   import FriendsReducer from './reducers/friends';
+  import NotificationsReducer from './reducers/notifications';
   
   export default () => {
     const store = createStore(
@@ -17,6 +18,7 @@ import {
           loading: loadingReducer,
           user: UserReducer,
           friends: FriendsReducer,
+          notifications: NotificationsReducer,
         },
       ),
       compose(applyMiddleware(thunk)),

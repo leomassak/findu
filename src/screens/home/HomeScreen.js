@@ -77,7 +77,7 @@ export default function HomeScreen(props) {
                                     longitude: region.longitude,
                                 }}
                                 radius={userArea * 1000}
-                                fillColor="#4F80E1cc"
+                                fillColor="#4F80E125"
                                 strokeColor="#CECECE"
                             />
                                <S.PageMarker
@@ -156,10 +156,14 @@ export default function HomeScreen(props) {
         });
 
         BackgroundGeolocation.on('location', async (location) => {
-            await dispatch(UserActions.updateUserLocation({
-                lat: location.latitude,
-                lng: location.longitude,
-            }));
+            try {
+                await dispatch(UserActions.updateUserLocation({
+                    lat: location.latitude,
+                    lng: location.longitude,
+                }));
+            } catch (err) {
+                BackgroundGeolocation.removeAllListeners();
+            }
             // setRegion({
             //     latitude: location.latitude,
             //     longitude: location.longitude,

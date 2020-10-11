@@ -7,7 +7,7 @@ export const HeaderView = styled.View`
     width: 100%;
     height: ${props => props.headerText ? `${ScaleUtils.ScreenHeight * 0.12}px` : `${ScaleUtils.ScreenHeight * 0.08}px`};
     align-items: center;
-    justify-content: ${props => props.headerText ? 'space-around' : 'space-between'};
+    /* justify-content: ${props => props.headerText ? 'space-around' : 'space-between'}; */
     background-color: ${props => props.background};
 `;
 
@@ -25,6 +25,8 @@ export const HeaderText = styled.Text`
     font-size: ${ScaleUtils.pixelScale(22)}px;
     font-family: Poppins-Bold;
     color: #FFF;
+    text-align: center;
+    width: 65%;
 `;
 
 

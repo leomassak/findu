@@ -12,8 +12,14 @@ function redefinePassword(params) {
     return RestService.postRest('user/redefine-password', params)
 }
 
+function userLogout(params) {
+    console.log({ userId: params });
+    return RestService.postAuthenticated('auth/logout', { userId: params });
+};
+
 export default {
     userLogin,
     forgotPassword,
     redefinePassword,
+    userLogout,
 }
