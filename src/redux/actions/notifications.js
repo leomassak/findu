@@ -27,7 +27,7 @@ export const getAll = (queryParams) => async (dispatch, getState) => {
             const newVector = getState().notifications.allNotifications.concat(notifications.rows);
             dispatch(saveAllNotifications(newVector));
         }
-        dispatch(saveNotificationsLimit(notifications.rows.length < 10));
+        dispatch(saveNotificationsLimit(notifications.rows.length < 15));
     } catch (err) {
         if (Errors.getAllFriends[err.message] !== undefined) {
             throw new Error(Errors.getAllFriends[err.message]);

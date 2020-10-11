@@ -18,7 +18,7 @@ export default function NotificationsScreen({ navigation }) {
     const [isLoading, setIsLoading] = useState(true);
     const [paginationParams, setPaginationParams] = useState({
         page: 1,
-        limit: 10,
+        limit: 15,
     });
 
     const notifications = useSelector(state => NotificationsSelector.getAll(state));
@@ -49,7 +49,7 @@ export default function NotificationsScreen({ navigation }) {
 
     const handleFlatListEnd = async () => {
         if (!notificationLimit && !isLoading) {
-            setPaginationParams(prevParams => ({ page: prevParams.page + 1, limit: 10 }));
+            setPaginationParams(prevParams => ({ page: prevParams.page + 1, limit: 15 }));
         }
     }
 
@@ -80,13 +80,13 @@ export default function NotificationsScreen({ navigation }) {
                                 dispatch(NotificationsActions.saveNotificationsLimit(true));
                                 setPaginationParams({
                                     page: 1,
-                                    limit: 10,
+                                    limit: 15,
                                 });
                             }}
                         />
                     )}
-                    onEndReachedThreshold={0.25}
                     onEndReached={handleFlatListEnd}
+                    onEndReachedThreshold={0}
                     showsVerticalScrollIndicator={false}
                     keyExtractor={item => item.id}
                     renderItem={({ item, index }) => (

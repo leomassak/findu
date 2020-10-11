@@ -3,9 +3,10 @@ import * as ScaleUtils from '../../utils/scale';
 
 import Svg from '../../assets/svg/profile.svg';
 
-export const ProfileContainerScrollView = styled.ScrollView`  
+export const ProfileContainerScrollView = styled.View`  
     flex: 1;
     background-color: #FFFFFF;
+    height: ${`${ScaleUtils.ScreenHeight * 0.9}px`};
 `;
 
 export const NotificationsFlatList = styled.FlatList``;
