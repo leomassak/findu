@@ -59,6 +59,16 @@ export default function ProfileScreen({ navigation, route }) {
         }
     }
 
+    const rendeRuleType = (type) => {
+        let response = 'Chegar ou sair de ';
+        if (type === 1) {
+            response = 'Chegar em '
+        } else if (type === 2) {
+            response = 'Sair de '
+        }
+        return response;
+    }
+
     const handleUpdateStatus = async () => {
         try {
             await dispatch(FriendsActions.updateFriendStatus(friend._id, { approved: false }));
@@ -106,11 +116,13 @@ export default function ProfileScreen({ navigation, route }) {
                             {/* <S.InputLabel> Grupos</S.InputLabel>
                             <S.ProfileInfoText> - Amigos </S.ProfileInfoText> */}
                         </S.InputContainer>
-                        <S.InputLabel>Regras</S.InputLabel>
-                        {friend && friend.rules && friend.rules.map((item, index) => (
+                        {isFriend && friend && friend.rules && friend.rules.length > 0 && (
+                            <S.InputLabel>Regras</S.InputLabel>
+                        )}
+                        {isFriend && friend && friend.rules && friend.rules.map((item, index) => (
                             <S.RulesView>
                                 <S.RulesText>
-                                    {`${index + 1} - `}{item.action === 1 ? 'Chegar em ' : 'Sair de '}{item.areaName}
+                                    {`${index + 1} - `}{rendeRuleType(item.action)}{item.areaName}
                                 </S.RulesText>
                                 <S.RulesTouchableOpacityIcon
                                     onPress={() => deleteFriendRule(item._id)}
