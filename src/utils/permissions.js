@@ -6,7 +6,6 @@ import store from '../redux/store';
 async function requestFirebaseMessagingPermission() {
   if (firebase.apps.length) {
     const settings = await messaging().requestPermission();
-    console.log('store', store);
 
     if (settings) {
       messaging().setBackgroundMessageHandler(async (remoteMessage) => {
