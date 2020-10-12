@@ -6,10 +6,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as S from './styles';
 import * as NotificationsSelector from '../../redux/reducers/notifications';
 import * as NotificationsActions from '../../redux/actions/notifications';
+import UserApi from '../../api/user';
 
 import Header from '../../components/Header/Header';
 import moment from 'moment';
-
 
 export default function NotificationsScreen({ navigation }) {
     const dispatch = useDispatch();
@@ -32,6 +32,7 @@ export default function NotificationsScreen({ navigation }) {
     const getAll = async () => {
         try {
             await dispatch(NotificationsActions.getAll(paginationParams));
+            await UserApi.getUser();
             setIsLoading(false);
         } catch (err) {
             Alert.alert('Erro', err.message);

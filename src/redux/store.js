@@ -11,7 +11,6 @@ import {
   import FriendsReducer from './reducers/friends';
   import NotificationsReducer from './reducers/notifications';
   
-  export default () => {
     const store = createStore(
       combineReducers(
         {
@@ -24,6 +23,5 @@ import {
       compose(applyMiddleware(thunk)),
     );
   
-    return store;
-  };
+    export default store;
   

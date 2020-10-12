@@ -7,6 +7,8 @@ export const ACTIONS_SAVE_ALL_NOTIFICATIONS = 'SAVE_ALL_NOTIFICATIONS';
 
 export const ACTIONS_SAVE_NOTIFICATIONS_LIMIT = 'SAVE_NOTIFICATIONS_LIMIT';
 
+export const ACTION_SHOW_MESSAGE = 'ACTION_SHOW_MESSAGE';
+
 export const saveAllNotifications = (allNotifications) => ({
     type: ACTIONS_SAVE_ALL_NOTIFICATIONS,
     payload: allNotifications,
@@ -38,3 +40,16 @@ export const getAll = (queryParams) => async (dispatch, getState) => {
         dispatch(removeLoading());
     }
 };
+
+export function showMessage(title, message, isError) {
+  return (dispatch) => {
+      dispatch({ type: ACTION_SHOW_MESSAGE, payload: { title, message, isError } });
+      dispatch({ type: ACTION_SHOW_MESSAGE, payload: { title: null, message: null } });
+  };
+}
+
+export function showPushMessage(data) {
+  return (dispatch) => {
+    dispatch(showMessage(data.title, data.body, false));
+  };
+}

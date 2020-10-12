@@ -89,7 +89,16 @@ function CustomDrawer(props) {
                     label="Notificações"
                     labelStyle={{ fontFamily: 'Poppins-Regular', fontSize: 18, color: '#000' }}
                     onPress={() => props.navigation.navigate('Notifications')}
-                    icon={() => <Icon name="bell-o" size={25} color="#000" />}
+                    icon={() => (
+                        <S.NotificationIconView>
+                            {userData && !!userData.unseenNotifications && (
+                            <S.BadgeView>
+                                <S.BadgeCount>{userData.unseenNotifications > 9 ? '9+' : userData.unseenNotifications}</S.BadgeCount>
+                            </S.BadgeView>
+                            )}
+                            <Icon name="bell-o" size={25} color="#000" />
+                        </S.NotificationIconView>
+                    )}
                 />
                 <DrawerItem
                     label="Logout"

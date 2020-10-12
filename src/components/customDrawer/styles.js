@@ -66,3 +66,25 @@ export const ProfileSvg = styled(Svg)`
     height: ${`${ScaleUtils.getPixelRatio * 18.5}px`};
     width: ${`${ScaleUtils.getPixelRatio * 18.5}px`};
 `;
+
+export const NotificationIconView = styled.View`
+`;
+
+export const BadgeView = styled.View`
+    position: absolute;
+    top: -8px;
+    right: -5px;
+    width: 20px;
+    height: 20px;
+    align-items: center;
+    justify-content: center;
+    background-color: #4F80E1;
+    border-radius: 40px;
+    z-index: 10;
+`;
+
+export const BadgeCount = styled.Text`
+    font-weight: bold;
+    font-size: 10px;
+    color: #FFF;
+`;

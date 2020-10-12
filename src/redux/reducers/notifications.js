@@ -4,6 +4,9 @@ import { NotificationsActions } from '../actions';
 const initialState = Immutable({
   allNotifications: [],
   limit: true,
+  title: null,
+  message: null,
+  isError: false,
 });
 
 export default function notifications(state = initialState, action) {
@@ -16,6 +19,12 @@ export default function notifications(state = initialState, action) {
         return state.merge({
             limit: action.payload,
         });
+    case NotificationsActions.ACTION_SHOW_MESSAGE:
+        return state.merge({
+          title: action.payload.title,
+          message: action.payload.message,
+          isError: action.payload.isError,
+        });
     default:
       return state;
   }
@@ -27,4 +36,16 @@ export function getAll(state) {
 
 export function getLimit(state) {
     return state.notifications.limit;
+}
+
+export function getMessage(state) {
+  return state.notifications.message;
+}
+
+export function getTitle(state) {
+  return state.notifications.title;
+}
+
+export function getIsError(state) {
+  return state.notifications.isError;
 }
