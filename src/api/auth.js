@@ -13,7 +13,6 @@ function redefinePassword(params) {
 }
 
 function userLogout(params) {
-    console.log({ userId: params });
     return RestService.postAuthenticated('auth/logout', { userId: params });
 };
 

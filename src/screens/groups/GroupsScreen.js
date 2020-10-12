@@ -63,7 +63,6 @@ function GroupsScreen(props) {
   };
 
   const onSearchGroup = (text) => {
-    console.log('text', text);
     if (groups && groups.length > 0) {
       const filteredGroups = groups.filter((group) =>
         group.name.includes(text),

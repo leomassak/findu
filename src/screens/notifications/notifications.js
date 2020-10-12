@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import moment from 'moment-timezone';
 import { ActivityIndicator, Alert, RefreshControl } from 'react-native';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,7 +10,6 @@ import * as NotificationsActions from '../../redux/actions/notifications';
 import UserApi from '../../api/user';
 
 import Header from '../../components/Header/Header';
-import moment from 'moment';
 
 export default function NotificationsScreen({ navigation }) {
     const dispatch = useDispatch();
@@ -70,7 +70,7 @@ export default function NotificationsScreen({ navigation }) {
                 <S.NotificationsFlatList
                     data={notifications}
                     ListFooterComponent={renderFooter}
-                    ListEmptyComponent={!isLoading && <S.EmptyText>Nenhum contato na lista</S.EmptyText>}
+                    ListEmptyComponent={!isLoading && <S.EmptyText>Nenhuma notificação encontrada</S.EmptyText>}
                     refreshControl={(
                         <RefreshControl
                             colors={['#4F80E1']}
@@ -101,7 +101,7 @@ export default function NotificationsScreen({ navigation }) {
                                 </S.NotificationsCardBody>
                             </S.NotificationsCardText>
                             <S.NotificationsCardDate>
-                                {moment(item.createdAt).format('DD/MM/YYYY HH:mm')}
+                                {moment(item.createdAt).utc().format('DD/MM/YYYY HH:mm')}
                             </S.NotificationsCardDate>
                         </S.NotificationsCard>
                     )}
