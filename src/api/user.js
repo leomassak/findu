@@ -13,11 +13,7 @@ function updateUserData(registerData) {
 }
 
 function getById(userId) {
-    return RestService.getAuthenticated(`users/${userId}`);
-}
-
-function updateUserLocation(locationData) {
-    return RestService.postAuthenticated('locations', locationData);
+    return RestService.getAuthenticated(`users/${userId}`, { includeRules: true });
 }
 
 function getShareCode() {
@@ -29,6 +25,5 @@ export default {
     getUser,
     updateUserData,
     getById,
-    updateUserLocation,
     getShareCode,
 }

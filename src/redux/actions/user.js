@@ -73,17 +73,6 @@ export const getUserById = (userId) => async (dispatch) => {
     }
 }
 
-export const updateUserLocation = (postionData) => async (dispatch) => {
-    dispatch(addLoading());
-    try {
-        await UserApi.updateUserLocation(postionData);
-    } catch (err) {
-        throw new Error(Errors.undefined);
-    } finally {
-        dispatch(removeLoading());
-    }
-};
-
 export const getShareCode = () => async (dispatch) => {
     dispatch(addLoading());
     try {

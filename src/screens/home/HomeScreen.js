@@ -23,9 +23,12 @@ import PermissionModal from '../../components/modal/PermissionModal';
 import Loading from '../../components/Loading/Loading';
 import DefaultButton from '../../components/button/DefaultButton';
 
+
+import AppStorage from '../../services/storage';
+
+
 export default function HomeScreen(props) {
     const ASPECT_RATIO = ScaleUtils.ScreenWidth / ScaleUtils.ScreenHeight;
-
     const dispatch = useDispatch();
     const loading = useSelector(state => LoadingSelector.getLoading(state))
     const friends = useSelector(state => FriendsSelectors.getAllFriends(state))
@@ -36,7 +39,9 @@ export default function HomeScreen(props) {
         inputRange: [0, 1],
         outputRange: ['0deg', '90deg']
     })
+
     const [initialCordinates, setInitialCordinates] = useState({});
+    const [token, setToken] = useState('');
     const [region, setRegion] = useState({});
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [statusBarHeight, setStatusBarHeight] = useState(0);
@@ -99,6 +104,7 @@ export default function HomeScreen(props) {
         , [region, userArea, showUserArea]);
 
     useEffect(() => {
+        getToken();
         askForPermission();
         getAllFriends();
         setTimeout(() => setStatusBarHeight(5), 500);
@@ -110,39 +116,41 @@ export default function HomeScreen(props) {
         }
     }, [])
 
+    const getToken = async () => {
+        const userToken = await AppStorage.getToken();
+        setToken(userToken);
+    }
+
     useEffect(() => {
         BackgroundGeolocation.configure({
             desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
-            stationaryRadius: 20,
-            distanceFilter: 30,
+            stationaryRadius: 50,
+            distanceFilter: 50,
             notificationTitle: 'FindU',
             notificationText: 'FindU está utilizando sua localizção',
             startOnBoot: false,
             stopOnTerminate: true,
-            locationProvider: BackgroundGeolocation.DISTANCE_FILTER_PROVIDER, // DISTANCE_FILTER_PROVIDER for
+            locationProvider: BackgroundGeolocation.DISTANCE_FILTER_PROVIDER,
             interval: 10000,
             fastestInterval: 5000,
             activitiesInterval: 10000,
             stopOnStillActivity: false,
+            url: 'https://backend-findu.herokuapp.com/api/locations',
+            httpHeaders: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            postTemplate: {
+                lat: '@latitude',
+                lng: '@longitude',
+            }
         });
 
         BackgroundGeolocation.on('location', async (location) => {
-            try {
-                await dispatch(UserActions.updateUserLocation({
-                    lat: location.latitude,
-                    lng: location.longitude,
-                }));
-            } catch (err) {
-                BackgroundGeolocation.removeAllListeners();
-            }
-            // setRegion({
-            //     latitude: location.latitude,
-            //     longitude: location.longitude,
-            // })
             // handle your locations here
             // to perform long running operation on iOS
             // you need to create background task
-            BackgroundGeolocation.startTask((taskKey) => {
+            BackgroundGeolocation.startTask(async (taskKey) => {
                 // execute long running task
                 // eg. ajax post location
                 // IMPORTANT: task has to be ended by endTask
@@ -174,27 +182,7 @@ export default function HomeScreen(props) {
             }
         });
 
-        BackgroundGeolocation.on('background', () => {
-            // console.log('[INFO] App is in background');
-        });
-
-        BackgroundGeolocation.on('foreground', () => {
-            // console.log('[INFO] App is in foreground');
-        });
-
         BackgroundGeolocation.checkStatus((status) => {
-            // console.log(
-            //     '[INFO] BackgroundGeolocation service is running',
-            //     status.isRunning,
-            // );
-            // console.log(
-            //     '[INFO] BackgroundGeolocation services enabled',
-            //     status.locationServicesEnabled,
-            // );
-            // console.log(
-            //     '[INFO] BackgroundGeolocation auth status: ' + status.authorization,
-            // );
-
             // you don't need to check status before start (this is just the example)
             if (!status.isRunning) {
                 BackgroundGeolocation.start(); //triggers start on start event
@@ -210,7 +198,6 @@ export default function HomeScreen(props) {
     const startFriendsLoopRequest = () => setInterval(() => {
         getAllFriends();
     }, 10000);
-
 
     const askForPermission = async () => {
         PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION)
@@ -239,10 +226,6 @@ export default function HomeScreen(props) {
             async (position) => {
                 setInitialCordinates(position.coords)
                 setRegion(position.coords)
-                await dispatch(UserActions.updateUserLocation({
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude,
-                }));
             },
             error => {
                 setIsModalOpen(true);
