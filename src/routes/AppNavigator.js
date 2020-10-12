@@ -14,6 +14,7 @@ import GroupsScreen from '../screens/groups/GroupsScreen';
 import AddGroupInfoScreen from '../screens/addGroup/Addinfo/AddInfo';
 import AddMembersScreen from '../screens/addGroup/AddMembers/AddMembers';
 import NotificationsScreen from '../screens/notifications/notifications';
+import RulesScreen from '../screens/createRule/CreateRuleScreen';
 
 import HomeNavigator from './HomeNavigator';
 
@@ -125,6 +126,13 @@ function AppNavigator() {
              <AppStack.Screen
               name="AddMembers"
               component={AddMembersScreen}
+              options={{
+                ...TransitionPresets.SlideFromRightIOS,
+              }}
+            />
+             <AppStack.Screen
+              name="Rule"
+              component={RulesScreen}
               options={{
                 ...TransitionPresets.SlideFromRightIOS,
               }}
