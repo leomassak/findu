@@ -15,8 +15,8 @@ export const ContactCardContainer = styled.TouchableOpacity`
 `;
 
 export const ProfileImageContainer = styled.View`
-    height: ${`${ScaleUtils.nearestWidthPixelScale(20)}`};
-    width: ${`${ScaleUtils.nearestWidthPixelScale(20)}`};
+    height: ${`${ScaleUtils.nearestWidthPixelScale(16)}`};
+    width: ${`${ScaleUtils.nearestWidthPixelScale(16)}`};
     border-radius: 400px;
     overflow: hidden;
     background-color: #CECECE;
@@ -34,7 +34,7 @@ export const ProfileImage = styled.ImageBackground`
 export const ContactName = styled.Text`
     font-size: ${`${ScaleUtils.pixelScale(20)}px`};
     font-family: Poppins-Regular;
-    width: 50%;
+    width: 60%;
     color: #000;
 `;
 

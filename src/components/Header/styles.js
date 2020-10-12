@@ -19,6 +19,7 @@ export const HeaderBackButtonContainer = styled.TouchableOpacity`
 `;
 
 export const AddButtonContainer = styled(HeaderBackButtonContainer)`
+    padding: 0 5px;
 `;
 
 export const HeaderText = styled.Text`

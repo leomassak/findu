@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { StatusBar } from 'react-native';
 import md5 from 'md5';
 import { useSelector, useDispatch } from 'react-redux';
@@ -42,6 +42,13 @@ const RegisterScreen = (props) => {
     const [locationBoxStatus, setLocationBoxStatus] = useState(false);
     const [photo, setPhoto] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const nameRef = useRef();
+    const birthdayRef = useRef();
+    const phoneRef = useRef();
+    const emailRef = useRef();
+    const passwordRef = useRef();
+    const confirmPasswordRef = useRef(); 
 
     const onFormDataChange = (value, field) => {
         setFormdata({
@@ -133,9 +140,7 @@ const RegisterScreen = (props) => {
                 onPress={() => onPressModal()}
                 text="Cadastro realizado com sucesso!"
             />
-            <S.PageContainer
-                contentContainerStyle={{ paddingBottom: 40 }}
-            >
+            <S.PageContainer>
                 <S.MapImageView>
                 <S.HeaderBackButtonContainer
                     onPress={() => props.navigation.goBack()}
@@ -160,24 +165,27 @@ const RegisterScreen = (props) => {
                             />
                         ) : (
                                 <S.ProfileSvg
-                                    height={ScaleUtils.ScreenHeight * 0.09}
-                                    width={ScaleUtils.ScreenHeight * 0.09}
+                                    height={ScaleUtils.ScreenHeight * 0.05}
+                                    width={ScaleUtils.ScreenHeight * 0.05}
                                 />
                             )}
                     </S.ProfilePicImageView>
                 </S.ProfilePicView>
                 <S.InputContainer>
                     <Input
+                        setRef={nameRef}
                         title="Nome"
                         value={formData.name}
                         keyboardType="default"
                         secureTextEntry={false}
                         onChangeValue={(text) => onFormDataChange(text, 'name')}
+                        onSubmit={() => birthdayRef.current._inputElement.focus()}
                     />
                 </S.InputContainer>
 
                 <S.InputContainer>
                     <S.MaskedInput
+                        setRef={birthdayRef}
                         maskType="datetime"
                         maskOptions={{
                             format: 'DD/MM/YYYY',
@@ -187,11 +195,13 @@ const RegisterScreen = (props) => {
                         keyboardType="phone-pad"
                         secureTextEntry={false}
                         onChangeValue={(text) => onFormDataChange(text, 'birthday')}
+                        onSubmit={() => phoneRef.current._inputElement.focus()}
                     />
                 </S.InputContainer>
 
                 <S.InputContainer>
                     <S.MaskedInput
+                        setRef={phoneRef}
                         title="Telefone"
                         maskType="cel-phone"
                         maskOptions={{
@@ -204,32 +214,38 @@ const RegisterScreen = (props) => {
                         onChangeValue={
                             (text) => onFormDataChange(MaskService.toRawValue('cel-phone', text), 'phone')
                         }
+                        onSubmit={() => emailRef.current.focus()}
                     />
                 </S.InputContainer>
 
                 <S.InputContainer>
                     <Input
+                        setRef={emailRef}
                         title="E-Mail"
                         value={formData.email}
                         keyboardType="email-address"
                         secureTextEntry={false}
                         onChangeValue={(text) => onFormDataChange(text, 'email')}
+                        onSubmit={() => passwordRef.current.focus()}
                     />
                 </S.InputContainer>
 
                 <S.InputContainer>
                     <Input
+                        setRef={passwordRef}
                         title="Senha"
                         value={formData.password}
                         onChangeValue={(text) => onFormDataChange(text, 'password')}
                         secureTextEntry={hidePassword}
                         onEyePress={() => setHidePassword(!hidePassword)}
                         eyeOpen={hidePassword}
+                        onSubmit={() => confirmPasswordRef.current.focus()}
                     />
                 </S.InputContainer>
 
                 <S.InputContainer>
                     <Input
+                        setRef={confirmPasswordRef}
                         title="Confirmar Senha"
                         value={formData.confirmPassword}
                         onChangeValue={(text) => onFormDataChange(text, 'confirmPassword')}

@@ -84,6 +84,7 @@ function ContactsScreen(props) {
         try {
             await dispatch(FriendsActions.addFriend(friendCode));
             Alert.alert('Solicitação realizada com sucesso!');
+            toggleModal();
         } catch (err) {
             Alert.alert('Erro', err.message);
         }
@@ -191,6 +192,7 @@ function ContactsScreen(props) {
                                     page: 1,
                                     limit: 10,
                                     approved: true,
+                                    status: currentFilter === 2 ? 1 : 2,
                                     search: '',
                                 });
                             }}

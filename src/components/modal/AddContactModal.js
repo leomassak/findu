@@ -37,7 +37,7 @@ export default function AddContactModal({
                         borderWidth: 0,
                         borderBottomWidth: 2,
                         borderColor: '#000',
-                        fontSize: 25,
+                        fontSize: 22,
                         width: 35,
                         height: 55,
                         marginRight: 5,

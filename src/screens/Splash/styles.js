@@ -15,10 +15,12 @@ export const LogoSvg = styled(Logo)`
 export const TopWaveImage = styled.Image`
     position: absolute;
     top: 0;
+    width: 100%;
 `;
 
 export const BottomWaveImage = styled.Image`
     position: absolute;
     bottom: 0;
+    width: 100%;
 `;
 

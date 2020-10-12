@@ -14,6 +14,9 @@ export default function TextInputContainer({
     eyeOpen,
     maskType,
     maskOptions,
+    setRef,
+    onSubmit,
+    autoCapitalize = 'none',
 }) {
     return (
         <S.TextInputContainer>
@@ -22,19 +25,24 @@ export default function TextInputContainer({
             </S.TextInputTitle>
             {maskType ? (
                 <S.MaskedInput
+                    ref={setRef}
                     type={maskType}
                     options={maskOptions}
                     keyboardType={keyboardType || null}
                     value={value}
                     onChangeText={(text) => onChangeValue(text)}
-                    autoCapitalize="none"
+                    autoCapitalize={autoCapitalize}
+                    onSubmitEditing={onSubmit}
                 />
             ) : (
                     <S.TextInput
+                        ref={setRef}
                         keyboardType={keyboardType || null}
                         value={value}
                         onChangeText={(text) => onChangeValue(text)}
                         secureTextEntry={secureTextEntry}
+                        onSubmitEditing={onSubmit}
+                        autoCapitalize={autoCapitalize}
                     />
                 )}
             {onEyePress && (

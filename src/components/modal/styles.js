@@ -35,19 +35,20 @@ export const ModalEmailIconView = styled.View`
 `;
 
 export const ModalEmailTitle = styled.Text`
-    font-size: ${`${ScaleUtils.ScreenHeight * 0.027}px`};
+    font-size: ${`${ScaleUtils.ScreenHeight * 0.022}px`};
     font-family: Poppins-Bold;
     text-align: center;
 `;
 
 export const ModalCodeText = styled.Text`
-    font-size: ${`${ScaleUtils.ScreenHeight * 0.070}px`};
+    font-size: ${`${ScaleUtils.ScreenHeight * 0.055}px`};
     font-family: Poppins-Regular;
     text-align: center;
+    letter-spacing: ${`${ScaleUtils.ScreenHeight * 0.008}px`};
+    margin: 15px 0;
 `;
 
 export const ModalEmailButtonView = styled.View`
-    margin-top: auto;
     width: 100%;
 `;
 
@@ -61,7 +62,7 @@ export const AddInputContainer = styled.View`
 
 export const AddContactOptInput = styled(OTPInputView)`
     height: ${`${ScaleUtils.ScreenWidth * 0.16}px`};
-    font-size: 25px;
+    font-size: 22px;
     font-family: Poppins-Bold;
     color: #000;
     margin-bottom: 15px;

@@ -72,7 +72,7 @@ export default function ProfileScreen({ navigation, route }) {
             Alert.alert('Erro', err.message);
         }
     }
-    console.log(friend);
+
     return (
         <>
             <S.ProfileContainerScrollView>

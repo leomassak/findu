@@ -1,9 +1,14 @@
 import styled from 'styled-components/native';
 import * as ScaleUtils from '../../utils/scale';
 
-export const ContactsScreenContainer = styled.ScrollView`
+export const ContactsScreenContainer = styled.ScrollView.attrs({
+    contentContainerStyle: {
+        flexGrow: 1,
+    }
+})`
     flex: 1;
-    background-color: #FFF;
+    height: 100%;
+    background-color: #fff;
     padding: 5% 5%;
 `;
 
@@ -39,7 +44,14 @@ export const SearchIconButton = styled.TouchableOpacity`
     padding-top: 40%;
 `;
 
-export const ContactsFlatList = styled.FlatList``;
+export const ContactsFlatList = styled.FlatList.attrs({
+    contentContainerStyle: {
+        flex: 1,
+        height: '100%',
+    }
+})`
+    flex: 1;
+`;
 
 export const PaginationLoadingView = styled.View`
     height: ${`${ScaleUtils.ScreenWidth * 0.1}px`};

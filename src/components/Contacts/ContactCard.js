@@ -35,8 +35,8 @@ function ContactCard({ onPress, contact, index, invite }) {
                     />
                 ) : (
                         <S.ProfileSvg
-                            height={ScaleUtils.ScreenHeight * 0.06}
-                            width={ScaleUtils.ScreenHeight * 0.06}
+                            height={ScaleUtils.ScreenHeight * 0.04}
+                            width={ScaleUtils.ScreenHeight * 0.04}
                         />
                     )}
             </S.ProfileImageContainer>

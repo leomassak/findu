@@ -297,8 +297,8 @@ export default function HomeScreen(props) {
                                         />
                                     ) : (
                                             <S.PageMarkerDefaultSvg
-                                                height={ScaleUtils.ScreenHeight * 0.065}
-                                                width={ScaleUtils.ScreenHeight * 0.065}
+                                                height={ScaleUtils.ScreenHeight * 0.035}
+                                                width={ScaleUtils.ScreenHeight * 0.035}
                                             />
                                         )}
                                 </S.PageFriendImageView>
@@ -339,8 +339,8 @@ export default function HomeScreen(props) {
                                     />
                                 ) : (
                                         <S.PageMarkerDefaultSvg
-                                            height={ScaleUtils.ScreenHeight * 0.065}
-                                            width={ScaleUtils.ScreenHeight * 0.065}
+                                            height={ScaleUtils.ScreenHeight * 0.035}
+                                            width={ScaleUtils.ScreenHeight * 0.035}
                                         />
                                     )}
                             </S.PageFriendImageView>
@@ -394,6 +394,14 @@ export default function HomeScreen(props) {
                                     }
                                 }}
                             />
+                            {userSelectedPage !== 0 &&
+                                <DefaultButton
+                                text={'Chegar ou Sair do local'}
+                                onPressListener={() => {
+                                        props.navigation.navigate('Rule', { friend: userSelected, initialRegion: region, action: LocationRules.RuleType.LEAVE_OR_ENTER_AREA })
+                                    }}
+                                />
+                            }
                             </>
                         </S.PageFriendDetailsButtonView>
  

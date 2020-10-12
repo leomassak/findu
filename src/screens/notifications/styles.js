@@ -29,9 +29,11 @@ export const EmptyText = styled.Text`
 export const NotificationsCard = styled.View`
     margin-top: 10px;
     width: 100%;
-    padding: 0 6%;
+    padding: 2% 6%;
     flex-direction: row;
     align-items: center;
+    border-bottom-width: 1px;
+    border-bottom-color: #e6e6e6;
 `;
 
 export const NotificationsCardText = styled.View`

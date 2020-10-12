@@ -34,7 +34,7 @@ export const UnderlineButtonTouchableOpacity = styled.TouchableOpacity`
 
 export const UnderlineButtonText = styled.Text`
     color: ${ (props) => props.fontColor || '#000'};
-    font-size: ${`${ScaleUtils.pixelScale(16)}px`};
+    font-size: ${`${ScaleUtils.pixelScale(14)}px`};
     font-family: Poppins-Medium;
     align-items: center;
     text-align: center;

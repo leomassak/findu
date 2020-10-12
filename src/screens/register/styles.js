@@ -7,7 +7,12 @@ import DefaultInput from '../../components/Input/Input';
 import Logo from '../../assets/svg/ic_logo.svg';
 
 
-export const PageContainer = styled.ScrollView`
+export const PageContainer = styled.ScrollView.attrs({
+    bounce: false,
+    contentContainerStyle: { 
+        paddingBottom: 40,
+    }
+})`
     flex: 1;
     background-color: #FFFF;
 `;
@@ -48,22 +53,22 @@ export const UnderlineButtonContainer = styled.View`
 
 export const CheckBoxContainerView = styled.View`
     height: ${`${ScaleUtils.nearestWidthPixelScale(52)}px`};
-    justify-content: space-between;
+    justify-content: space-evenly;
     margin-bottom: ${`${ScaleUtils.ScreenHeight * 0.04}px`};
     margin-top: ${`${ScaleUtils.ScreenHeight * 0.03}px`};
 `;
 
 export const ProfilePicView = styled.View`
-    height: ${`${ScaleUtils.ScreenHeight * 0.23}px`};
-    width: ${`${ScaleUtils.ScreenHeight * 0.23}px`};
+    height: ${`${ScaleUtils.ScreenHeight * 0.15}px`};
+    width: ${`${ScaleUtils.ScreenHeight * 0.15}px`};
     align-self: center;
     justify-content: flex-end;
     margin-bottom: 5%;
 `;
 
 export const ProfilePicAddTouchableOpacity = styled.TouchableOpacity`
-    height: ${`${ScaleUtils.ScreenHeight * 0.07}px`};
-    width: ${`${ScaleUtils.ScreenHeight * 0.07}px`};
+    height: ${`${ScaleUtils.ScreenHeight * 0.045}px`};
+    width: ${`${ScaleUtils.ScreenHeight * 0.045}px`};
     border-radius: ${`${ScaleUtils.ScreenHeight * 0.035}px`};
     border-color: black;
     border-width: 2px;
@@ -78,8 +83,8 @@ export const ProfilePicImageView = styled.View`
     align-self: center;
     border-width: 2px;
     border-color: #000;
-    height: ${`${ScaleUtils.ScreenHeight * 0.19}px`};
-    width: ${`${ScaleUtils.ScreenHeight * 0.19}px`};
+    height: ${`${ScaleUtils.ScreenHeight * 0.125}px`};
+    width: ${`${ScaleUtils.ScreenHeight * 0.125}px`};
     border-radius: 100px;
     justify-content: center;
     align-items: center;
@@ -92,8 +97,8 @@ export const ProfilePicImage = styled.ImageBackground`
 `;
 
 export const ProfileSvg = styled(Svg)`
-    height: ${`${ScaleUtils.getPixelRatio * 18.5}px`};
-    width: ${`${ScaleUtils.getPixelRatio * 18.5}px`};
+    height: ${`${ScaleUtils.getPixelRatio * 11.5}px`};
+    width: ${`${ScaleUtils.getPixelRatio * 11.5}px`};
 `;
 
 export const MapImageView = styled.View`

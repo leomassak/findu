@@ -88,7 +88,7 @@ export const ButtonsContainer = styled.View`
     height: ${`${ScaleUtils.ScreenHeight * 0.185}px`};
     justify-content: space-between;
     width: 100%;
-    margin-bottom: 20%;
+    margin: 20% 0;
 `;
 
 export const UserName = styled.Text`

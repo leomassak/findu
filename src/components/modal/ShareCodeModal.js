@@ -45,7 +45,7 @@ export default function ShareCodeModal({
             title: 'Compartilhar Código',
             dialogTitle: 'Compartilhar Código',
             message: `Esse código te da acesso a minha localização do APP FindU!
-${code}`
+            ${code}`
         });
     }
 

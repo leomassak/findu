@@ -40,10 +40,7 @@ export const PageMarkerImage = styled.Image`
   border-radius: ${`${ScaleUtils.ScreenHeight * 0.0225}px`};
 `;
 
-export const PageMarkerDefaultSvg = styled(SvgProfile)`
-  height: ${`${ScaleUtils.getPixelRatio * 18.5}px`};
-  width: ${`${ScaleUtils.getPixelRatio * 18.5}px`};
-`;
+export const PageMarkerDefaultSvg = styled(SvgProfile)``;
 
 export const PageFriendListScrollView = styled.ScrollView`
   z-index: 500;
