@@ -3,13 +3,12 @@ import { StatusBar, Linking } from 'react-native';
 import { Circle, Marker } from 'react-native-maps';
 import { useDispatch, useSelector } from 'react-redux';
 import { Alert } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import BackgroundGeolocation from '@mauron85/react-native-background-geolocation';
 import Geolocation from '@react-native-community/geolocation';
 import { useIsDrawerOpen } from '@react-navigation/drawer';
 import { Animated, PermissionsAndroid } from 'react-native';
-import * as LocationRules from '../../enumerators/rules';
 
+import * as LocationRules from '../../enumerators/rules';
 import * as ScaleUtils from '../../utils/scale';
 import * as S from './styles';
 import IconCloseModal from '../../assets/svg/ic-close.svg';
@@ -226,6 +225,10 @@ export default function HomeScreen(props) {
             async (position) => {
                 setInitialCordinates(position.coords)
                 setRegion(position.coords)
+                await dispatch(UserActions.updateUserLocation([{
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                }]));
             },
             error => {
                 setIsModalOpen(true);
