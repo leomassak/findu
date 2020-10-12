@@ -13,7 +13,7 @@ function updateUserData(registerData) {
 }
 
 function getById(userId) {
-    return RestService.getAuthenticated(`users/${userId}`);
+    return RestService.getAuthenticated(`users/${userId}`, { includeRules: true });
 }
 
 function getShareCode() {

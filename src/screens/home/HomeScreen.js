@@ -155,7 +155,6 @@ export default function HomeScreen(props) {
             desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
             stationaryRadius: 50,
             distanceFilter: 50,
-            debug: true,
             notificationTitle: 'FindU',
             notificationText: 'FindU está utilizando sua localizção',
             startOnBoot: false,

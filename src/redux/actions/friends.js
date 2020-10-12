@@ -115,3 +115,18 @@ export const createFriendRule = (friendId, latLong, radius, userAreaName, areaTy
         dispatch(removeLoading());
     }
 }
+
+export const deleteFriendRule = (friendId, ruleId) => async (dispatch) => {
+    dispatch(addLoading());
+    try {
+        await FriendsApi.deleteFriendRule(friendId, ruleId);
+    } catch (err) {
+        if (Errors.createRule[err.message] !== undefined) {
+            throw new Error(Errors.createRule[err.message]);
+        } else {
+            throw new Error(Errors.undefined);
+        }
+    } finally {
+        dispatch(removeLoading());
+    }
+}

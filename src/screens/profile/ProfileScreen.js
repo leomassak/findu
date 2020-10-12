@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+
 import * as S from './styles';
 import * as ScaleUtils from '../../utils/scale';
 import * as LoadingSelector from '../../redux/reducers/loading';
 import * as UserSelector from '../../redux/reducers/user';
 import * as UserActions from '../../redux/actions/user';
+import { FriendsActions } from '../../redux/actions';
+
 import Header from '../../components/Header/Header';
 import DefaultButton from '../../components/button/DefaultButton';
-import Loading from '../../components/Loading/Loading';
-import { FriendsActions } from '../../redux/actions';
 
 export default function ProfileScreen({ navigation, route }) {
     const { isFriend, friendId } = route.params
@@ -24,6 +25,21 @@ export default function ProfileScreen({ navigation, route }) {
     const getFriendById = async () => {
         try {
             await dispatch(UserActions.getUserById(friendId));
+        } catch (err) {
+            Alert.alert('Erro', err.message);
+        }
+    }
+
+    const deleteFriendRule = async (ruleId) => {
+        try {
+            await dispatch(FriendsActions.deleteFriendRule(friend._id, ruleId));
+            await getFriendById();
+            Alert.alert('Regra deletada com sucesso', '', [
+                {
+                    text: 'OK',
+                    onPress: () => {},
+                }
+            ])
         } catch (err) {
             Alert.alert('Erro', err.message);
         }
@@ -56,7 +72,7 @@ export default function ProfileScreen({ navigation, route }) {
             Alert.alert('Erro', err.message);
         }
     }
-
+    console.log(friend);
     return (
         <>
             <S.ProfileContainerScrollView>
@@ -90,6 +106,23 @@ export default function ProfileScreen({ navigation, route }) {
                             {/* <S.InputLabel> Grupos</S.InputLabel>
                             <S.ProfileInfoText> - Amigos </S.ProfileInfoText> */}
                         </S.InputContainer>
+                        <S.InputLabel>Regras</S.InputLabel>
+                        {friend && friend.rules && friend.rules.map((item, index) => (
+                            <S.RulesView>
+                                <S.RulesText>
+                                    {`${index + 1} - `}{item.action === 1 ? 'Chegar em ' : 'Sair de '}{item.areaName}
+                                </S.RulesText>
+                                <S.RulesTouchableOpacityIcon
+                                    onPress={() => deleteFriendRule(item._id)}
+                                >
+                                    <S.RulesIcon
+                                        name="trash-o"
+                                        color="#FFF"
+                                        size={18}
+                                    />
+                                </S.RulesTouchableOpacityIcon>
+                            </S.RulesView>
+                        ))}
                         <S.ButtonsContainer>
                             {/* <DefaultButton
                                 text="Adicionar a um grupo"

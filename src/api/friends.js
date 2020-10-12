@@ -33,6 +33,10 @@ function createRule(friendId, latLong, radius, name, areaType, action) {
     return RestService.postAuthenticated(`friends/${friendId}/rules`, params);
 }
 
+function deleteFriendRule(friendId, ruleId) {
+    return RestService.deleteAuthenticated(`friends/${friendId}/rules/${ruleId}`,);
+}
+
 export default {
     getAllFriends,
     addFriend,
@@ -40,4 +44,5 @@ export default {
     getAllFollowers,
     updateFriendStatus,
     createRule,
+    deleteFriendRule,
 }

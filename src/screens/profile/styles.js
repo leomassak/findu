@@ -1,4 +1,6 @@
 import styled from 'styled-components/native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import * as ScaleUtils from '../../utils/scale';
 
 import Svg from '../../assets/svg/profile.svg';
@@ -50,6 +52,27 @@ export const InputLabel = styled.Text`
     font-family: Poppins-Bold;
     color: #FFF;
     font-size: 18px;
+`;
+
+export const RulesView = styled.View`
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2%;
+`;
+
+export const RulesText = styled.Text`
+    font-family: Poppins-Medium;
+    color: #FFF;
+    font-size: 14px;
+    width: 85%;
+`;
+
+export const RulesTouchableOpacityIcon = styled.TouchableOpacity`
+    padding: 2%;
+`;
+
+export const RulesIcon = styled(Icon)`
 `;
 
 export const ProfileInfoText = styled.Text`
