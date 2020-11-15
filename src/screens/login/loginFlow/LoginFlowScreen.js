@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
 import { StatusBar } from 'react-native';
+import database from '@react-native-firebase/database';
 import LinearGradient from 'react-native-linear-gradient';
 
 import * as S from './styles';
 import DefaultButton from '../../../components/button/DefaultButton';
 import Loading from '../../../components/Loading/Loading';
+
+import LocationService from '../../../services/locations';
 
 export default function LoginFlowScreen(props) {
     return (

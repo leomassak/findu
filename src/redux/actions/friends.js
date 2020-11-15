@@ -26,7 +26,6 @@ export const getAllFriends = (queryParams, load) => async (dispatch) => {
         }
         return friendsInfo;
     } catch (err) {
-        console.log('err', err);
         if (Errors.getAllFriends[err.message] !== undefined) {
             throw new Error(Errors.getAllFriends[err.message]);
         } else {

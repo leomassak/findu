@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState, useMemo } from 'react';
 import { StatusBar, Linking } from 'react-native';
-import { Circle, Marker } from 'react-native-maps';
 import { useDispatch, useSelector } from 'react-redux';
 import { Alert } from 'react-native';
 import BackgroundGeolocation from '@mauron85/react-native-background-geolocation';
@@ -14,6 +13,7 @@ import * as S from './styles';
 import IconCloseModal from '../../assets/svg/ic-close.svg';
 
 import * as UserActions from '../../redux/actions/user';
+import * as UserSelector from '../../redux/reducers/user';
 import * as LoadingSelector from '../../redux/reducers/loading';
 import * as FriendsActions from '../../redux/actions/friends';
 import * as FriendsSelectors from '../../redux/reducers/friends';
@@ -22,6 +22,7 @@ import PermissionModal from '../../components/modal/PermissionModal';
 import Loading from '../../components/Loading/Loading';
 import DefaultButton from '../../components/button/DefaultButton';
 
+import LocationService from '../../services/locations';
 
 import AppStorage from '../../services/storage';
 
@@ -31,6 +32,7 @@ export default function HomeScreen(props) {
     const dispatch = useDispatch();
     const loading = useSelector(state => LoadingSelector.getLoading(state))
     const friends = useSelector(state => FriendsSelectors.getAllFriends(state))
+    const userData = useSelector(state => UserSelector.getUser(state));
 
     const drawerOpened = useIsDrawerOpen();
     const rotationValue = useRef(new Animated.Value(0)).current;
@@ -51,7 +53,7 @@ export default function HomeScreen(props) {
     const [showUserArea, setShowUserArea] = useState(false);
     const [latitudeDelta, setLatitudeDelta] = useState(0.01);
     const [longitudeDelta, setLongitudeDelta] = useState(latitudeDelta * ASPECT_RATIO);
-
+    const [go, setGo] = useState(false);
 
     const MapMemo = useMemo(() =>
         <S.PageMapViewContainerView
@@ -102,18 +104,20 @@ export default function HomeScreen(props) {
         </S.PageMapViewContainerView>
         , [region, userArea, showUserArea]);
 
-    useEffect(() => {
+    useEffect(async () => {
         getToken();
         askForPermission();
         getAllFriends();
         setTimeout(() => setStatusBarHeight(5), 500);
-
-        const unsubscribe = startFriendsLoopRequest();
-
-        return () => {
-            clearInterval(unsubscribe);
-        }
+        return () => console.log('hi');
     }, [])
+
+    useEffect(() => {
+        if (friends.length > 0 && go === false) {
+            startRealTime();
+            setGo(true);
+        }
+    }, [friends])
 
     const getToken = async () => {
         const userToken = await AppStorage.getToken();
@@ -131,7 +135,7 @@ export default function HomeScreen(props) {
             stopOnTerminate: true,
             locationProvider: BackgroundGeolocation.DISTANCE_FILTER_PROVIDER,
             interval: 10000,
-            fastestInterval: 5000,
+            fastestInterval: 10000,
             activitiesInterval: 10000,
             stopOnStillActivity: false,
             url: 'https://backend-findu.herokuapp.com/api/locations',
@@ -194,10 +198,6 @@ export default function HomeScreen(props) {
         };
     })
 
-    const startFriendsLoopRequest = () => setInterval(() => {
-        getAllFriends();
-    }, 10000);
-
     const askForPermission = async () => {
         PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION)
             .then(async (response) => {
@@ -220,6 +220,23 @@ export default function HomeScreen(props) {
         }
     }
 
+    const startRealTime = async () => {
+        userData && LocationService.subscribeOnLocations(userData._id, async (response) => {
+            if (userData.location && userData.location.coordinates.length > 0
+                && (userData.location.coordinates[1] !== response.lat
+                    || userData.location.coordinates[0] !== response.lng)) {
+                await dispatch(FriendsActions.getAllFriends());
+            }
+        })
+        friends.forEach((item) => LocationService.subscribeOnLocations(item._id, async (response) => {
+            if (item.location && item.location.coordinates.length > 0
+                && (item.location.coordinates[1] !== response.lat
+                || item.location.coordinates[0] !== response.lng)) {
+                await dispatch(FriendsActions.getAllFriends());
+            }
+        }))
+    }
+
     const getCurrentPosition = async () => {
         await Geolocation.getCurrentPosition(
             async (position) => {
@@ -230,7 +247,7 @@ export default function HomeScreen(props) {
                     lng: position.coords.longitude,
                 }]));
             },
-            error => {
+            () => {
                 setIsModalOpen(true);
             }
         );

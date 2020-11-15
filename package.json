@@ -18,6 +18,7 @@
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-firebase/analytics": "^6.7.1",
     "@react-native-firebase/app": "^6.7.1",
+    "@react-native-firebase/database": "^6.7.1",
     "@react-native-firebase/in-app-messaging": "^6.7.1",
     "@react-native-firebase/messaging": "^6.7.1",
     "@react-native-firebase/remote-config": "^6.7.1",

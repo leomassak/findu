@@ -34,7 +34,7 @@ export default function ProfileScreen({ navigation, route }) {
         try {
             await dispatch(FriendsActions.deleteFriendRule(friend._id, ruleId));
             await getFriendById();
-            Alert.alert('Regra deletada com sucesso', '', [
+            Alert.alert('Aviso deletado com sucesso', '', [
                 {
                     text: 'OK',
                     onPress: () => {},
@@ -117,7 +117,7 @@ export default function ProfileScreen({ navigation, route }) {
                             <S.ProfileInfoText> - Amigos </S.ProfileInfoText> */}
                         </S.InputContainer>
                         {isFriend && friend && friend.rules && friend.rules.length > 0 && (
-                            <S.InputLabel>Regras</S.InputLabel>
+                            <S.InputLabel>Avisos</S.InputLabel>
                         )}
                         {isFriend && friend && friend.rules && friend.rules.map((item, index) => (
                             <S.RulesView>

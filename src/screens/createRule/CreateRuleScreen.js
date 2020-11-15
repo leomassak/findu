@@ -42,7 +42,7 @@ export default function CreateRule({navigation, route}) {
                 ));
                 Alert.alert(
                     'Sucesso',
-                    'Regra criada com sucesso',
+                    'Aviso criada com sucesso',
                     [
                         {
                             text: 'Ok',
