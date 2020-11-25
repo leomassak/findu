@@ -9,7 +9,9 @@ import * as ScaleUtils from '../../utils/scale';
 import * as S from './styles';
 
 import * as LoadingSelector from '../../redux/reducers/loading';
+import * as UserSelector from '../../redux/reducers/user';
 import * as FriendsActions from '../../redux/actions/friends';
+import * as GroupsActions from '../../redux/actions/groups';
 
 import Loading from '../../components/Loading/Loading';
 import DefaultButton from '../../components/button/DefaultButton';
@@ -17,13 +19,13 @@ import DefaultButton from '../../components/button/DefaultButton';
 
 
 export default function CreateRule({navigation, route}) {
-    const {friend, initialRegion, action} = route.params;
+    const {friend, group, initialRegion, action} = route.params;
     const ASPECT_RATIO = ScaleUtils.ScreenWidth / ScaleUtils.ScreenHeight;
 
     const dispatch = useDispatch();
     const loading = useSelector(state => LoadingSelector.getLoading(state));
 
-    const [region, setRegion] = useState(initialRegion);
+    const [region, setRegion] = useState(initialRegion || {});
     const [userArea, setUserArea] = useState(0);
     const [showSelectedMarker, setShowSelectedMarker] = useState(false);
     const [latitudeDelta, setLatitudeDelta] = useState(0.01);
@@ -54,6 +56,32 @@ export default function CreateRule({navigation, route}) {
          } catch(err) {
             Alert.alert('Erro', err.message);
          }
+    }
+
+    const saveGroupArea = async () => {
+        try {
+            await dispatch(GroupsActions.createGroupRule(
+                group._id,
+                region,
+                userArea,
+                userAreaName,
+                LocationRules.RuleLocationType.POINT,
+                action,
+            ));
+            Alert.alert(
+                'Sucesso',
+                'Alerta criado com sucesso',
+                [
+                    {
+                        text: 'Ok',
+                        onPress: () => onBack(),
+                    },
+
+                ], { cancelable: false }
+            )
+        } catch (err) {
+            Alert.alert('Erro', err.message);
+        }
     }
 
     const onBack = () => {
@@ -115,41 +143,61 @@ export default function CreateRule({navigation, route}) {
                         }}
                         >
                         <S.PageMarkerView>
-                        {friend.profilePhoto ? (
-                        <S.PageMarkerImage
-                        source={{ uri: friend.profilePhoto.url }}
-                        />
-                        ) : (
-                        <S.PageMarkerDefaultSvg
-                        height={ScaleUtils.ScreenHeight * 0.035}
-                        width={ScaleUtils.ScreenHeight * 0.035}
-                        />
-                        )}
+                            {friend ? (
+                                <>
+                                    {friend.profilePhoto ? (
+                                        <S.PageMarkerImage
+                                            source={{ uri: friend.profilePhoto.url }}
+                                        />
+                                    ) : (
+                                        <S.PageMarkerDefaultSvg
+                                          height={ScaleUtils.ScreenHeight * 0.035}
+                                          width={ScaleUtils.ScreenHeight * 0.035}
+                                        />
+                                    )}
+                                </>
+                            ): (
+                                <S.PageMarkerImage
+                                    color={group.color}
+                                />
+                            )}
                         </S.PageMarkerView>
                         </S.PageMarker>
                 </S.PageMapView>
             </S.PageMapViewContainerView>
                             <S.PageFriendDetailsView>
                             <S.PageFriendImageView>
-                                {friend.profilePhoto ? (
-                                    <S.PageFriendImage
-                                        source={{ uri: friend.profilePhoto.url }}
-                                    />
+                                {friend ? (
+                                    <>
+                                        {friend.profilePhoto ? (
+                                            <S.PageFriendImage
+                                                source={{ uri: friend.profilePhoto.url }}
+                                            />
+                                        ) : (
+                                                <S.PageMarkerDefaultSvg
+                                                    height={ScaleUtils.ScreenHeight * 0.035}
+                                                    width={ScaleUtils.ScreenHeight * 0.035}
+                                                />
+                                            )}
+                                    </>
                                 ) : (
-                                        <S.PageMarkerDefaultSvg
-                                            height={ScaleUtils.ScreenHeight * 0.065}
-                                            width={ScaleUtils.ScreenHeight * 0.065}
-                                        />
-                                    )}
+                                    <S.PageFriendImage
+                                        color={group.color}
+                                    />
+                                )}
                             </S.PageFriendImageView>
                             <S.PageFriendTextView>
                                 <S.PageFriendNameText>
-                                    {friend.name}
+                                    {friend ? friend.name : group.name}
                                 </S.PageFriendNameText>
                                 <S.PageFriendDistanceText>
-                                    {friend.location.coordinates
-                                        ? `${friend.location.distance.toFixed(1)} km`
-                                        : 'Não possui registro de localização'}
+                                    {friend && (
+                                        <>
+                                            {friend && friend.location.coordinates
+                                                ? `${friend.location.distance.toFixed(1)} km`
+                                                : 'Não possui registro de localização'}
+                                        </>
+                                    )}
                                 </S.PageFriendDistanceText>
                             </S.PageFriendTextView>
                             <S.BackButton onPress={() => navigation.goBack()}>
@@ -184,7 +232,7 @@ export default function CreateRule({navigation, route}) {
                                     </S.DefineUserAreaContent>
                                     <DefaultButton
                                     text="Salvar"
-                                    onPressListener={() => saveUserArea()}
+                                    onPressListener={() => friend ? saveUserArea() : saveGroupArea()}
                                     />
                                 </S.DefineUserAreaView>                            
                         </S.PageFriendDetailsButtonView>

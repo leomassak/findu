@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { Alert } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import { ColorPicker } from 'react-native-color-picker';
 import Modal from 'react-native-modal';
 
@@ -12,6 +13,9 @@ import Loading from '../../../components/Loading/Loading';
 import Input from '../../../components/Input/Input';
 import DefaultButton from '../../../components/button/DefaultButton';
 import Snackbar from '../../../utils/Snackbar';
+import * as LocationRules from '../../../enumerators/rules';
+import LocationService from '../../../services/locations';
+import * as UserSelector from '../../../redux/reducers/user';
 
 import Logo from '../../../assets/svg/ic_logo.svg';
 import IconCloseModal from '../../../assets/svg/ic-close.svg';
@@ -19,6 +23,7 @@ import IconCloseModal from '../../../assets/svg/ic-close.svg';
 
 function Addinfo(props) {
   const dispatch = useDispatch();
+  const userData = useSelector(state => UserSelector.getUser(state));
 
   const [selectedColor, setColor ] = useState('');
   const [groupName, setGroupName ] = useState('');
@@ -58,6 +63,39 @@ function Addinfo(props) {
     }
   }
 
+  const createRules = async (action) => {
+    await LocationService.getUserLocation(userData._id, (value) => {
+      props.navigation.navigate('Rule', {
+        group: oldGroup,
+        initialRegion: { latitude: value.lat, longitude: value.lng },
+        action,
+      })
+    });
+  }
+
+  const rendeRuleType = (type) => {
+    let response = 'Chegar ou sair de ';
+    if (type === 1) {
+      response = 'Chegar em '
+    } else if (type === 2) {
+      response = 'Sair de '
+    }
+    return response;
+  }
+
+  const deleteGroupRule = async (ruleId) => {
+    try {
+      await dispatch(GroupsActions.deleteGroupRule(oldGroup._id, ruleId));
+      Alert.alert('Alerta deletado com sucesso', '', [
+        {
+          text: 'OK',
+          onPress: () => props.navigation.goBack(),
+        }
+      ])
+    } catch (err) {
+      Alert.alert('Erro', err.message);
+    }
+  }
 
   return (
       <>
@@ -109,7 +147,49 @@ function Addinfo(props) {
             <S.ColorPickerButton onPress={() => setShowPickerModal(true)}>
               <S.SelectedColorView color={selectedColor} />
             </S.ColorPickerButton>
+            {oldGroup && oldGroup.rules && oldGroup.rules.map((item, index) => (
+              <S.RulesView>
+                <S.RulesText>
+                  {`${index + 1} - `}{rendeRuleType(item.action)}{item.areaName}
+                </S.RulesText>
+                <S.RulesTouchableOpacityIcon
+                  onPress={() => deleteGroupRule(item._id)}
+                >
+                  <S.RulesIcon
+                    name="trash-o"
+                    color="black"
+                    size={18}
+                  />
+                </S.RulesTouchableOpacityIcon>
+              </S.RulesView>
+            ))}
+
             <S.ButtonsContainer>
+              {isEditPage && (
+                <DefaultButton
+                  text="Adicionar Avisos"
+                  onPressListener={() => Alert.alert(
+                    'Selecione o tipo de aviso:',
+                    '',
+                    [
+                      {
+                        text: 'Chegar ou Sair do local',
+                        onPress: () => createRules(LocationRules.RuleType.LEAVE_OR_ENTER_AREA),
+                      },
+                      {
+                        text: 'Chegar no local',
+                        onPress: () => createRules(LocationRules.RuleType.ENTER_AREA),
+                      },
+                      {
+                        text: 'Sair da área',
+                        onPress: () => createRules(LocationRules.RuleType.LEAVE_AREA),
+                      },
+                    ], { cancelable: false }
+                  )}
+                  fontColor="#FFF"
+                  background="#4F80E1"
+                />
+              )}
               <DefaultButton
                 text="Continuar"
                 onPressListener={() => props.navigation.navigate('AddMembers', {

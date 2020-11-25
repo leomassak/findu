@@ -81,3 +81,52 @@ export const removeGroup = (groupId) => async (dispatch) => {
         dispatch(removeLoading());
     }
 };
+
+export const getGroupById = (userId) => async (dispatch) => {
+    dispatch(addLoading());
+    try {
+        const user = await GroupsApi.getById(userId);
+        dispatch({
+            type: ACTION_SAVE_GROUPS_INFO,
+            payload: user,
+        });
+    } catch (err) {
+        if (Errors.getById[err.message] !== undefined) {
+            throw new Error(Errors.getById[err.message]);
+        } else {
+            throw new Error(Errors.undefined);
+        }
+    } finally {
+        dispatch(removeLoading());
+    }
+}
+
+export const createGroupRule = (friendId, latLong, radius, userAreaName, areaType, actionType) => async (dispatch) => {
+    dispatch(addLoading());
+    try {
+        await GroupsApi.createRule(friendId, latLong, radius, userAreaName, areaType, actionType);
+    } catch (err) {
+        if (Errors.createRule[err.message] !== undefined) {
+            throw new Error(Errors.createRule[err.message]);
+        } else {
+            throw new Error(Errors.undefined);
+        }
+    } finally {
+        dispatch(removeLoading());
+    }
+}
+
+export const deleteGroupRule = (friendId, ruleId) => async (dispatch) => {
+    dispatch(addLoading());
+    try {
+        await GroupsApi.deleteGroupRule(friendId, ruleId);
+    } catch (err) {
+        if (Errors.createRule[err.message] !== undefined) {
+            throw new Error(Errors.createRule[err.message]);
+        } else {
+            throw new Error(Errors.undefined);
+        }
+    } finally {
+        dispatch(removeLoading());
+    }
+}

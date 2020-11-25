@@ -38,6 +38,7 @@ export const PageMarkerImage = styled.Image`
   height: ${`${ScaleUtils.ScreenHeight * 0.045}px`};
   width: ${`${ScaleUtils.ScreenHeight * 0.045}px`};
   border-radius: ${`${ScaleUtils.ScreenHeight * 0.0225}px`};
+  background-color: ${({ color }) => color || '#fff'};
 `;
 
 export const PageMarkerDefaultSvg = styled(SvgProfile)`
@@ -101,6 +102,7 @@ export const PageFriendImageView = styled.View`
 export const PageFriendImage = styled.ImageBackground`
   height: 100%;
   width: 100%;
+  background-color: ${({ color }) => color || '#fff'};
 `;
 
 export const PageFriendTextView = styled.View`

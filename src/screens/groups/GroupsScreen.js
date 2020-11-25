@@ -30,6 +30,7 @@ function GroupsScreen(props) {
     limit: 10,
     approved: true,
     search: '',
+    addRules: true,
   });
 
   useEffect(() => {

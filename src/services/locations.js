@@ -4,6 +4,7 @@ import user from '../api/user';
 export default class ChatService {
   static async getUserLocation(userId, callback) {
     try {
+      console.log(userId);
       database()
         .ref(`locations/${userId}`)
         .once('value')

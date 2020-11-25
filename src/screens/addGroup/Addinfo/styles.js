@@ -1,4 +1,6 @@
 import styled from 'styled-components/native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import * as ScaleUtils from '../../../utils/scale';
 
 export const AddInfoContainer = styled.View`
@@ -93,7 +95,28 @@ export const PickerLabel = styled.Text`
     color: #000;
     font-family: Poppins-Bold;
     font-size: 16px;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
     text-align: center;
     margin-top: 15px;
+`;
+
+export const RulesView = styled.View`
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3%;
+`;
+
+export const RulesText = styled.Text`
+    font-family: Poppins-Medium;
+    color: black;
+    font-size: 14px;
+    width: 85%;
+`;
+
+export const RulesTouchableOpacityIcon = styled.TouchableOpacity`
+    padding: 2%;
+`;
+
+export const RulesIcon = styled(Icon)`
 `;
