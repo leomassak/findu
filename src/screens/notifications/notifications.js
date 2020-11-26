@@ -101,7 +101,7 @@ export default function NotificationsScreen({ navigation }) {
                                 </S.NotificationsCardBody>
                             </S.NotificationsCardText>
                             <S.NotificationsCardDate>
-                                {moment(item.createdAt).utc().format('DD/MM/YYYY HH:mm')}
+                                {moment(item.createdAt).tz("America/Sao_Paulo").format('DD/MM/YYYY HH:mm')}
                             </S.NotificationsCardDate>
                         </S.NotificationsCard>
                     )}

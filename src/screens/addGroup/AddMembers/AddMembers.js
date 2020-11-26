@@ -96,10 +96,7 @@ function GroupsScreen(props) {
     setSendLoading(true);
     try {
       await dispatch(GroupsActions.addGroup(groupName, selectedColor, selectedFriends));
-      props.navigation.reset({
-        index: 0,
-        routes: [{ name: 'HomeNavigator' }]
-      });
+      props.navigation.pop(3);
       Snackbar('O grupo foi criado com sucesso!');
     } catch (err) {
       Snackbar(err.message);
@@ -119,10 +116,7 @@ function GroupsScreen(props) {
         members: selectedFriends,
       }));
       Snackbar('O grupo foi editado com sucesso!');
-      props.navigation.reset({
-        index: 0,
-        routes: [{ name: 'HomeNavigator' }]
-      });
+      props.navigation.pop(3);
     } catch (err) {
       Snackbar(err.message);
     } finally {
