@@ -30,7 +30,7 @@
     "axios": "^0.19.2",
     "email-validator": "^2.0.4",
     "md5": "^2.2.1",
-    "moment": "^2.26.0",
+    "moment": "^2.29.2",
     "moment-timezone": "^0.5.31",
     "react": "16.11.0",
     "react-native": "0.62.2",
